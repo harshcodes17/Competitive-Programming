@@ -1,0 +1,1 @@
+{"name":"Local: 2","url":"c:\\Users\\Harshavardhan\\Desktop\\CP\\CodeForces\\contest\\2.cpp","tests":[{"id":1704292458918,"input":"5\n4 6 6\n4 6 5\n5 4 21\n3 6 1\n5 6 12","output":"YES\nNO\nNO\nYES\nYES"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Harshavardhan\\Desktop\\CP\\CodeForces\\contest\\2.cpp","group":"local","local":true}
