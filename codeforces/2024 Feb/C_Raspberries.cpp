@@ -414,24 +414,51 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    int n,k;
+    ll n,k;
     cin>>n>>k;
-    for(int i=1;i<=k;i++) {
-        cout<<i<< " ";
-    }
-    int i=0;
-    i = k+2;
-    int j=k+1; 
-    while(i<=n){ 
-        cout<<i<<" "; 
-        i+=2; 
-    }
-    while(j <= n){ 
-        cout<<j<<" "; 
-        j+=2; 
-    } 
-    cout<<"\n"; 
 
+    vector<ll>v(n);
+    for(int i=0;i<n;i++){
+        cin>>v[i];       
+    }
+    ll ans = INT_MAX;
+    ll mul=1;
+    map<ll,ll>mp;
+    ll odd = 0,even=0;
+    for(int i=0;i<n;i++){
+        mul*=v[i];
+        mp[v[i]]++;
+        if(v[i]&1){
+            odd++;
+        }
+        else{
+            even++;
+        }
+    }
+    for(auto x:mp){
+        ll t = pow(x.first,x.second);
+        ll rem = x.first%k;
+        if(rem==0){
+            ans=0;
+            break;
+        }
+        rem = k-rem;
+        ans = min(ans,rem);
+    }
+    if(k==4){
+        if(even>=2){
+            ans=min(ans,0LL);
+        }
+        else if(even==1 && odd>0){
+            ans=min(ans,1LL);
+        }
+        else if(odd>=2){
+            ans=min(ans,2LL);
+        }
+        cout<<ans<<endl;
+        return;
+    }
+    cout<<ans<<endl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -442,9 +469,9 @@ int main()
     int t = 1;
     cin >> t;
     for(int i=1;i<=t;i++){
-        // cout<<"#"<<i<<":";
+        //cout<<"#"<<i<<":";
         solve();
-        // cout<<"\n";
+        //cout<<"\n";
     }
     return 0;
 }

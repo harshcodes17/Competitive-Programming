@@ -414,24 +414,12 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    int n,k;
-    cin>>n>>k;
-    for(int i=1;i<=k;i++) {
-        cout<<i<< " ";
-    }
-    int i=0;
-    i = k+2;
-    int j=k+1; 
-    while(i<=n){ 
-        cout<<i<<" "; 
-        i+=2; 
-    }
-    while(j <= n){ 
-        cout<<j<<" "; 
-        j+=2; 
-    } 
-    cout<<"\n"; 
+    ll a,b,r;
+    cin>>a>>b>>r;
 
+    ll maxi = abs((a-b));
+
+    
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

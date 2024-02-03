@@ -414,23 +414,63 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    int n,k;
-    cin>>n>>k;
-    for(int i=1;i<=k;i++) {
-        cout<<i<< " ";
+    string s;
+    cin>>s;
+    stack<pair<char,int>>s1;
+    stack<pair<char,int>>s2;
+    int n = s.size();
+    for(int i=0;i<n;i++){
+        char ch = s[i];
+        if(s[i]<='Z'&&s[i]>='A'){
+            if(s[i]=='B'){
+                if(!s2.empty()){
+                    s2.pop();
+                }
+                
+            }
+            else{
+                s2.push({ch,i});
+                
+            }
+            
+        }      
+        else{
+            if(s[i]=='b'){
+                if(!s1.empty()){
+                    s1.pop();
+                }
+                
+            }
+            else{
+                s1.push({ch,i});
+                
+            }
+        } 
     }
-    int i=0;
-    i = k+2;
-    int j=k+1; 
-    while(i<=n){ 
-        cout<<i<<" "; 
-        i+=2; 
+    vector<pair<char,int>>v;
+    while(!s1.empty()){
+        v.push_back(s1.top());
+        s1.pop();
     }
-    while(j <= n){ 
-        cout<<j<<" "; 
-        j+=2; 
-    } 
-    cout<<"\n"; 
+    while(!s2.empty()){
+        v.push_back(s2.top());
+        s2.pop();
+    }
+    string ans;
+    
+    set<pair<int,char>>se;
+
+    for(int i=0;i<v.size();i++){
+        se.insert({v[i].second,v[i].first});
+    }
+    for(auto& x:se){
+        cout<<x.second;
+    }
+    
+    reverse(ans.begin(), ans.end());
+    //cout<<ans;
+    cout<<'\n';
+
 
 }
 // ----------> 2023 was the warm-up <-----------

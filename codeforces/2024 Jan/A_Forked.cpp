@@ -414,23 +414,22 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    int n,k;
-    cin>>n>>k;
-    for(int i=1;i<=k;i++) {
-        cout<<i<< " ";
+    ll ans=0;
+    int a,b,kx,ky,qx,qy;
+    cin>>a>>b>>kx>>ky>>qx>>qy;
+    int dx[8]={-a,-a,-b,-b,a,a,b,b},dy[8]={b,-b,a,-a,b,-b,a,-a};
+    for(int i=0;i<8;++i){
+        for(int j=0;j<8;++j){
+            if(kx+dx[i]==qx+dx[j]&&ky+dy[i]==qy+dy[j]){
+                //cout<<dx[i]<<","<<dy[i]<<"\n";
+                ++ans;
+            }
+        }
     }
-    int i=0;
-    i = k+2;
-    int j=k+1; 
-    while(i<=n){ 
-        cout<<i<<" "; 
-        i+=2; 
+    if(a==b){
+        ans/=4;
     }
-    while(j <= n){ 
-        cout<<j<<" "; 
-        j+=2; 
-    } 
-    cout<<"\n"; 
+    cout<<ans<<nl;
 
 }
 // ----------> 2023 was the warm-up <-----------

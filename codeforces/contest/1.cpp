@@ -414,7 +414,18 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    
+    vector<ll>v(5);
+    for(int i=0;i<5;i++){
+        cin>>v[i];
+    }
+    ll ans = count(v.begin(),v.end(),1);
+
+    if(ans>=4){
+        cout<<"YES"<<endl;
+    }
+    else{
+        cout<<"NO"<<endl;
+    }
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -424,9 +435,10 @@ int main()
     cin.tie(NULL);
     int t = 1;
     cin >> t;
-    while(t--)
-    {
+    for(int i=1;i<=t;i++){
+        // cout<<"#"<<i<<":";
         solve();
+        // cout<<"\n";
     }
     return 0;
 }

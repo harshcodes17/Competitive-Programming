@@ -414,30 +414,41 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    int n;
-    cin>>n;
-    vector<ll>v1;
-    inputArr(n,v1);
-    vector<ll>v2;
-    inputArr(n,v2);
-    sort(v1.begin(),v1.end());
-    sort(v2.begin(),v2.end(),greater<ll>());
-    for(int i=1;i<n;i++){
-        if((v1[i]+v2[i])!=(v1[i-1]+v2[i-1])){
-            cout<<"-1\n";
-            return;
+    ll n,q;
+    cin>>n>>q;
+    string s;
+    cin>>s;
+    ll temp=1;
+    ll ans=1;
+    for(int i=1;i<s.size();i++){
+        
+        if(s[i-1]==s[i]){
+            temp++;
+            ans=max(ans,temp);
+        }
+        else{
+            //ans = max(ans,temp);
+            temp=1;
         }
     }
-    for(auto& x:v1){
-        cout<<x<<" ";
+    cout<<ans<<" ";
+    while(q--){
+        char c;
+        cin>>c;
+        if(c!=s.back()){
+            s+=c;
+            temp=1;
+        }
+        else{
+            s+=c;
+            temp++;
+            ans=max(ans,temp);
+        }
+        cout<<ans<<" ";
     }
     cout<<"\n";
-    for(auto& x:v2){
-        cout<<x<<" ";
-    }
-    cout<<"\n";
-
-
+    
+    
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -447,9 +458,10 @@ int main()
     cin.tie(NULL);
     int t = 1;
     cin >> t;
-    while(t--)
-    {
+    for(int i=1;i<=t;i++){
+        // cout<<"#"<<i<<":";
         solve();
+        // cout<<"\n";
     }
     return 0;
 }
