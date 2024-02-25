@@ -414,32 +414,55 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    ll a,b;
-    cin>>a>>b;
-    if(a<b){
-        swap(a,b);
-    }
-    if(a%b!=0){
-        cout<<-1<<nl;
-        return;
-    }
-    ll k1=a,k2=b;
+    ll n;
+    cin>>n;
 
-    while(k1%2==0){
-        k1/=2;
+    vector<ll>v(n);
+    vector<ll>w(n);
+
+
+    for(int i=0;i<n;i++){
+        cin>>v[i];       
     }
-    while(k2%2==0){
-        k2/=2;
-    }
-    if(k1!=k2){
-        cout<<-1<<nl;
-        return;
+    for(int i=0;i<n;i++){
+        cin>>w[i];       
     }
 
-    ll div = a/b;
-    div = log2(div);
-    ll ans = ceil(div/(double)3);
-    cout<<ans<<"\n";
+    int l = 0;
+    int r = 0;
+    for(int i=0;i<n;i++){
+        if(v[i] != w[i]){
+            l = i;
+            break;
+        }
+    }
+
+    for(int i=n-1;i>=0;i--){
+        if(v[i] != w[i]){
+            r = i;
+            break;
+        }
+    }
+    ll lc = l;
+    while(l>=1){
+        if(w[l-1]<=w[l]){
+            l--;
+        }
+        else{
+            break;
+        }
+    }
+    while(r<n-1){
+        if(w[r+1]>=w[r]){
+            r++;
+        }
+        else{
+            break;
+        }
+    }
+
+    cout<<l+1<<" "<<r+1<<nl;
+    //cout<<"------------------\n";
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

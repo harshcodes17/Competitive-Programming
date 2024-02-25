@@ -414,32 +414,50 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    ll a,b;
-    cin>>a>>b;
-    if(a<b){
-        swap(a,b);
-    }
-    if(a%b!=0){
-        cout<<-1<<nl;
-        return;
-    }
-    ll k1=a,k2=b;
+    ll n,k;
+    cin>>n>>k;
 
-    while(k1%2==0){
-        k1/=2;
-    }
-    while(k2%2==0){
-        k2/=2;
-    }
-    if(k1!=k2){
-        cout<<-1<<nl;
-        return;
+    vector<ll>d(n);
+
+    for(int i=0;i<n;i++){
+        cin>>d[i];       
     }
 
-    ll div = a/b;
-    div = log2(div);
-    ll ans = ceil(div/(double)3);
-    cout<<ans<<"\n";
+    vector<ll>p(n);
+
+    for(int i=0;i<n;i++){
+       cin>>p[i];
+       p[i] = abs(p[i]-0LL);      
+    }
+    vector<ll>td(n+1);
+    vector<pair<ll,ll>>v;
+
+    for(int i=0;i<n;i++){
+        v.push_back({p[i],d[i]});
+    }
+    sort(v.begin(),v.end());
+   
+    for(int i=0;i<n;i++){
+    	td[v[i].first]+=v[i].second;
+    }
+    
+
+    vector<ll>pre(n+1);
+    ll sum = 0;
+    for(int i=1;i<td.size();i++){
+    	sum+=td[i];
+    	pre[i] = sum;
+    }
+    
+    for(int i=1;i<td.size();i++){
+    	if(i*k < pre[i]){
+    		cout<<"NO\n";
+            return;
+    		break;
+    	}
+    }
+    cout<<"YES";
+    cout<<"\n";
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

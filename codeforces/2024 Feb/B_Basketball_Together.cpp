@@ -414,32 +414,38 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    ll a,b;
-    cin>>a>>b;
-    if(a<b){
-        swap(a,b);
-    }
-    if(a%b!=0){
-        cout<<-1<<nl;
-        return;
-    }
-    ll k1=a,k2=b;
-
-    while(k1%2==0){
-        k1/=2;
-    }
-    while(k2%2==0){
-        k2/=2;
-    }
-    if(k1!=k2){
-        cout<<-1<<nl;
-        return;
+    ll n;
+    cin>>n;
+    ll maxi;
+    cin>>maxi;
+    vector<ll>v(n);
+    for(int i=0;i<n;i++){
+        cin>>v[i];       
     }
 
-    ll div = a/b;
-    div = log2(div);
-    ll ans = ceil(div/(double)3);
-    cout<<ans<<"\n";
+    sort(v.rbegin(),v.rend());
+    ll ans=0;
+    ll rem = n;
+    for(int i=0;i<n;i++){
+        if(v[i]>maxi){
+            ans++;
+            rem--;
+        }       
+        else {
+            ll req = ceil(maxi/(double)v[i]);
+            if(maxi%v[i]==0){
+                req++;
+            }
+            if(req<=rem){
+                ans++;
+                rem-=req;
+            }
+            else{
+                break;
+            }
+        }
+    }
+    cout<<ans<<'\n';
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -448,7 +454,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    cin >> t;
+    //cin >> t;
     for(int i=1;i<=t;i++){
         // cout<<"#"<<i<<":";
         solve();

@@ -414,42 +414,62 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    ll n;
-    cin>>n;
-    ll maxi;
-    cin>>maxi;
-
-    vector<ll> v(n);
-    for(ll i=0;i<n;i++){
-        cin>>v[i];       
-    }
-    sort(v.begin(),v.end());
-    ll ans=0;
-    vector<int>vis(n,0);
-
+    ll n,q;
+    cin>>n>>q;
+    vector<ll>v(n);
+    vector<ll>pre(n,0);
+    vector<ll>preones(n,0);
     for(int i=0;i<n;i++){
-        if(vis[i]==0 && vis[i]>maxi){
-            ans++;
-            vis[i]=1;
+        cin>>v[i];
+    }
+    pre[0] = v[0];
+    preones[0]=(v[0]==1);
+    
+
+    for(int i=1;i<n;i++){
+        pre[i] = pre[i-1]+v[i];
+        preones[i] = preones[i-1]+(v[i]==1);
+    }
+
+    while(q--){
+        ll l,r;
+        cin>>l>>r;
+        l--;
+        r--;
+        ll ql = r-l+1;
+        if(l==r){
+            cout<<"NO\n";
             continue;
         }
-        for(int j=i+1;j<n;j++){
+        ll sum = 0;
+        ll sumones=0;
+        if(l>0){
+            sum = pre[r]-pre[l-1];
+            sumones = preones[r]-preones[l-1];
+        }
+        if(l<=0){
+            sum = pre[r];
+            sumones = preones[r];
+        }
 
-            
-            if(vis[i]==1 || vis[j]==1){
-                continue;
+        if(sumones<=ql/2){
+            cout<<"YES\n";
+        }
+        else{
+            ll twoXsum = sumones*2;
+
+            ll reml = ql-sumones;
+
+            if(sum-twoXsum>= reml){
+                cout<<"YES\n";
             }
             else{
-                if(v[i]+v[j]>maxi){
-                    cout<<v[i]<<" "<<v[j]<<'\n';
-                    vis[i]=1;
-                    vis[j]=1;
-                    ans++;
-                }
+                cout<<"NO\n";
             }
         }
+
+        
     }
-    cout<<ans<<'\n';
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -458,7 +478,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    //cin >> t;
+    cin >> t;
     for(int i=1;i<=t;i++){
         // cout<<"#"<<i<<":";
         solve();
