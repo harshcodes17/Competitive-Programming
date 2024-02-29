@@ -414,47 +414,17 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    ll n,q;
-    cin >> n>>q;
+    ll n;
+    cin>>n;
+
     vector<ll>v(n);
-    ll ans=0;
+    ll ans = 0;
     for(int i=0;i<n;i++){
-        cin>>v[i];    
+        cin>>v[i];
+        v[i] = abs(v[i]-0); 
+        ans+=v[i];
     }
-    sort(v.begin(),v.end());
-    ans+=v[0];
-    ans+=v[1];
-    if(n==2){
-        cout<<v[0]<<" "<<v[1]<<"\n";
-        return;
-    }
-    for(int i=2;i<n;i++){
-        ans+=(v[i]*2);
-    }
-    ll maxi = ans;
-    ll mini;
-    ans=0;
-    ans+=v[n-1];
-    ans+=v[n-2];
-    sort(v.begin(),v.end(),greater<ll>());
-    for(int i=n-3;i>=0;i--){
-        ans+=(v[i]*2);
-    }
-    mini = ans;
-
-    while(q--){
-        ll sum;
-        cin>>sum;
-        if(sum<mini || sum>maxi){
-            cout<<"-1\n";
-        }
-        
-    }
-
-    
-    
-    
-    cout<<ans<<"\n";
+    cout<<ans<<nl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

@@ -414,47 +414,44 @@ bool isSame(char a, char b) {
 
 void solve() 
 {
-    ll n,q;
-    cin >> n>>q;
+    ll n;
+    cin>>n;
     vector<ll>v(n);
-    ll ans=0;
+    ll sum = 0;
+    ll even = 0;
+    
     for(int i=0;i<n;i++){
-        cin>>v[i];    
+        cin>>v[i];      
+        sum += v[i]; 
+        if(v[i]%2==0){
+            even++;
+        }
     }
-    sort(v.begin(),v.end());
-    ans+=v[0];
-    ans+=v[1];
-    if(n==2){
-        cout<<v[0]<<" "<<v[1]<<"\n";
+    if(sum%3==0){
+        cout<<0<<"\n";
         return;
     }
-    for(int i=2;i<n;i++){
-        ans+=(v[i]*2);
+    if(n==1){
+        cout<<1<<"\n";
+        return;
     }
-    ll maxi = ans;
-    ll mini;
-    ans=0;
-    ans+=v[n-1];
-    ans+=v[n-2];
-    sort(v.begin(),v.end(),greater<ll>());
-    for(int i=n-3;i>=0;i--){
-        ans+=(v[i]*2);
+    if(sum%3==2){
+        cout<<1<<"\n";
     }
-    mini = ans;
+    else{
 
-    while(q--){
-        ll sum;
-        cin>>sum;
-        if(sum<mini || sum>maxi){
-            cout<<"-1\n";
+        for(int i=0;i<n;i++){
+            ll s = sum-v[i];
+            if(s%3==0){
+                cout<<1<<"\n";
+                return;
+            }       
         }
-        
+        cout<<2<<"\n";
+
     }
 
-    
-    
-    
-    cout<<ans<<"\n";
+
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
