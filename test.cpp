@@ -1,33 +1,56 @@
-#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
-typedef long long ll;
+
+const long long MOD = 1000000007;
+
+
+int inp() {
+    int x;
+    cin >> x;
+    return x;
+}
+
+vector<int> linp() {
+    int n;
+    cin >> n;
+    vector<int> arr(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> arr[i];
+    }
+    return arr;
+}
 
 void solve() {
-    ll n;
-    cin >> n;
-    ll coins[] = {1, 3, 6, 10, 15};
-    ll dp[16] = {0};
-    for (ll i = 1; i < 16; ++i) {
-        dp[i] = i;
-        for (ll j = 1; j < 5; ++j) {
-            if (i >= coins[j]) {
-                dp[i] = min(dp[i], dp[i - coins[j]] + 1);
-            }
+    int a, b, c;
+    a = inp();
+    b = inp();
+    c = inp();
+
+    vector<int> x = linp();
+
+    vector<long long> prefix_sum(a + 1, 0);
+    for (int i = 1; i <= a; ++i) {
+        prefix_sum[i] = prefix_sum[i - 1] + x[i - 1];
+    }
+
+    long long ans = -1e18;
+    long long max_sum = 0;
+    for (int i = 1; i <= a; ++i) {
+        max_sum += x[i - 1];
+        if (i >= b) {
+            ans = max(ans, max_sum);
+        }
+        if (i >= c) {
+            max_sum -= x[i - c];
         }
     }
-    ll ans = n / 15 * 2;
-    n %= 15;
-    ans += dp[n];
-    cout << ans << "\n";
+
+    cout << ans << endl;
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    int t;
-    cin >> t;
-    while(t--) {
-        solve();
-    }
+    solve();
     return 0;
 }
