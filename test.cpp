@@ -1,56 +1,30 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-using namespace std;
-
-const long long MOD = 1000000007;
-
-
-int inp() {
-    int x;
-    cin >> x;
-    return x;
-}
-
-vector<int> linp() {
-    int n;
-    cin >> n;
-    vector<int> arr(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> arr[i];
-    }
-    return arr;
-}
-
-void solve() {
-    int a, b, c;
-    a = inp();
-    b = inp();
-    c = inp();
-
-    vector<int> x = linp();
-
-    vector<long long> prefix_sum(a + 1, 0);
-    for (int i = 1; i <= a; ++i) {
-        prefix_sum[i] = prefix_sum[i - 1] + x[i - 1];
-    }
-
-    long long ans = -1e18;
-    long long max_sum = 0;
-    for (int i = 1; i <= a; ++i) {
-        max_sum += x[i - 1];
-        if (i >= b) {
-            ans = max(ans, max_sum);
-        }
-        if (i >= c) {
-            max_sum -= x[i - c];
+vector<int> f(int n) {
+    vector<int> v(3, 0);
+    for (int i = 2; i <= 5; i += i == 2 ? 1 : 2) {
+        while (n % i == 0) {
+            n /= i;
+            v[i == 2 ? 0 : i == 3 ? 1 : 2]++;
         }
     }
-
-    cout << ans << endl;
+    return n == 1 ? v : vector<int>();
 }
 
 int main() {
-    solve();
+    int x, y;
+    cin >> x >> y;
+
+    vector<int> v1 = f(x);
+    vector<int> v2 = f(y);
+
+    if (v1.empty() || v2.empty()) {
+        cout << -1 << endl;
+    } else {
+        int n = 0;
+        for (int i = 0; i < 3; ++i) {
+            n += abs(v1[i] - v2[i]);
+        }
+        cout << n << endl;
+    }
+
     return 0;
 }

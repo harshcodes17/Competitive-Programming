@@ -4,32 +4,27 @@ typedef long long int ll;
 #define mod 1000000007
 #define nl "\n"
 
-void file()
-{
+void file() {
 #ifndef ONLINE_JUDGE
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif
 }
 
-class SegmentTree
-{
+class SegmentTree {
     ll *seg;
     ll *lazy;
+    public :
 
-public:
-    SegmentTree(ll n)
-    {
+    SegmentTree(ll n) {
         // Maximum Size Of Tree could be 4n only
-        seg = new ll[4 * n + 1];
-        lazy = new ll[4 * n + 1];
+        seg = new ll[4*n + 1];
+        lazy = new ll[4*n + 1];
     }
 
     // Time Complexity Of Build : O(4N) == O(N) !!!
-    void BuildTree(ll arr[], ll i, ll low, ll high)
-    {
-        if (low == high)
-        {
+    void BuildTree(ll arr[], ll i, ll low, ll high) {
+        if(low == high) {
             seg[i] = arr[low];
             return;
         }
@@ -40,24 +35,21 @@ public:
         BuildTree(arr, 2 * i + 1, low, mid);
         // Right Child
         BuildTree(arr, 2 * i + 2, mid + 1, high);
-
+        
         // Sum Of Two
         seg[i] = seg[2 * i + 1] + seg[2 * i + 2];
     }
 
     // Query Time Complexity : O(logN)
-    ll query(ll ind, ll l, ll r, ll low, ll high)
-    {
+    ll query(ll ind, ll l, ll r, ll low, ll high) {
 
         // If Update is Remaining, First Update The Values
-        if (lazy[ind] != 0)
-        {
+        if(lazy[ind] != 0) {
 
             seg[ind] += (high - low + 1) * lazy[ind];
 
             // If it is a leaf node, it will not have childrens
-            if (low != high)
-            {
+            if(low != high) {
                 lazy[2 * ind + 1] += lazy[ind];
                 lazy[2 * ind + 2] += lazy[ind];
             }
@@ -66,13 +58,11 @@ public:
 
         // No Overlap
         // l r low high or low high l r
-        if (high < l || low > r)
-            return 0;
+        if(high < l || low > r) return 0;
 
         // Complete Overlap
         // l low high r
-        if (high <= r && low >= l)
-            return seg[ind];
+        if(high <= r && low >= l) return seg[ind];
 
         // Partial Overlap
         ll mid = low + (high - low) / 2;
@@ -82,42 +72,36 @@ public:
         return left + right;
     }
 
+
     // Update Time Complexity : O(logN)
-    void update(ll i, ll val, ll low, ll high, ll ind)
-    {
+    void update(ll i, ll val, ll low, ll high, ll ind) {
         // If we found the required Node
-        if (low == high)
-        {
+        if(low == high) {
             seg[ind] = val;
             return;
         }
 
-        ll mid = low + (high - low) / 2;
+        ll mid = low + (high - low)/2;
 
-        // If required node is left to mid,
+        // If required node is left to mid, 
         // Move To Left Child Else Move To Right Child
-        if (i <= mid)
-            update(i, val, low, mid, 2 * ind + 1);
-        else
-            update(i, val, mid + 1, high, 2 * ind + 2);
+        if(i <= mid) update(i, val, low, mid, 2 * ind + 1);
+        else update(i, val, mid + 1, high, 2 * ind + 2);
 
         // Since, One Of The Child's Value is Updated
         // We have to find minimum again !!!
         seg[ind] = seg[2 * ind + 1] + seg[2 * ind + 2];
     }
 
-    void updateRange(ll l, ll r, ll val, ll low, ll high, ll ind)
-    {
+    void updateRange(ll l, ll r, ll val, ll low, ll high, ll ind) {
         // First Update The Remaining Updates
         // Lazy Propagate To The Child
-        if (lazy[ind] != 0)
-        {
+        if(lazy[ind] != 0) {
 
             seg[ind] += (high - low + 1) * lazy[ind];
 
             // If it is a leaf node, it will not have childrens
-            if (low != high)
-            {
+            if(low != high) {
                 lazy[2 * ind + 1] += lazy[ind];
                 lazy[2 * ind + 2] += lazy[ind];
             }
@@ -126,23 +110,20 @@ public:
 
         // No Overlap
         // l r low high or low high l r
-        if (high < l || low > r)
-            return;
+        if(high < l || low > r) return;
 
         // Complete Overlap
         // l low high r
-        if (high <= r && low >= l)
-        {
+        if(high <= r && low >= l) {
             seg[ind] += (high - low + 1) * val;
-            if (low != high)
-            {
+            if(low != high) {
                 lazy[2 * ind + 1] += val;
                 lazy[2 * ind + 2] += val;
             }
             return;
         }
 
-        ll mid = low + (high - low) / 2;
+        ll mid = low + (high - low)/2;
 
         // Partial Overlap ke case me left and right dono update karenge
         updateRange(l, r, val, low, mid, 2 * ind + 1);
@@ -154,38 +135,33 @@ public:
     }
 };
 
-struct fenwick
-{
+struct fenwick {
 
     vector<ll> fn;
     ll n;
 
-    void init(ll n)
-    {
+    void init(ll n) {
 
         this->n = n + 1;
         fn.resize(this->n, 0);
+
     }
 
-    void add(ll x, ll y)
-    {
+    void add(ll x, ll y) {
 
         x++;
 
-        while (x < n)
-        {
+        while (x < n) {
             fn[x] += y;
             x += (x & (-x));
         }
     }
 
-    ll sum(ll x)
-    {
+    ll sum(ll x) {
         x++;
 
         ll ans = 0;
-        while (x)
-        {
+        while (x) {
             ans += fn[x];
             x -= (x & (-x));
         }
@@ -193,101 +169,80 @@ struct fenwick
         return ans;
     }
 
-    ll sum(ll l, ll r)
-    {
+    ll sum(ll l, ll r) {
         return sum(r) - sum(l - 1);
     }
 };
 
-class DisjointSet
-{
+class DisjointSet {
     vector<ll> rank, parent, size;
 
 public:
-    DisjointSet(ll n)
-    {
+
+    DisjointSet(ll n) {
         rank.resize(n + 1, 0);
         parent.resize(n + 1);
         size.resize(n + 1, 1);
-        for (ll i = 1; i <= n; i++)
-            parent[i] = i;
+        for(ll i = 1; i <= n; i++) parent[i] = i;
     }
 
-    void unionByRank(ll x, ll y)
-    {
+    void unionByRank(ll x, ll y) {
 
         ll par_x = findPar(x);
         ll par_y = findPar(y);
 
-        if (par_x == par_y)
-            return;
+        if(par_x == par_y) return;
 
-        if (rank[par_x] < rank[par_y])
-        {
+        if(rank[par_x] < rank[par_y]) {
             parent[par_x] = par_y;
-        }
-        else if (rank[par_y] < rank[par_x])
-        {
+        } else if(rank[par_y] < rank[par_x]) {
             parent[par_y] = par_x;
-        }
-        else
-        {
+        } else {
             parent[par_x] = par_y;
             rank[par_y]++;
         }
     }
 
-    void unionBySize(ll x, ll y)
-    {
+    void unionBySize(ll x, ll y) {
 
         ll par_x = findPar(x);
         ll par_y = findPar(y);
 
-        if (par_x == par_y)
-            return;
+        if(par_x == par_y) return;
 
-        if (size[par_x] < size[par_y])
-        {
+        if(size[par_x] < size[par_y]) {
             parent[par_x] = par_y;
             size[par_y] += size[par_x];
-        }
-        else
-        {
+        } else {
             parent[par_y] = par_x;
             size[par_x] += size[par_y];
         }
     }
 
-    ll findPar(ll x)
-    {
+    ll findPar(ll x) {
 
-        if (parent[x] == x)
-            return x;
+        if(parent[x] == x) return x;
 
         return parent[x] = findPar(parent[x]);
+
     }
+
 };
 
-ll binpow(ll a, ll b)
-{
+ll binpow(ll a,ll b) {
     ll ans = 1;
-    while (b > 0)
-    {
-        if ((b & 1) == 1)
-            ans *= a;
+    while(b > 0) {
+        if((b & 1) == 1) ans *= a;
         a *= a;
         b = b >> 1;
     }
     return ans;
 }
 
-ll binpowmod(ll a, ll b)
-{
+ll binpowmod(ll a,ll b) {
     ll ans = 1;
-    while (b > 0)
-    {
-        if ((b & 1) == 1)
-        {
+    while(b > 0) {
+        if((b & 1) == 1) {
             ans *= a;
             ans %= mod;
         }
@@ -298,204 +253,153 @@ ll binpowmod(ll a, ll b)
     return ans;
 }
 
-ll gcd(ll a, ll b)
-{
-    if (b == 0)
-        return a;
+
+ll gcd(ll a,ll b) {
+    if(b == 0) return a;
     return gcd(b, a % b);
 }
 
-ll lcm(ll a, ll b)
-{
-    return (a / gcd(a, b)) * b;
+ll lcm(ll a,ll b) {
+    return (a / gcd(a,b)) * b;
 }
 
 const ll MAX = 2e5 + 7;
 vector<ll> fact(MAX);
-
-ll add(ll a, ll b)
-{
+ 
+ll add(ll a, ll b) {
     return (a + b) % mod;
 }
-
-ll sub(ll a, ll b)
-{
+ 
+ll sub(ll a, ll b) {
     return ((a - b) % mod + mod) % mod;
 }
-
-ll mult(ll a, ll b)
-{
+ 
+ll mult(ll a, ll b) {
     return ((a * b) % mod);
 }
 
-ll inv(ll a)
-{
+ll inv(ll a) {
     return binpowmod(a, mod - 2);
 }
-
-ll divide(ll a, ll b)
-{
+ 
+ll divide(ll a, ll b) {
     return mult(a, inv(b));
 }
-
-ll nCr(ll n, ll r)
-{
-    if (n < r)
-        return 0;
+ 
+ll nCr(ll n, ll r) {
+    if(n < r) return 0;
     return divide(fact[n], mult(fact[r], fact[n - r]));
 }
-
-void preFactorial()
-{
+ 
+void preFactorial() {
     fact[0] = 1;
-    for (ll i = 1; i < MAX; i++)
-        fact[i] = mult(i, fact[i - 1]);
+    for(ll i = 1; i < MAX; i++) fact[i] = mult(i, fact[i - 1]);
 }
 
-bool isVowel(char c)
-{
-    if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u')
-        return true;
-    if (c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U')
-        return true;
+bool isVowel(char c) {
+    if(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') return true;
+    if(c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') return true;
     return false;
 }
 
-bool isSame(ll n, ll arr[])
-{
-    for (ll i = 0; i < n; i++)
-    {
-        if (arr[i] != arr[0])
-            return false;
+bool isSame(ll n, ll arr[]) {
+    for(ll i = 0; i < n; i++) {
+        if(arr[i] != arr[0]) return false;
     }
     return true;
 }
 
-bool isSame(ll n, vector<ll> &arr)
-{
-    for (ll i = 0; i < n; i++)
-    {
-        if (arr[i] != arr[0])
-            return false;
+bool isSame(ll n, vector<ll> &arr) {
+    for(ll i = 0; i < n; i++) {
+        if(arr[i] != arr[0]) return false;
     }
     return true;
 }
 
-bool isSorted(ll n, ll arr[])
-{
-    for (ll i = 1; i < n; i++)
-    {
-        if (arr[i] < arr[i - 1])
-            return false;
+bool isSorted(ll n, ll arr[]) {
+    for(ll i = 1; i < n; i++) {
+        if(arr[i] < arr[i - 1]) return false;
     }
     return true;
 }
 
-bool isSorted(ll n, vector<ll> &arr)
-{
-    for (ll i = 1; i < n; i++)
-    {
-        if (arr[i] < arr[i - 1])
-            return false;
+bool isSorted(ll n, vector<ll> &arr) {
+    for(ll i = 1; i < n; i++) {
+        if(arr[i] < arr[i - 1]) return false;
     }
     return true;
 }
 
-void inputArr(ll n, ll arr[])
-{
-    for (ll i = 0; i < n; i++)
-        cin >> arr[i];
+void inputArr(ll n, ll arr[]) {
+    for(ll i = 0; i < n; i++) cin >> arr[i];
 }
 
-void inputArr(ll n, vector<ll> &arr)
-{
+void inputArr(ll n, vector<ll> &arr) {
     ll x;
-    for (ll i = 0; i < n; i++)
-    {
+    for(ll i = 0; i < n; i++) {
         cin >> x;
         arr.push_back(x);
     }
 }
 
-void printArr(ll n, ll arr[])
-{
-    for (ll i = 0; i < n; i++)
-        cout << arr[i] << " ";
+void printArr(ll n, ll arr[]) {
+    for(ll i = 0; i < n; i++) cout << arr[i] << " ";
     cout << nl;
 }
 
-void printArr(ll n, vector<ll> &arr)
-{
-    for (ll i = 0; i < n; i++)
-        cout << arr[i] << " ";
+void printArr(ll n, vector<ll> &arr) {
+    for(ll i = 0; i < n; i++) cout << arr[i] << " ";
     cout << nl;
 }
 
-ll sumOfArr(ll n, ll arr[])
-{
+ll sumOfArr(ll n, ll arr[]) {
     ll ans = 0;
-    for (ll i = 0; i < n; i++)
-        ans += arr[i];
+    for(ll i = 0; i < n; i++) ans += arr[i];
     return ans;
 }
 
-ll sumOfArr(ll n, vector<ll> &arr)
-{
+ll sumOfArr(ll n, vector<ll> &arr) {
     ll ans = 0;
-    for (ll i = 0; i < n; i++)
-        ans += arr[i];
+    for(ll i = 0; i < n; i++) ans += arr[i];
     return ans;
 }
 
-bool isPrime(ll n)
-{
-    if (n == 1)
-        return false;
-    for (ll i = 2; i <= sqrt(n); i++)
-    {
-        if (n % i == 0)
-            return false;
+bool isPrime(ll n) {
+    if(n == 1) return false;
+    for(ll i = 2; i <= sqrt(n); i++) {
+        if(n % i == 0) return false;
     }
     return true;
 }
 
-ll countSetBits(ll n)
-{
+ll countSetBits(ll n) {
     ll ans = 0;
-    while (n)
-    {
+    while(n) {
         ans++;
         n = n & (n - 1);
     }
     return ans;
 }
 
-vector<ll> primeFactorization(ll n)
-{
+vector<ll> primeFactorization(ll n) {
     vector<ll> factors;
-    for (ll i = 2; i * i <= n; i++)
-    {
-        ll cnt = 0;
-        while (n % i == 0)
-        {
+    for(ll i = 2; i * i <= n; i++) {
+        ll cnt = 0; 
+        while(n % i == 0) {
             cnt++;
             n /= i;
             factors.push_back(i);
         }
     }
-    if (n > 1)
-        factors.push_back(n);
+    if(n > 1) factors.push_back(n);
     return factors;
 }
 
-bool isPalindrome(string s)
-{
+bool isPalindrome(string s) {
     ll i = 0;
     ll j = s.size() - 1;
-    while (i <= j)
-    {
-        if (s[i] != s[j])
-            return false;
+    while(i <= j) {
+        if(s[i] != s[j]) return false;
         i++;
         j--;
     }
@@ -504,39 +408,38 @@ bool isPalindrome(string s)
 
 // -----------> Tatakae Tatakae <----------- //
 
-bool isSame(char a, char b)
-{
+bool isSame(char a, char b) {
     return isVowel(a) == isVowel(b);
 }
 
-void solve()
+void solve() 
 {
-    int n;
-    cin >> n;
-    string s, ulta;
-    cin >> s;
-    ulta = s;
-    reverse(ulta.begin(), ulta.end());
-    if (ulta >= s)
-    {
-        cout << s << endl;
-    }
-    else
-    {
-        ulta += s;
-        cout << ulta << endl;
-    }
+     int n;
+        cin >> n;
+        int ans = 1e9;
+        for(int ones = 0; ones <= 2; ones++){
+            for(int threes = 0; threes <= 1; threes++){
+                for(int sixes = 0; sixes <= 4; sixes++){
+                    for(int tens = 0; tens <= 2; tens++){
+                        int brute_sum = 1*ones + 3*threes + 6*sixes + 10*tens;
+                        if(brute_sum <= n && (n-brute_sum)%15 == 0){
+                            ans = min(ans, ones + threes + sixes + tens + (n-brute_sum)/15);
+                        }
+                    }
+                }
+            }
+        }
+        cout << ans << endl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
 {
-    // file();
+    //file();
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
     cin >> t;
-    for (int i = 1; i <= t; i++)
-    {
+    for(int i=1;i<=t;i++){
         // cout<<"#"<<i<<":";
         solve();
         // cout<<"\n";
