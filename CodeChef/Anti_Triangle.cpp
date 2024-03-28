@@ -521,7 +521,28 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
+    int n,l;
+    cin>>n>>l;
+    vector<ll>ans;
+    ans.push_back(l);
+    // ans.push_back(l+l);
+    n-=1;
+    ll a = l;
+    ll b = l;
+    ll sum = a+b;
+    while(n--){
+        sum = a+b;
+        ans.push_back(sum);
+        a = b;
+        b = sum;
+        
+    }
+
+    for(auto& x:ans){
+        cout<<x<<" ";
+    }
     
+    cout<<"\n";
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

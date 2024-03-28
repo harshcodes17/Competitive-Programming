@@ -521,7 +521,29 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    
+    int n;
+    cin>>n;
+    vector<ll>v(n);
+
+    for(int i=0;i<n;i++){
+        cin>>v[i];       
+    }
+
+    map<ll,ll>mp;
+
+    ll sum = 0;
+    ll ans = 0; 
+    for(int i=0;i<n;i++){
+        sum+=v[i];
+        if((sum-n)%n==0){
+            ans+=mp[sum-n];
+        }
+        if(sum==n){
+            ans++;
+        }
+        mp[sum]++;       
+    }
+    cout<<ans<<"\n";
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -530,7 +552,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    cin >> t;
+    //cin >> t;
     for (int i = 1; i <= t; i++)
     {
         // cout<<"#"<<i<<":";

@@ -521,7 +521,22 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    
+    int n;
+        cin >> n;
+        vector<float> v(n);
+        for (int i = 0; i < n; i++) {
+            cin >> v[i];
+        }
+        unordered_map<float, int>mp;
+        ll res = 0;
+        for (int i = 0; i < n; i++) {
+            float req = 3 * v[i] / (v[i] - 1);
+            if (mp.count(req)) {
+                res += mp[req];
+            }
+            mp[v[i]]++; 
+        }
+        cout <<res<< "\n";
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

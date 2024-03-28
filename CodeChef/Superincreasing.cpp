@@ -521,7 +521,16 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    
+    long double n,k,x;
+    cin>>n>>k>>x;
+
+    long double mini = pow(2,k-1);
+    if(x<mini){
+        cout<<"NO\n";
+    }
+    else{
+        cout<<"YES\n";
+    }
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

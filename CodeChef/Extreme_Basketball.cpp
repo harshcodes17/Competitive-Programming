@@ -521,7 +521,17 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    
+    int a,b;
+    cin>>a>>b;
+
+    int req = b+10;
+    int diff = req-a;
+    if(req<=a){
+        cout<<0<<nl;
+    }
+    else{
+        cout<<ceil(diff/(double)3)<<nl;
+    }
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
