@@ -1,10 +1,4 @@
 #include <bits/stdc++.h>
-<<<<<<< HEAD
-
-
-void main(){
-    
-=======
 using namespace std;
 typedef long long int ll;
 #define mod 1000000007
@@ -527,7 +521,28 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
+    int n,l;
+    cin>>n>>l;
+    vector<ll>ans;
+    ans.push_back(l);
+    // ans.push_back(l+l);
+    n-=1;
+    ll a = l;
+    ll b = l;
+    ll sum = a+b;
+    while(n--){
+        sum = a+b;
+        ans.push_back(sum);
+        a = b;
+        b = sum;
+        
+    }
+
+    for(auto& x:ans){
+        cout<<x<<" ";
+    }
     
+    cout<<"\n";
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -543,7 +558,5 @@ int main()
         solve();
         // cout<<"\n";
     }
->>>>>>> bf36b5b87c41ef9c8f1f279b27ea4242c03f220a
     return 0;
-
 }

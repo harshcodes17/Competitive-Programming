@@ -1,10 +1,4 @@
 #include <bits/stdc++.h>
-<<<<<<< HEAD
-
-
-void main(){
-    
-=======
 using namespace std;
 typedef long long int ll;
 #define mod 1000000007
@@ -528,6 +522,51 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 void solve()
 {
     
+    ll n;
+    cin>>n;
+
+    vector<ll>v(n+1); // i wanted 1 based indexing
+    for(int i=1;i<=n;i++){
+        cin>>v[i];       
+    }
+
+    vector<ll>pos;
+
+    for(int i=1;i<=n;i++){
+        if(v[i]==i){
+            pos.push_back(i);
+        }
+    }
+
+    if(pos.size()==0){
+        cout<<0<<nl;
+        return;
+    }
+
+    if(pos.size()==1){
+        cout<<1<<nl;
+        return;
+    }
+    // 1 2 3 4
+    // 2 3 4 1
+
+    ll ans=0;
+    // 0 1 2 3
+    // 2 1 4 3
+    // 1 2 3 4 5 null
+    for(int i=1;i<pos.size();i++){
+        if(pos[i]-pos[i-1]==1){
+            ans++;
+            i++;
+        }
+    }
+    //cout<<ans<<"\n";
+    int res = pos.size();
+    
+    cout<<res-ans<<"\n";
+
+
+
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -543,7 +582,5 @@ int main()
         solve();
         // cout<<"\n";
     }
->>>>>>> bf36b5b87c41ef9c8f1f279b27ea4242c03f220a
     return 0;
-
 }
