@@ -216,8 +216,8 @@ public:
     void unionByRank(ll x, ll y)
     {
 
-        ll par_x = finmpar(x);
-        ll par_y = finmpar(y);
+        ll par_x = findPar(x);
+        ll par_y = findPar(y);
 
         if (par_x == par_y)
             return;
@@ -240,8 +240,8 @@ public:
     void unionBySize(ll x, ll y)
     {
 
-        ll par_x = finmpar(x);
-        ll par_y = finmpar(y);
+        ll par_x = findPar(x);
+        ll par_y = findPar(y);
 
         if (par_x == par_y)
             return;
@@ -258,13 +258,13 @@ public:
         }
     }
 
-    ll finmpar(ll x)
+    ll findPar(ll x)
     {
 
         if (parent[x] == x)
             return x;
 
-        return parent[x] = finmpar(parent[x]);
+        return parent[x] = findPar(parent[x]);
     }
 };
 
@@ -519,24 +519,46 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 // -----------> Tatakae Tatakae <----------- //
 
+bool possible(ll n,ll c,vector<ll>&v,ll mid){
+    ll cnt = 1;
+    ll prev = v[0];
+    for(int i=1;i<n;i++){
+        if(v[i]-prev>=mid){
+            cnt++;
+            prev = v[i];
+        }
+    }
+    return cnt>=c;
+}
+
+
 void solve()
 {
-    int n;
-    cin>>n;
-    vector<int>v(n);
+    ll n,c;
+
+    cin>>n>>c;
+
+    vector<ll>v(n);
+
     for(int i=0;i<n;i++){
-        cin>>v[i];
+        cin>>v[i];       
     }
-    map<int,int>mp;
-    int ans=0;
-    for(int i=0;i<n;i++){
-        if(mp.count(v[i]-1)!=0){
-            mp[v[i]]= max(mp[v[i]],mp[v[i]-1]+1);
+
+    sort(v.begin(),v.end());
+
+    ll l=0;
+    ll r = 1e12;
+    ll ans = 0;
+    while(l<=r){
+        ll mid = (l+r)/2;
+
+        if(possible(n,c,v,mid)){
+            ans = mid;
+            l = mid+1;
         }
         else{
-            mp[v[i]]=1;
+            r = mid-1; 
         }
-        ans=max(ans,mp[v[i]]);
     }
     cout<<ans<<"\n";
 }

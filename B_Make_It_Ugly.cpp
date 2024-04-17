@@ -216,8 +216,8 @@ public:
     void unionByRank(ll x, ll y)
     {
 
-        ll par_x = finmpar(x);
-        ll par_y = finmpar(y);
+        ll par_x = findPar(x);
+        ll par_y = findPar(y);
 
         if (par_x == par_y)
             return;
@@ -240,8 +240,8 @@ public:
     void unionBySize(ll x, ll y)
     {
 
-        ll par_x = finmpar(x);
-        ll par_y = finmpar(y);
+        ll par_x = findPar(x);
+        ll par_y = findPar(y);
 
         if (par_x == par_y)
             return;
@@ -258,13 +258,13 @@ public:
         }
     }
 
-    ll finmpar(ll x)
+    ll findPar(ll x)
     {
 
         if (parent[x] == x)
             return x;
 
-        return parent[x] = finmpar(parent[x]);
+        return parent[x] = findPar(parent[x]);
     }
 };
 
@@ -521,24 +521,43 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    int n;
+    ll n;
     cin>>n;
-    vector<int>v(n);
+
+    vector<ll>v(n);
     for(int i=0;i<n;i++){
-        cin>>v[i];
+        cin>>v[i];       
     }
-    map<int,int>mp;
-    int ans=0;
-    for(int i=0;i<n;i++){
-        if(mp.count(v[i]-1)!=0){
-            mp[v[i]]= max(mp[v[i]],mp[v[i]-1]+1);
+    bool same = true;
+
+    for(int i=1;i<n;i++){
+        if(v[i]!=v[0]){
+            same = false;
+            break;
+        }
+    }
+
+    if(same){
+        cout<<-1<<nl;
+        return;
+    }
+
+    ll ans = INT_MAX;
+
+    ll first = v[0];
+    ll cnt=1;
+    for(int i=1;i<n;i++){
+        if(v[i]==first){
+            cnt++;
         }
         else{
-            mp[v[i]]=1;
+            ans = min(ans,cnt);
+            cnt=0;
         }
-        ans=max(ans,mp[v[i]]);
     }
-    cout<<ans<<"\n";
+    ans = min(ans,cnt);
+    cout<<ans<<nl;
+    
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
