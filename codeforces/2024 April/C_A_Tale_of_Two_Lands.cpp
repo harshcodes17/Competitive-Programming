@@ -507,7 +507,7 @@ bool isSame(char a, char b)
     return isVowel(a) == isVowel(b);
 }
 
-bool sortbysec(const pair<int, int> &a, const pair<int, int> &b)
+bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 {
     if (a.first > b.first)
         return true;
@@ -522,50 +522,26 @@ bool sortbysec(const pair<int, int> &a, const pair<int, int> &b)
 void solve()
 {
     ll n;
-    cin >> n;
-    vector<ll> v(n);
+    cin>>n;
 
-    for (int i = 0; i < n; i++)
-    {
-        cin >> v[i];
+    vector<ll>v(n);
+
+    for(int i=0;i<n;i++){
+        cin>>v[i]; 
+        v[i] = abs(v[i]-0);      
     }
 
-    vector<ll> curr, maxi;
+    sort(v.begin(),v.end());
 
-    for (int i = 0; i < n; i++)
-    {
-        if (v[i] < 0)
-        {
-            curr.push_back(v[i]);
-        }
-        else
-        {
-            if (curr.size() > maxi.size())
-            {
-                maxi = curr;
-            }
-            curr.clear();
-        }
+    ll ans = 0;
+    for(int i=0;i<n;i++){
+        
+
+        auto x = upper_bound(v.begin(),v.end(),v[i]*2);
+        x--;
+        ans+=x-v.begin()-i; 
     }
-    if (curr.size() > maxi.size())
-    {
-        maxi = curr;
-    }
-
-
-    // debug(v);
-    // debug(maxi);
-    ll sum1 = accumulate(v.begin(), v.end(),0LL);
-    ll sum2 = accumulate(maxi.begin(), maxi.end(),0LL);
-    sum2 = abs(sum2-0);
-    // debug(sum1);
-    // debug(sum2);
-
-    if(maxi.size()<2){
-    	cout<<abs(sum1-0)<<"\n";
-    	return;	
-    }
-    cout<<sum1+(2*sum2)<<"\n";
+    cout<<ans<<nl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -574,7 +550,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    cin >> t;
+    // cin >> t;
     for (int i = 1; i <= t; i++)
     {
         // cout<<"#"<<i<<":";
