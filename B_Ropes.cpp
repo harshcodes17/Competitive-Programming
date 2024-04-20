@@ -507,7 +507,7 @@ bool isSame(char a, char b)
     return isVowel(a) == isVowel(b);
 }
 
-bool sortbysec(const pair<int, int> &a, const pair<int, int> &b)
+bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 {
     if (a.first > b.first)
         return true;
@@ -519,26 +519,46 @@ bool sortbysec(const pair<int, int> &a, const pair<int, int> &b)
 
 // -----------> Tatakae Tatakae <----------- //
 
+bool check(double ropesize , vector<ll> &v,ll k){
+    ll cnt = 0;
+    for(int i=0;i<v.size();i++){
+        cnt += v[i]/ropesize;
+    }
+    return cnt>=k;
+}
+
 void solve()
 {
     ll n;
-    cin >> n;
+    cin>>n;
+
+    ll k;
+    cin>>k;
+
     vector<ll>v(n);
 
-    for (int i = 0; i < n; i++){
-        cin >> v[i];
+    for(int i=0;i<n;i++){
+        cin>>v[i];       
     }
 
-    ll m = INT_MIN;
-    ll sa = 0;
-    ll sum = 0;
-    for (int i = 0; i < n; i++) {
-        sa = min(sa, sum + v[i] - m);
-        m = max(m, sum);
-        sum += v[i];
-    }
-    ll ans = abs(sa*2) + sum;
-    cout<<ans<<nl;
+
+    double error = 1e-7;
+
+    double l =error , r =1e7;
+
+    double ans = 0;
+    while(r-l>error){
+        double mid = (l+r)/2;
+
+        if(check(mid,v,k)){
+            ans = mid;
+            l = mid+error;
+        }
+        else{
+            r = mid-error;
+        }
+    } 
+    cout<<fixed<<setprecision(6)<<ans<<nl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -547,7 +567,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    cin >> t;
+    // cin >> t;
     for (int i = 1; i <= t; i++)
     {
         // cout<<"#"<<i<<":";
