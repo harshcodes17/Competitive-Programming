@@ -524,23 +524,40 @@ void solve()
     ll n;
     cin>>n;
 
-    vector<ll>v(n);
-    for(int i=0;i<n;i++){
+    vector<ll>v(n+1);
+
+    for(int i=1;i<=n;i++){
         cin>>v[i];       
     }
 
-    sort(v.begin(), v.end());
 
-    ll ans = 0;
-    for(auto x:v){
-        if(ans > 1 && x > 1){
-            ans = (ans*x)%mod;
+    vector<ll>pre(n+1,0);
+    ll ans = -1;
+    for(int i=1;i<=n;i++){
+        pre[i] = pre[i-1] + v[i];
+    }
+
+    ll l = 1,r = n;
+
+    while(l<=r){
+        ll mid = (l+r)/2;
+
+        cout<<"? "<<mid-l+1<<" ";
+        for(int i=l;i<=mid;i++){
+            cout<<i<<" ";
+        }
+        cout<<endl;
+        ll sum;
+        cin>>sum;
+        if(pre[mid]-pre[l-1]==sum){
+            l = mid+1;
         }
         else{
-            ans = (ans+x)%mod;
+            ans = mid;
+            r = mid-1;
         }
     }
-    cout<<ans%mod<<nl;
+    cout<<"! "<<ans<<endl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

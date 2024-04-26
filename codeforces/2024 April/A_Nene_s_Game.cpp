@@ -521,26 +521,29 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    ll n;
-    cin>>n;
-
-    vector<ll>v(n);
+    ll n,k;
+    cin>>n>>k;
+    vector<ll>arr(n);
     for(int i=0;i<n;i++){
-        cin>>v[i];       
+        cin>>arr[i];       
     }
+    sort(arr.begin(),arr.end());
+    ll mini = arr[0];
 
-    sort(v.begin(), v.end());
+    vector<ll>q(k);
 
-    ll ans = 0;
-    for(auto x:v){
-        if(ans > 1 && x > 1){
-            ans = (ans*x)%mod;
+    for(int i=0;i<k;i++){
+        cin>>q[i];       
+    }
+    for(auto num:q){
+        if(num>=mini){
+            cout<<mini-1<<" ";
         }
         else{
-            ans = (ans+x)%mod;
-        }
+            cout<<num<<" ";
+        }   
     }
-    cout<<ans%mod<<nl;
+    cout<<nl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

@@ -519,28 +519,44 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 // -----------> Tatakae Tatakae <----------- //
 
+ll query(ll a,ll b){
+    cout<<"? "<<a<<" "<<b<<endl;
+    ll pro;
+    cin>>pro;
+    return pro;
+
+}
+
+bool match(vector<ll>& v , vector<ll>& seq){
+    for(ll i=0;i<4;i++){
+        if(v[i]!=(seq[i]*seq[i+1])){
+            return false;
+        }
+    }
+    return true;
+
+}
+
 void solve()
 {
-    ll n;
-    cin>>n;
-
-    vector<ll>v(n);
-    for(int i=0;i<n;i++){
-        cin>>v[i];       
+    vector<ll>seq={4,8,15,16,23,42};
+    vector<ll>v;
+    for(ll i=1;i<5;i++){
+        v.push_back(query(i,i+1));
     }
 
-    sort(v.begin(), v.end());
+    do{
+        if(match(v,seq)){
+            cout<<"! ";
+            for(ll i=0;i<6;i++){
+                cout<<seq[i]<<" ";
+            }
+            cout<<endl;
+            return;
+        }
+    }while(next_permutation(seq.begin(),seq.end()));
 
-    ll ans = 0;
-    for(auto x:v){
-        if(ans > 1 && x > 1){
-            ans = (ans*x)%mod;
-        }
-        else{
-            ans = (ans+x)%mod;
-        }
-    }
-    cout<<ans%mod<<nl;
+
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -549,7 +565,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    cin >> t;
+    // cin >> t;
     for (int i = 1; i <= t; i++)
     {
         // cout<<"#"<<i<<":";

@@ -524,23 +524,34 @@ void solve()
     ll n;
     cin>>n;
 
-    vector<ll>v(n);
-    for(int i=0;i<n;i++){
-        cin>>v[i];       
+    ll sum13;
+    cout<<"? 1 3"<<endl;
+    cin>>sum13;
+    ll sum12;
+    cout<<"? 1 2"<<endl;
+    cin>>sum12;
+    ll sum23;
+    cout<<"? 2 3"<<endl;
+    cin>>sum23;
+    vector<ll>ans(n+1);
+
+    ans[1] = sum13 - sum23;
+    ans[2] = sum12 - ans[1];
+    ans[3] = sum23 - ans[2];
+
+    for(int i=4;i<=n;i++){
+        cout<<"? "<<i-1<<" "<<i<<endl;
+        ll sum;
+        cin>>sum;
+        ans[i] = sum - ans[i-1];
     }
 
-    sort(v.begin(), v.end());
 
-    ll ans = 0;
-    for(auto x:v){
-        if(ans > 1 && x > 1){
-            ans = (ans*x)%mod;
-        }
-        else{
-            ans = (ans+x)%mod;
-        }
+    cout<<"! ";
+    for(int i=1;i<=n;i++){
+        cout<<ans[i]<<" ";
     }
-    cout<<ans%mod<<nl;
+    cout<<endl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -549,7 +560,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    cin >> t;
+    // cin >> t;
     for (int i = 1; i <= t; i++)
     {
         // cout<<"#"<<i<<":";

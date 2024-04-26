@@ -524,23 +524,18 @@ void solve()
     ll n;
     cin>>n;
 
-    vector<ll>v(n);
-    for(int i=0;i<n;i++){
-        cin>>v[i];       
+    vector<ll> arr;
+    inputArr(n,arr);
+    map<ll,ll> mp;
+    for(auto x:arr){
+        mp[x]++;
     }
-
-    sort(v.begin(), v.end());
-
     ll ans = 0;
-    for(auto x:v){
-        if(ans > 1 && x > 1){
-            ans = (ans*x)%mod;
-        }
-        else{
-            ans = (ans+x)%mod;
-        }
+    for(auto x:mp){
+        if(x.second==2)ans++;
     }
-    cout<<ans%mod<<nl;
+
+    cout<<ans<<nl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

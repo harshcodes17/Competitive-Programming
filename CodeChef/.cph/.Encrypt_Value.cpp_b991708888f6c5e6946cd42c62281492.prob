@@ -1,0 +1,1 @@
+{"name":"Local: Encrypt_Value","url":"/home/harshavardhan/Desktop/Competitive-Programming/CodeChef/Encrypt_Value.cpp","tests":[{"id":1714033484885,"input":"2\n4\n4 2 5 2\n3\n1 2 1","output":"80\n4"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/harshavardhan/Desktop/Competitive-Programming/CodeChef/Encrypt_Value.cpp","group":"local","local":true}
