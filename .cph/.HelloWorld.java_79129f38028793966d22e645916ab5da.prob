@@ -1,0 +1,1 @@
+{"name":"Local: HelloWorld","url":"/home/harshavardhan/Desktop/Competitive-Programming/HelloWorld.java","tests":[{"id":1714194145674,"input":"3\n73\n31\n2\n5\n3516\n3982","output":"71\n33\n5\n2\n3912\n3586"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/harshavardhan/Desktop/Competitive-Programming/HelloWorld.java","group":"local","local":true}
