@@ -8,6 +8,7 @@ public class Test{
           Scanner s = new Scanner(System.in);
           int t;
           t = s.nextInt();
+          s.close();
           while(t-->0){
                 int a,b;
                 a = s.nextInt();
