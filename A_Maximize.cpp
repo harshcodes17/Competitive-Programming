@@ -521,7 +521,23 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    
+    ll n;
+    cin >> n;
+
+    ll ans=0;
+    ll ans2=0;
+    for(ll i=1;i<n;i++)
+    {
+        ll t = gcd(n,i)+i;
+        if(t>ans){
+            ans = t;
+            ans2 = i;
+        }
+        
+    }
+    cout<<ans2<<nl;
+
+
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

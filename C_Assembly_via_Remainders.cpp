@@ -521,7 +521,24 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    
+    ll n;cin>>n;
+
+    vector<ll>v(n-1);
+    for(ll i=0;i<n-1;i++) cin>>v[i];
+    ll maxi = *max_element(v.begin(),v.end());
+    vector<ll>ans;
+    ans.push_back(maxi+1);
+
+    for(int i=0;i<n-1;i++){
+        ll temp = (ans.back())+v[i];
+        ans.push_back(temp);
+    }
+    for(auto& x:ans){
+        cout<<x<<" ";
+    }
+    cout<<nl;
+
+
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

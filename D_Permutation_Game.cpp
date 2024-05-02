@@ -519,10 +519,58 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 // -----------> Tatakae Tatakae <----------- //
 
-void solve()
-{
+void solve() {
+    ll n, k, pb, ps;
+    cin >> n >> k >> pb >> ps;
     
+    ll bodya = 0, sasha = 0, bc = 0, sc = 0;
+    vector<ll> a(n), p(n), b, s;
+
+    for (int i = 0; i < n; i++) {
+        cin >> p[i];
+        p[i]--;
+    }
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+
+    vector<bool> buddhi(n), seshu(n);
+    pb--;
+    ps--;
+    while (!buddhi[pb]) {
+        b.emplace_back(a[pb]);
+        buddhi[pb] = true;
+        pb = p[pb];
+    }
+
+    while (!seshu[ps]) {
+        s.emplace_back(a[ps]);
+        seshu[ps] = true;
+        ps = p[ps];
+    }
+
+    
+    for (int i = 0; i < b.size()&&i < k; i++) {
+        bodya=max(bodya,bc+b[i]*(k-i));
+        bc+=b[i];
+    }
+
+    for (int i = 0; i < s.size()&&i < k; i++) {
+        sasha =max(sasha,sc+s[i]*(k-i));
+        sc+=s[i];
+    }
+
+    if(bodya>sasha){
+        cout<<"Bodya"<<nl;
+    }
+    else if(bodya<sasha){
+        cout<<"Sasha"<<nl;
+    }
+    else{
+        cout<<"Draw"<<nl;
+    }
 }
+
 // ----------> 2023 was the warm-up <-----------
 int main()
 {
