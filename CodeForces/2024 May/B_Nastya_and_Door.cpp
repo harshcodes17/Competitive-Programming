@@ -1,8 +1,3 @@
-// 2024-05-05 23:38:33
-// Author : Harshavardhan Bamane
-// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
-// Codeforces: https://codeforces.com/profile/harsh_bamane17
-// Codechef: https://www.codechef.com/users/harsh_bamane17
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long int ll;
@@ -526,7 +521,43 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
+    ll n;
+    cin >> n;
+    ll k;
+    cin>>k;
+
+    vector<ll>v(n);
+
+    for(int i=0;i<n;i++){
+        cin>>v[i];       
+    }
+
+    vector<ll>peaks(n,0);
+
+    for(int i=1;i<n-1;i++){
+        if(v[i]>v[i-1] && v[i]>v[i+1]){
+            peaks[i]=1;
+        }
+    }
     
+    ll maxi = 0;
+    ll cnt =0 ;
+    ll idxans = 0;
+    ll i=1,j=1;
+    while(j<n-1){
+        cnt+=peaks[j];
+
+        if(j-i+1>k-2){
+            cnt-=peaks[i];
+            i++;
+        }
+        if(cnt>maxi){
+            maxi = cnt;
+            idxans = i;
+        }
+        j++;
+    }
+    cout<<maxi+1<<" "<<idxans<<nl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

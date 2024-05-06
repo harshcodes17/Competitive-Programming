@@ -1,8 +1,3 @@
-// 2024-05-05 23:38:33
-// Author : Harshavardhan Bamane
-// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
-// Codeforces: https://codeforces.com/profile/harsh_bamane17
-// Codechef: https://www.codechef.com/users/harsh_bamane17
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long int ll;
@@ -524,8 +519,53 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 // -----------> Tatakae Tatakae <----------- //
 
+bool check(ll mid,vector<ll>&v){
+    ll n = v.size();
+    ll i = n-1;
+    ll a = 1;
+    for(int j=mid-1;j>=0;j--,i--){
+        a&=v[i]>v[j]&&v[i-1]>v[j];
+    }
+    return a;
+}
+
 void solve()
 {
+    ll n;
+    cin>>n;
+    vector<ll>v(n);
+    for(int i=0;i<n;i++){
+        cin>>v[i];       
+    }
+    sort(v.begin(),v.end());
+    ll l=0,r=(n+1)/2-1;
+    ll ans = 0;
+    while(l<=r){
+        ll mid = (l+r)/2;
+
+        if(check(mid,v)){
+            ans = mid;
+            l = mid+1;
+        }
+        else{
+            r = mid-1;
+        }
+    }
+    cout<<ans<<nl;
+    
+    vector<ll>res(n);
+
+    int i = n-1;
+    int j = ans-1;
+    
+    for(int k=0;k<n;k++){
+        
+    }
+
+
+    for(auto& x:res){
+        cout<<x<<" ";
+    }
     
 }
 // ----------> 2023 was the warm-up <-----------
@@ -535,7 +575,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    cin >> t;
+    // cin >> t;
     for (int i = 1; i <= t; i++)
     {
         // cout<<"#"<<i<<":";

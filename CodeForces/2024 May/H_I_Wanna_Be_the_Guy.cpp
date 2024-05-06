@@ -1,4 +1,4 @@
-// 2024-05-05 23:38:33
+// 2024-05-06 10:40:00
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -526,7 +526,30 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
+    ll n;
+    cin>>n;
+
+    ll n1,n2;
+    cin>>n1;
+    vector<ll> a(n1);
+    for(auto &x:a)cin>>x;
+    cin>>n2;
+    vector<ll> b(n2);
+    for(auto &x:b)cin>>x;
     
+    set<ll> s;
+    for(auto x:a){
+        s.insert(x);
+    }
+    for(auto x:b){
+        s.insert(x);
+    }
+    if(s.size()==n){
+        cout<<"I become the guy."<<nl;
+    }
+    else{
+        cout<<"Oh, my keyboard!"<<nl;
+    }
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -535,7 +558,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    cin >> t;
+    // cin >> t;
     for (int i = 1; i <= t; i++)
     {
         // cout<<"#"<<i<<":";

@@ -1,8 +1,3 @@
-// 2024-05-05 23:38:33
-// Author : Harshavardhan Bamane
-// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
-// Codeforces: https://codeforces.com/profile/harsh_bamane17
-// Codechef: https://www.codechef.com/users/harsh_bamane17
 #include <bits/stdc++.h>
 using namespace std;
 typedef long long int ll;
@@ -526,7 +521,22 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    
+    ll n;
+    cin >> n;
+
+    string s;
+    cin >> s;
+    map<ll, ll> mp;
+    mp[0] = 1;
+    ll sum = 0;
+    ll ans=0;
+    for(auto x:s){
+        x = x-'1';
+        sum += x;
+        ans += mp[sum];
+        mp[sum]++;
+    }
+    cout<<ans<<nl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
