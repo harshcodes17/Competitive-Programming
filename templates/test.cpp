@@ -526,7 +526,8 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    
+    cout<<"Hello World\n";
+
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -535,7 +536,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     int t = 1;
-    cin >> t;
+//    cin >> t;
     for (int i = 1; i <= t; i++)
     {
         // cout<<"#"<<i<<":";

@@ -559,7 +559,12 @@ void solve()
     int j = ans-1;
     
     for(int k=0;k<n;k++){
-        
+        if(k%2==0 || j==-1){
+            res[k] = v[i--];
+        }
+        else{
+            res[k]=v[j--];
+        }
     }
 
 
