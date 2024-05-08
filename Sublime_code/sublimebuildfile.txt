@@ -1,0 +1,12 @@
+{
+    "shell_cmd": "g++ -DHarshBamane17 -o ${file_base_name} ${file} && ./${file_base_name} < Input.txt > Output.txt 2> Error.txt && rm -f ${file_base_name}",
+    "working_dir": "${file_path}",
+    "selector": "source.cpp",
+    "variants":
+    [
+        {
+            "name": "Run & Clean",
+            "shell_cmd": "g++ -DHarshBamane17 -o ${file_base_name} ${file} && ./${file_base_name} < Input.txt > Output.txt 2> Error.txt && rm -f ${file_base_name}"
+        }
+    ]
+}
