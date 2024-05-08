@@ -103,47 +103,25 @@ int32_t main()
         ll n;
         cin>>n;
 
-        vector<ll>v;
+        vector<ll>v(n);
         ll ans=0;
-        for(int i=0;i<n;i++)
-        {
-            ll x;cin>>x;
-            if(x==4)
-            {
+        for(int i=0;i<n;i++){
+            ll t;
+            cin>>t;
+            if(t==4){
                 ans++;
             }
-            else
-            {
-                v.push_back(x);
+            else{
+                v.pb(t);
             }
+                 
         }
         sort(v.begin(),v.end());
-        // for(auto x:v)
-        // {
-        //     cout<<x<<" ";
-        // }
-        n=v.size();
-        // cout<<endl;
-        if(n%2==1){
-            for(int i=0;i<=n/2;i++){
-                ll temp = v[i]+v[n-i-1];
-                // cout<<temp<<endl;
-                if(i == n-i-1){
-                    temp/=2;
-                }
-                ans+=(ceil(temp/(double)4));
-            }
+        n = v.size();
+        for(int i=0;i<n;i++){
+            
         }
-        else{
-            for(int i=0;i<n/2;i++){
-                ll temp = v[i]+v[n-i-1];
-                // cout<<temp<<endl;
-                if(i == n-i-1){
-                    temp/=2;
-                }
-                ans+=(ceil(temp/(double)4));
-            }
-        }
+        
         cout<<ans<<endl;
 
     };
