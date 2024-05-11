@@ -1,4 +1,4 @@
-// 2024-05-08 00:20:08
+// 2024-05-10 10:54:43
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,34 +100,81 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-
-        vector<ll>v(n);
-        ll ans=0;
-        for(int i=0;i<n;i++){
-            ll t;
-            cin>>t;
-            if(t==4){
-                ans++;
+        string s1,s2;
+        cin>>s1>>s2;
+        map<char,ll>mp1;
+        map<char,ll>mp2;
+        for(auto x:s1){
+            mp1[x]++;
+        }
+        for(auto x:s2){
+            mp2[x]++;
+        }
+        if(mp1['L']==1&&mp2['L']==0){
+            cout<<">\n";
+            return;
+        }
+        if(mp1['L']==0&&mp2['L']==1){
+            cout<<"<\n";
+            return;
+        }
+        if(mp1['M']==1&&mp2['M']==0){
+            cout<<">\n";
+            return;
+        }
+        if(mp1['M']==0&&mp2['M']==1){
+            cout<<"<\n";
+            return;
+        }
+        if(mp1['L']==mp2['L'] && mp1['L']==1){
+            if(mp1['X']>mp2['X']){
+                cout<<">\n";
+            }
+            else if(mp1['X']<mp2['X']){
+                cout<<"<\n";
             }
             else{
-                v.pb(t);
+                cout<<"=\n";
             }
-                 
+            return;
         }
-        sort(v.begin(),v.end());
-        n = v.size();
-        for(int i=0;i<n;i++){
-            
+        if(mp1['M']==mp2['M']&&mp1['M']==1){
+            if(mp1['X']>mp2['X']){
+                cout<<">\n";
+            }
+            else if(mp1['X']<mp2['X']){
+                cout<<"<\n";
+            }
+            else{
+                cout<<"=\n";
+            }
+            return;
+        }
+        if(mp1['S']==mp2['S'] && mp1['S']==1){
+            if(mp1['X']>mp2['X']){
+                cout<<"<\n";
+            }
+            else if(mp1['X']<mp2['X']){
+                cout<<">\n";
+            }
+            else{
+                cout<<"=\n";
+            }
+            return;
         }
         
-        cout<<ans<<endl;
+        
+        
+        
+        
+        
+
 
     };
 
     int t;
     t=1;
+    cin>>t;
     while(t--)
     {
         solve();
