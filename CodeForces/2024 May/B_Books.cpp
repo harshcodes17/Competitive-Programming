@@ -1,4 +1,4 @@
-// 2024-05-12 10:02:53
+// 2024-05-13 15:34:05
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,28 +100,39 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cin >> s;
-        int n = s.size();
-        ll ans = 0;
+        ll n,tm;
+        cin>>n>>tm;
 
-        for(int i=1;i<n;i++){
-            if(s[i-1]!=s[i]){
-                ans++;
+        vl a(n);
+        cin>>a;
+
+        ll sum=0;
+        ll ans =0;
+        
+        for(int i=0,j=0;i<n && j<n;i++){
+            ll books = i-j+1;
+            sum+=a[i];
+            if(sum<=tm){
+                ans = max(ans,books);
+            }
+            else if(sum>tm){
+                while(sum>tm){
+                    sum-=a[j];
+                    j++;
+                }
+                // books = i-j+1;
+                // ans = max(ans,books);
             }
         }
-        if(s.find("10")!=-1 && s.find("01")==-1){
-            ans++;
-        }
-        cout<<max(1LL,ans)<<endl;
+        cout<<ans;
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();
     }
     return 0;
-}   
+}

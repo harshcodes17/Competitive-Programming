@@ -1,4 +1,4 @@
-// 2024-05-12 10:02:53
+// 2024-05-13 14:31:55
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,28 +100,44 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cin >> s;
-        int n = s.size();
-        ll ans = 0;
+        ll n;
+        cin>>n;
+        ll k;
+        cin>>k;
 
-        for(int i=1;i<n;i++){
-            if(s[i-1]!=s[i]){
-                ans++;
+        vector<ll>v(n);
+        for(int i=0;i<n;i++){
+            cin>>v[i];       
+        }
+        map<ll,ll>mp;
+        ll ans=0;
+        ll u=0;
+        for(int i=0,j=0;i<n;i++){
+            mp[v[i]]++;
+            if(mp[v[i]]==1){
+                u++;
             }
+
+            while(u>k){
+                mp[v[j]]--;
+                if(mp[v[j]]==0){
+                    u--;
+                }
+                j++;
+            }
+            ans+=(i-j+1);
+
         }
-        if(s.find("10")!=-1 && s.find("01")==-1){
-            ans++;
-        }
-        cout<<max(1LL,ans)<<endl;
+        cout<<ans<<nl;
+
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();
     }
     return 0;
-}   
+}

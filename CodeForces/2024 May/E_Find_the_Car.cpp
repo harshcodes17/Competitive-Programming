@@ -80,65 +80,29 @@ ll phin(ll n) {ll number = n; if (n % 2 == 0) {number /= 2; while (n % 2 == 0) n
 ll getRandomNumber(ll l, ll r) {return uniform_int_distribution<ll>(l, r)(rng);} 
 /*--------------------------------------------------------------------------------------------------------------------------*/
 void solve() {  
-        ll n,k;
-        cin>>n>>k;
-        vector<ll>a(n);
-        for(int i=0;i<n;i++){
-            cin>>a[i];
-        }
-        vector<ll>b(n);
-        
-        for(int i=0;i<n;i++){
-            cin>>b[i];
+        int n,k,q;
+        cin>>n>>k>>q;
+        vector<int>a(k),b(k);
+
+        for(int i=0;i<k;i++){
+            cin>>a[i];       
         }
 
-        vector<ll>c(n,1);
-
-        for(int i=1;i<n;i++){
-            if(b[i-1]%b[i]!=0){
-                c[i-1]=0;
-            }
-
+        for(int i=0;i<k;i++){
+            cin>>b[i];       
         }
-        ll sum = 0;
-        ll ans = 0;
-        ll cnt = 1;
-        debug(a);
-        debug(b);
-        for(int i=0,j=0;i<n && j<n;i++){
-            sum+=a[i];
-            debug(sum);
-            debug(i);
-            debug(j);
-            
-
-            if(b[i]%b[i+1]==0){
-                if(sum<=k){
-                    cnt++;
-                    ans = max(cnt,ans);
-                }
-                else{
-                    while(sum>k){
-                        sum-=a[j];
-                        j++;
-                    }
-                }
-            }
-            else{
-                cnt = 1;
-            }
-            debug(cnt);
-            
+        while(q--){
+            int num;
+            cin>>num;
+            int idx = lower_bound(a.begin(),a.end(),num)-a.begin();
+            ll idx2 = idx-1;
+            ll prevDist = idx2 >= 0?a[idx2]:0;
+            ll extraDist = a[idx] - prevDist;
+            ll prevTime = idx2 >= 0?b[idx2]:0;
+            ll extraTime = b[idx] - prevTime;
+            cout << ((num - prevDist)*extraTime)/extraDist + prevTime << " ";
         }
-        if(ans==0){
-            for(int i=0;i<n;i++){
-                if(a[i]<=k){
-                    ans = max(ans,1LL);
-                    break;
-                }
-            }
-        }
-        cout<<ans<<nl;
+        cout<<nl;
 }
 int main() {
 #ifdef HarshBamane17

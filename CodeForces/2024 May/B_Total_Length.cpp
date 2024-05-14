@@ -1,4 +1,4 @@
-// 2024-05-12 10:02:53
+// 2024-05-13 14:58:26
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,28 +100,32 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cin >> s;
-        int n = s.size();
-        ll ans = 0;
+        ll n,maxi;
+        cin>>n>>maxi;
 
-        for(int i=1;i<n;i++){
-            if(s[i-1]!=s[i]){
-                ans++;
+        vl a(n);
+        cin>>a;
+        ll sum=0;
+        ll ans = 0;
+        for(int i=0,j=0;i<n;i++){
+            while(j<n && sum+a[j]<=maxi){
+                sum+=a[j];
+                j++;
             }
+            ll total = j-i;
+            ans+=(total)*(total+1)/2;
+            sum-=a[i];
+            
         }
-        if(s.find("10")!=-1 && s.find("01")==-1){
-            ans++;
-        }
-        cout<<max(1LL,ans)<<endl;
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();
     }
     return 0;
-}   
+}

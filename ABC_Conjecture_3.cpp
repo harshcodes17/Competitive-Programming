@@ -1,4 +1,4 @@
-// 2024-05-08 21:33:54
+// 2024-05-12 10:23:51
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -526,42 +526,6 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    ll n;
-    cin>>n;
-    string s;
-    cin>>s;
-    ll as = 0;
-    ll bs = 0;
-    ll cs=0;
-    map<char,ll> mp;
-    for(int i=0;i<n;i++){
-        mp[s[i]]++;
-    }
-
-    ll ans = 0;
-    as = s.find('a');
-    bs = s.find('b');
-    cs = s.find('c');
-    if(as==-1||bs==-1||cs==-1){
-        cout<<0<<nl;
-        return;
-    }
-    if(as<bs && bs<<cs){
-        for(int i=0;i<n;i++){
-        if(s[i]=='a'){
-            ans = min(mp['b'],mp['c']);
-            break;
-        }
-        else{
-            mp[s[i]]--;
-        }
-    }
-    ans = min(ans,mp['a']);
-    cout<<ans<<nl;
-    }
-    else{
-        cout<<0<<nl;
-    }
     
 }
 // ----------> 2023 was the warm-up <-----------
