@@ -27,8 +27,7 @@ using namespace __gnu_pbds;
 #define mp make_pair
 #define ff first
 #define ss second
-#define py cout<<"YES"<<endl
-#define pn cout<<"NO"<<endl
+
 #define PI 3.141592653589793238462
 #define set_bits __builtin_popcountll
 #define sz(x) ((int)(x).size())
@@ -254,49 +253,33 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 void solve(){
     ll n;
         cin>>n;
+
         string s;
         cin>>s;
-        sort(s.begin(),s.end());
-        ll e,st,nt,w;
-        e = count(s.begin(),s.end(),'E');
-        st = count(s.begin(),s.end(),'S');
-        nt = count(s.begin(),s.end(),'N');
-        w = count(s.begin(),s.end(),'W');
-        if(n==2){
-            if(e==1||w==1||st==1||nt==1){
-                pn;
-            }
-            return;
+        set<char>s1;
+        for(int i=0;i<n;i++)
+        {
+            s1.insert(s[i]);
         }
-        ll cpe = e;
-        ll cpw = w;
-        ll cps = st;
-        ll cpn = nt;
+        string ans = "";
+        string dist = "";
+        for(auto x:s1){
+            dist+=x;
+        }
+        debug(s1);
+        debug(dist);
+        map<char,char>mp;
+        ll sz = s1.size();
+        for(int i=0;i<sz;i++){
+            mp[dist[i]] = dist[sz-i-1];
+        }
+        debug(mp);
 
-        if(cpe>cpw){
-            cpe-=cpw;
-            cpw=0;
+        for(auto x:s){
+            ans+=mp[x];
         }
-        else{
-            cpw-=cpe;
-            cpe=0;
-        
-        }
-
-        if(cps>cpn){
-            cps-=cpn;
-            cpn=0;
-        }
-        else{
-            cpn-=cps;
-            cps=0;
-        }
-
-        if(cpe%2==1 || cpw%2==1 || cps%2==1 || cpn%2==1){
-            pn;
-            return;
-        }
-        debug(s);
+        debug(ans);
+        cout<<ans<<nl;
 }
 
 int main()

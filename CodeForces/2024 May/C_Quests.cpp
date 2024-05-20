@@ -1,4 +1,4 @@
-// 2024-05-19 15:18:46
+// 2024-05-16 23:05:24
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -526,7 +526,28 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 
 void solve()
 {
-    
+    ll n,k;
+    cin>>n>>k;
+    vector<ll>a(n);
+    for(int i=0;i<n;i++){
+        cin>>a[i];       
+    }
+    vector<ll>b(n);
+    for(int i=0;i<n;i++){
+        cin>>b[i];       
+    }
+    ll ans = 0;
+    ll maxi = 0;
+    ll sum = 0;
+    for(int i=0;i<n;i++){
+        if(i+1>k){
+            break;
+        }
+        sum+=a[i];
+        maxi = max(maxi,b[i]);
+        ans = max(ans,sum+maxi*(k-i-1));
+    }
+    cout<<ans<<nl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()

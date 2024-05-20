@@ -1,15 +1,7 @@
-a [ 7 9 10 ]
-b [ 2 2 4 ]
-sum 7
-i 0
-j 0
-cnt 2
-sum 16
-i 1
-j 0
-cnt 1
-sum 26
-i 2
-j 0
-cnt 1
+s EENNNS
+s ENSSSW
+s NNSS
+s ENSW
+s ENNW
+s EEWW
 Time: 0

@@ -1,0 +1,1 @@
+{"name":"Local: test","url":"/home/harsh/Desktop/Competitive-Programming/test.cpp","tests":[{"id":1715784473067,"input":"bank\nkanb","output":"1"},{"id":1715959090198,"input":"abscd \nadcvsdf","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/harsh/Desktop/Competitive-Programming/test.cpp","group":"local","local":true}
