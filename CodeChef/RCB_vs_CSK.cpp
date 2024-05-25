@@ -1,4 +1,4 @@
-// 2024-05-20 22:15:42
+// 2024-05-24 10:15:05
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -99,41 +99,21 @@ int32_t main()
 {
     fastio()
     
-    auto solve = [&](){
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    for (auto &x : v)
-        cin >> x;
-
-    vector<tuple<ll, ll, ll>> triples;
-    for (int i = 0; i < n - 2; i++)
-    {
-        triples.push_back(make_tuple(v[i], v[i + 1], v[i + 2]));
-    }
-
-    map<ll, ll> mp1, mp2, mp3;
-    for (auto &triple : triples)
-    {
-        mp1[get<0>(triple)]++;
-        mp2[get<1>(triple)]++;
-        mp3[get<2>(triple)]++;
-    }
-
-    ll ans = 0;
-    for (auto &triple : triples)
-    {
-        ans += mp1[get<1>(triple)] + mp1[get<2>(triple)] - (get<0>(triple) == get<1>(triple) || get<0>(triple) == get<2>(triple));
-        ans += mp2[get<0>(triple)] + mp2[get<2>(triple)] - (get<1>(triple) == get<0>(triple) || get<1>(triple) == get<2>(triple));
-        ans += mp3[get<0>(triple)] + mp3[get<1>(triple)] - (get<2>(triple) == get<0>(triple) || get<2>(triple) == get<1>(triple));
-    }
-
-    cout << ans / 2 << "\n";
-};
+    auto solve = [&] () {
+        ll a,b;
+        cin>>a>>b;
+        ll diff = a-b;
+        if(diff>=18){
+            cout<<"RCB\n";
+        }
+        else{
+            cout<<"CSK\n";
+        }
+    };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();

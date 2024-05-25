@@ -252,60 +252,28 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 
 
 void solve(){
-    ll n;
+     ll n;
         cin>>n;
-        vector<ll> v(n);
-        for(int i=0;i<n;i++){
-            cin>>v[i];
-        }
         string s;
-        cin>>s;
-
-        map<char,vector<ll>> mp;
-
         for(int i=0;i<n;i++){
-            mp[s[i]].pb(v[i]);
+            cin>>s; 
+        }
+        string asc = s;
+        sort(asc.begin(),asc.end());
+        string desc = s;
+        sort(desc.rbegin(),desc.rend());
+
+        s+=s;
+        debug(s);
+        debug(asc);
+        debug(desc);
+        if(s.find(asc)!=string::npos || s.find(desc)!=string::npos){
+            cout<<"YES"<<endl;
+        }
+        else{
+            cout<<"NO"<<endl;
         }
 
-        for(auto &it:mp){
-            sort(it.second.begin(),it.second.end());
-        }
-        debug(n);
-        debug(mp);
-        ll fh = mp['B'].size();
-        ll sh = n-fh;
-        vector<ll>first;
-        for(int i=1;i<=fh;i++){
-            first.push_back(i);
-        }
-        debug(sh);
-        vector<ll>second;
-        for(int i=fh+1;i<=n;i++){
-            second.push_back(i);
-        }
-        debug(first);
-        debug(mp['B']);
-        vector<ll>b = mp['B'];
-        debug(second);
-        debug(mp['R']);
-        vector<ll>r = mp['R'];
-
-        for(int i=0;i<fh;i++){
-            if(b[i]<first[i]){
-                cout<<"NO\n";
-                return;
-            }
-        }
-        for(int i=0;i<sh;i++){
-            if(r[i]>second[i]){
-                cout<<"NO\n";
-                return;
-            }
-        }
-
-        cout<<"YES\n";
-
-        
 }
 
 int main()
