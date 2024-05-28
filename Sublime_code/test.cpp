@@ -254,26 +254,35 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 void solve(){
      ll n;
         cin>>n;
-        string s;
-        for(int i=0;i<n;i++){
-            cin>>s; 
-        }
-        string asc = s;
-        sort(asc.begin(),asc.end());
-        string desc = s;
-        sort(desc.rbegin(),desc.rend());
-
-        s+=s;
-        debug(s);
-        debug(asc);
-        debug(desc);
-        if(s.find(asc)!=string::npos || s.find(desc)!=string::npos){
-            cout<<"YES"<<endl;
-        }
-        else{
-            cout<<"NO"<<endl;
+        bitset<32>b(n);
+        vector<ll>ans(32,0);
+        for(int i=0;i<32;i++){
+            ans[i]=b[i];
         }
 
+        debug(ans);
+
+        for(int i=0;i<31;i++){
+
+            for(int i=29;i>=0;i--){
+                if((ans[i])+(ans[i+1])==2){
+                    ans[i+1] = 0;
+                    ans[i] = -1;
+                    ans[i+2] = 1;
+                }
+                else if(ans[i+1]==-1 && ans[i]==1){
+                    ans[i+1]=0;
+                    ans[i]=-1;
+                }
+                // debug(ans);
+            }
+        }
+
+        cout<<ans.size()<<nl;
+        for(auto x:ans){
+            cout<<x<<" ";
+        }
+        cout<<nl;
 }
 
 int main()
