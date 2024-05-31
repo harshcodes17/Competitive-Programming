@@ -1,4 +1,4 @@
-// 2024-05-29 19:55:28
+// 2024-05-30 20:06:16
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,7 +100,46 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        
+        ll n;
+        cin>>n;
+        string s;
+        cin>>s;
+
+        for(int i=1;i<n;i++){
+            if(s[i]>='0' && s[i]<='9'){
+                if(s[i-1]>='a' && s[i-1]<='z'){
+                    cout<<"No"<<endl;
+                    return;
+                }
+            }
+        }
+
+        string nums;
+
+        for(auto x:s){
+            if(x>='0'&&x<='9'){
+                nums+=x;
+            }
+        }
+        string numsc = nums;
+        sort(all(numsc));
+        if(numsc!=nums){
+            cout<<"No"<<endl;
+            return;
+        }
+        string chars;
+        for(auto x:s){
+            if(x>='a'&& x<='z'){
+                chars+=x;
+            }
+        }
+        string charsc = chars;
+        sort(all(charsc));
+        if(charsc!=chars){
+            cout<<"No"<<endl;
+            return;
+        }
+        cout<<"Yes\n";
     };
 
     int t;

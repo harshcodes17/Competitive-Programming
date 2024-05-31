@@ -1,4 +1,4 @@
-// 2024-05-29 19:55:28
+// 2024-05-28 23:31:44
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,12 +100,52 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
+        ll n,k;
+        cin>>n>>k;
+
+        vl v(n);
+        for(int i=0;i<n;i++){
+            cin>>v[i];       
+        }
+        map<ll,ll>mp;
+        for(auto x:v){
+            mp[x]++;
+        }
+        ll ans1=0,ans2=0;
+        ll sec = 0;
+        ll f = 0;
+        for(int i=0;i<n;i++){
+            if(mp[k-v[i]]){
+
+                if(k-v[i]==v[i] && mp[v[i]]==1){
+                    continue;
+                }
+                f = 1;
+                ans1=i+1;
+                sec = k-v[i];
+                break;
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(v[i]==sec && i!=ans1-1){
+                ans2 = i+1;
+                break;
+            }
+        }
+        if(f && ans1!=ans2){
+
+        cout<<ans1<<" "<<ans2<<nl;
+        }
+        else{
+            cout<<"IMPOSSIBLE"<<nl;
         
+        }
+
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();

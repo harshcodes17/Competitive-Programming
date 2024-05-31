@@ -1,4 +1,4 @@
-// 2024-05-28 23:02:51
+// 2024-05-31 10:28:49
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,35 +102,22 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        for(auto &x:v){
-            cin>>x;
-        }
-        map<ll,ll>mp;
+        if (n<=6)
+        cout<<15<<endl;
+        else if (n%6==0)
+        cout<<(n/6)*15<<endl;
+        else if (n%6<=2)
+        cout<<((n/6)-1)*15+20<<endl;
+        else if (n%6<=4)
+        cout<<((n/6)-1)*15+25<<endl;
+        else if (n%6==5)
+        cout<<(n/6+1)*15<<endl;
 
-        for(auto x:v)
-        {
-            mp[x]++;
-        }
-        ll maxi = 0;
-        ll ch = 0;
-        for(auto x:mp){
-            if(x.second>maxi){
-                ch = x.first;
-                maxi = x.second;
-            }
-        }
-        ll ans = 0;
-        // cout<<ch<<nl;
-        for(auto x:v){
-            ans+=abs(x-ch);
-        }
-        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

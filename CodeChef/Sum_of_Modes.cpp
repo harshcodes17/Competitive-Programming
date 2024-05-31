@@ -1,4 +1,4 @@
-// 2024-05-29 19:55:28
+// 2024-05-30 10:03:01
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,11 +95,52 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+ll subarray_sum(ll l,ll r,vl &pre){
+    return pre[r]-(l>0?pre[l-1]:0);
+}
+
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
+        ll n;
+        cin>>n;
+        ll total = n*(n+1)/2;
+        string s;
+        cin>>s;
+
+        vl v(n);
+
+        for(int i=0;i<n;i++){
+            v[i]=s[i]-'0';       
+        }
+        for(auto &x : v){
+            if(x==0){
+                x = -1;
+            }
+        }
+
+        vl pre(n);
+        pre[0] = v[0];
+        for(int i=1;i<n;i++){
+            pre[i] = pre[i-1]+v[i];
+        }
+        map<ll,ll> mp;
+        ll ans = 0;
+        for(auto x:pre){
+            mp[x]++;
+        }
+
+        for(auto x:mp){
+            
+                ans+=((x.s)*(x.s-1))/2;
+            
+        }
+        ans+=mp[0];
+
+        cout<<ans+total<<nl;
         
     };
 

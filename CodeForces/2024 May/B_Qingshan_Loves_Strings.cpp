@@ -1,4 +1,4 @@
-// 2024-05-29 19:55:28
+// 2024-05-29 21:20:15
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,12 +95,46 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+bool check(string s){
+    ll n = s.size();
+
+    for(int i=1;i<n;i++){
+        if(s[i-1]==s[i]){
+            return false;
+        }
+    }
+    return true;
+}
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        
+        ll n,m;
+        cin>>n>>m;
+
+        string s,t;
+        cin>>s;
+        cin>>t;
+
+        if(check(s)==false && check(t)==false){
+            cout<<"No\n";
+        }
+        else{
+            char c1 = t[0];
+            char c2 = t[m-1];
+            // cout<<c1<<" "<<c2<<nl;
+            for(int i=1;i<n;i++){
+                if(s[i-1]==s[i] && (s[i-1]==c1 || s[i]==c2)){
+                    cout<<"No\n";
+                    return;
+                }
+            }
+            cout<<"Yes\n";
+        }
+
+
     };
 
     int t;

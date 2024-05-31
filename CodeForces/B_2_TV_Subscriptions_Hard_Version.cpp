@@ -1,4 +1,4 @@
-// 2024-05-29 19:55:28
+// 2024-05-31 08:54:52
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,7 +100,36 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
+         ll n,k,d;
+        cin>>n>>k>>d;
+
+        vl v(n);
+        cin>>v;
+
+        map<ll,ll>mp;
+        ll ans = INT_MAX;
+        ll i = 0,j=0;
+        ll cnt = 0;
+        while(j<n){
+            mp[v[j]]++;
+            if(mp[v[j]]==1){
+                cnt++;
+            }
+            if((j-i+1)>d){
+                mp[v[i]]--;
+                if(mp[v[i]]==0){
+                    cnt--;
+                }
+                i++;
+            }
+            if((j-i+1)==d){
+                ans = min(ans,cnt);
+            }
+            j++;
+        }
         
+        // debug(ans);
+        cout<<ans<<nl;
     };
 
     int t;

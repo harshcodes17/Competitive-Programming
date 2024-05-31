@@ -1,4 +1,4 @@
-// 2024-05-29 19:55:28
+// 2024-05-28 23:02:51
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,12 +100,31 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        
+        ll n;
+        cin>>n;
+        vl v(n);
+        for(auto &x:v){
+            cin>>x;
+        }
+
+        ll median = 0;
+
+        sort(all(v));
+        if(n%2==0){
+            median = v[n/2-1];
+        }else{
+            median = v[n/2];
+        }    
+        ll ans = 0;
+        for(auto x:v){
+            ans+=abs(x-median);
+        }
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();

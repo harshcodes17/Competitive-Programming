@@ -102,28 +102,44 @@ int32_t main()
     auto solve = [&] () {
         string s;
         cin>>s;
-        string s1 = s;
-        for(auto &x:s1){
-            x = x%2;
+        string odds,evens;
+        for(auto x:s){
+            if((x&1)){
+                odds+=x;
+            }
+            else{
+                evens+=x;
+            }
         }
-        ll i=0,j=0;
 
-        while(j<s.size() && i<s.size()){
-            if(s1[i]!=s1[j]){
-                if(s[j]<s[i]){
-                    swap(s[i],s[j]);
-                    swap(s1[i],s1[j]);
-
-                }
+        string ans;
+        int i=0,j=0;
+        ll o = odds.size();
+        ll e = evens.size();
+        while(i<o && j<e){
+            if(odds[i]<evens[j]){
+                ans+=odds[i];
                 i++;
             }
             else{
+                ans+=evens[j];
                 j++;
             }
         }
-        cout<<s<<nl;
-
-
+        if(i==o){
+            while(j<e){
+                ans+=evens[j];
+                j++;
+            }
+        }
+        else{
+            while(i<o){
+                ans+=odds[i];
+                i++;
+            }
+        
+        }
+        cout<<ans<<nl;
     };
 
     int t;

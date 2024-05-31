@@ -1,4 +1,4 @@
-// 2024-05-29 19:55:28
+// 2024-05-29 20:04:20
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,7 +100,28 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        
+        string s;
+        cin>>s;
+        ll cnt = count(s.begin(),s.end(),'1');
+        if(cnt==1){
+            cout<<11<<nl;
+            return;
+        }
+        else if(cnt==2){
+            if((s[0]=='1' && s[1]=='1')||(s[2]=='1' && s[3]=='1') ){
+                cout<<21<<nl;
+                return;
+            }
+            else{
+                cout<<121<<nl;
+            }
+        }
+        else if(cnt==3){
+            cout<<231<<nl;
+        }
+        else{
+            cout<<441<<nl;
+        }
     };
 
     int t;

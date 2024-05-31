@@ -43,11 +43,13 @@ using namespace __gnu_pbds;
 #define debug(x) ;
 #endif
 
+
 typedef long long ll;
 typedef unsigned long long ull;
 typedef long double lld;
 typedef __int128 ell;
 typedef tree<pair<ll, ll>, null_type, less<pair<ll, ll>>, rb_tree_tag, tree_order_statistics_node_update> pbds; // find_by_order, order_of_key
+typedef vector<ll> vl;
 
 void _print(ll t) { cerr << t; }
 void _print(int t) { cerr << t; }
@@ -98,6 +100,12 @@ void _print(set<T> v)
     }
     cerr << "]";
 }
+
+
+template<typename T> // cin >> vector<T>
+istream& operator>>(istream &istream, vector<T> &v){for (auto &it : v)cin >> it;return istream;}
+
+
 template <class T>
 void _print(multiset<T> v)
 {
@@ -252,37 +260,37 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 
 
 void solve(){
-     ll n;
-        cin>>n;
-        bitset<32>b(n);
-        vector<ll>ans(32,0);
-        for(int i=0;i<32;i++){
-            ans[i]=b[i];
-        }
+   ll n,k,d;
+        cin>>n>>k>>d;
 
-        debug(ans);
+        vl v(n);
+        cin>>v;
 
-        for(int i=0;i<31;i++){
-
-            for(int i=29;i>=0;i--){
-                if((ans[i])+(ans[i+1])==2){
-                    ans[i+1] = 0;
-                    ans[i] = -1;
-                    ans[i+2] = 1;
-                }
-                else if(ans[i+1]==-1 && ans[i]==1){
-                    ans[i+1]=0;
-                    ans[i]=-1;
-                }
-                // debug(ans);
+        map<ll,ll>mp;
+        ll ans = INT_MAX;
+        ll i = 0,j=0;
+        ll cnt = 0;
+        while(j<n){
+            mp[v[j]]++;
+            if(mp[v[j]]==1){
+                cnt++;
             }
+            if((j-i+1)>d){
+                mp[v[i]]--;
+                if(mp[v[i]]==0){
+                    cnt--;
+                }
+                i++;
+            }
+            if((j-i+1)==d){
+                ans = min(ans,cnt);
+            }
+            j++;
         }
+        
+        debug(ans);
+        cout<<ans<<endl;
 
-        cout<<ans.size()<<nl;
-        for(auto x:ans){
-            cout<<x<<" ";
-        }
-        cout<<nl;
 }
 
 int main()
