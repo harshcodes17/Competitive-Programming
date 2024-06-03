@@ -1,4 +1,4 @@
-// 2024-06-01 09:32:28
+// 2024-06-02 20:49:58
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,18 +102,35 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        string s;
-        cin>>s;
-        if(!is_sorted(all(s)))
+        if(n==2){
+            cout<<2<<nl;
+            return;
+        }
+        vl v;
+        ll temp = 2;
+        for(int i=1;i<=n;i++)
         {
-            out("NO");
-            return;
+            v.pb(temp);
+            temp*=2;
         }
-        else{
-            out("YES");
-            return;
-        
+        // cout<<v<<nl;
+        ll dif1 = v[n-1];
+        ll cnt = 1;
+        for(int i=0;i<n;i++){
+            if(cnt == n/2){
+                break;
+            }
+            else{
+                dif1 += v[i];
+                cnt++;
+            }
         }
+        ll dif2 = 0;
+        for(int i=(n/2)-1;i<n-1;i++){
+            dif2 += v[i];
+        }
+        // cout<<dif1<<" "<<dif2<<nl;
+        cout<<abs(dif1-dif2)<<nl;
     };
 
     int t;

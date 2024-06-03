@@ -1,4 +1,4 @@
-// 2024-06-01 09:32:28
+// 2024-05-31 15:41:18
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,20 +100,10 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        string s;
-        cin>>s;
-        if(!is_sorted(all(s)))
-        {
-            out("NO");
-            return;
-        }
-        else{
-            out("YES");
-            return;
+        ll a,b;
+        cin>>a>>b;
         
-        }
+        cout<<(ll)(log2(b))<<nl;
     };
 
     int t;

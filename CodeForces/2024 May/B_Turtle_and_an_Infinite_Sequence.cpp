@@ -1,4 +1,4 @@
-// 2024-06-01 09:32:28
+// 2024-05-31 17:21:05
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,25 +95,39 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+ll range_bitwise_or(ll a, ll b) {
+    if (a == b) {
+        return a;
+    }
+    ll result = a | b;
+    ll mask = 1;
+    while (mask <= b - a) {
+        result |= mask;
+        mask <<= 1;
+    }
+    return result;
+}
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        string s;
-        cin>>s;
-        if(!is_sorted(all(s)))
-        {
-            out("NO");
-            return;
-        }
-        else{
-            out("YES");
-            return;
-        
-        }
+        ll n, m;
+    cin >> n >> m;
+
+    if (m == 0) {
+        cout << n << nl;
+        return;
+    }
+
+    ll mini = max(0LL, n - m);
+    ll maxi = n + m;
+
+    ll ans = range_bitwise_or(mini, maxi);
+    
+
+    cout << ans << nl;
     };
 
     int t;

@@ -1,4 +1,4 @@
-// 2024-06-01 09:32:28
+// 2024-06-02 19:50:08
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,21 +100,32 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        string s;
-        cin>>s;
-        if(!is_sorted(all(s)))
-        {
-            out("NO");
+    ll n;
+    cin >> n;
+
+    vl v(n);
+    cin >> v;
+
+    map<ll,ll> mp;
+    for(auto x : v) {
+        mp[x]++;
+    }
+
+    vector<ll> ms;
+    for(auto x : mp) {
+        ms.pb(x.second);
+    }
+
+    sort(all(ms));
+    ll minFreq = ms[0];
+    for(int i = 1; i < ms.size(); i++) {
+        if(ms[i] % minFreq != 0) {
+            cout << "No\n";
             return;
         }
-        else{
-            out("YES");
-            return;
-        
-        }
-    };
+    }
+    cout << "Yes\n";
+};
 
     int t;
     t=1;

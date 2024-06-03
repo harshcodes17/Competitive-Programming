@@ -1,5 +1,6 @@
-ans 2
-ans 1
-ans 4
-ans 5
+ans 15
+ans 31
+ans 63
+ans 127
+ans 255
 Time: 0
