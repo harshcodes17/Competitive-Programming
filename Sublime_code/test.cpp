@@ -260,35 +260,36 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 
 
 void solve(){
-    
-    ll n,m;
-        cin>>n>>m;
+    ll n;
+        cin >> n;
+        vl v(n),p(n);
+        cin >> v >> p;
 
-        if(m==0){
-            cout<<n<<nl;
+        int check1 = 0;
+        int check2 = n - 1;
+        vl vis(n,0);
+        int i = 0;
+        while (i < n - 1 && v[i] + p[i] >= v[i + 1]) {
+            vis[i]=1;
+            vis[i+1] = 1;
+            ++i;
         }
-        else{
-            if(n==0){
-                cout<<pow(2,m)-1<<nl;
-            }
-            else{
-                ll ans = n-1;
-                ans|=n;
-                ans|=n+1;
-                if(m==1){
-                    cout<<ans<<nl;
-                    return;
-                }
-                m--;
-                while(m--){
+        check1 = i;
+        int j = n - 1;
+        while (j > 0 && v[j] - p[j] <= v[j - 1]) {
+            vis[j] = 1;
+            vis[j-1]=1;
+            --j;
+        }
+        check2 = j;
+        debug(check1);
+        debug(check2);
+        debug(vis);
+        if(check1<=check2){
+            cout<<"YES\n";
+            return;
+        }
 
-                    ans = ans|(ans+1);
-                    debug(ans);
-                }
-                cout<<ans<<nl;
-            }
-            
-        }
 }
 
 int main()

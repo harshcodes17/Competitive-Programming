@@ -1,4 +1,4 @@
-// 2024-06-04 10:28:01
+// 2024-06-06 20:06:53
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -104,27 +104,20 @@ int32_t main()
         cin>>n;
         vl v(n);
         cin>>v;
-        sort(v.begin(),v.end());
-        ll ans = 0;
-        float median = 0;
-        if(n%2==0){
-            median = (((n/2)-1)+((n/2)))/2;
-        }
-        else{
-            median = (n/2);
-        }
-        
-        for(auto x:v){  
-            ans+=(abs(x-v[median]));
-        }
-        cout<<ans;
 
+        vl maxi;
 
+        for(int i=1;i<n;i++){
+            ll temp = max(v[i],v[i-1]);
+            maxi.pb(temp);
+        }
+        ll ans = *min_element(maxi.begin(),maxi.end());
+        cout<<ans-1<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

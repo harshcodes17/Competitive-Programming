@@ -1,4 +1,4 @@
-// 2024-06-04 10:28:01
+// 2024-06-05 20:33:27
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,31 +100,45 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
+        ll n,k;
+        cin>>n>>k;
+
         vl v(n);
         cin>>v;
-        sort(v.begin(),v.end());
-        ll ans = 0;
-        float median = 0;
-        if(n%2==0){
-            median = (((n/2)-1)+((n/2)))/2;
-        }
-        else{
-            median = (n/2);
-        }
-        
-        for(auto x:v){  
-            ans+=(abs(x-v[median]));
-        }
-        cout<<ans;
 
+        ll ans = 0;
+
+        ll mini = INT_MAX;
+
+        for(int i=0;i<n;i++){
+            ll sum = 0;
+            ll temp = v[i];
+            v[i] = 1;
+            for(int j=1;j<n;j++){
+                ll diff = abs(v[j-1]-v[j]);
+                sum+=diff;
+                ans = max(ans,sum);
+            }
+            v[i] = temp;
+        }
+        for(int i=0;i<n;i++){
+            ll sum = 0;
+            ll temp = v[i];
+            v[i] = k;
+            for(int j=1;j<n;j++){
+                ll diff = abs(v[j-1]-v[j]);
+                sum+=diff;
+                ans = max(ans,sum);
+            }
+            v[i] = temp;
+        }
+        cout<<ans<<nl;
 
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

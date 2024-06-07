@@ -1,4 +1,4 @@
-// 2024-06-04 10:28:01
+// 2024-06-03 20:32:16
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,29 +102,43 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        sort(v.begin(),v.end());
-        ll ans = 0;
-        float median = 0;
-        if(n%2==0){
-            median = (((n/2)-1)+((n/2)))/2;
-        }
-        else{
-            median = (n/2);
-        }
-        
-        for(auto x:v){  
-            ans+=(abs(x-v[median]));
-        }
-        cout<<ans;
+        vl a(n);
+        cin>>a;
+        vl b(n);
+        cin>>b;
+        ll modi;
+        cin>>modi;
+        vl dj(modi);
+        cin>>dj;
 
+        map<ll,ll>mp1;
+        map<ll,ll>mp2;
 
+        for(int i=0;i<n;i++){
+            if(a[i]!=b[i]){
+                mp1[b[i]]++;
+            }
+        }
+        for(auto x:dj){
+            mp2[x]++;
+        }
+        for(auto x:mp1){
+            if(mp2[x.first]<x.second){
+                cout<<"NO\n";
+                return;
+            }
+        }
+        ll last = dj[modi-1];
+        if(count(all(b),last)==0){
+            cout<<"NO\n";
+            return;
+        }
+        cout<<"YES\n";
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

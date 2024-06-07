@@ -1,4 +1,4 @@
-// 2024-06-04 10:28:01
+// 2024-06-06 20:16:25
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,36 +95,38 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+ll zeros(ll k){
+            if(k==0) return 32;
+            int cnt = 0;
+            while(((k&1 )== 0)){
+                cnt++;
+                k>>=1;
+            }
+    return cnt;
+}
+
 int32_t main()
 {
     fastio()
     
+    
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
-        sort(v.begin(),v.end());
-        ll ans = 0;
-        float median = 0;
-        if(n%2==0){
-            median = (((n/2)-1)+((n/2)))/2;
-        }
-        else{
-            median = (n/2);
-        }
+        ll x,y;
+        cin>>x>>y;
+        ll xorr = x^y;
+        // cout<<xorr<<nl;
+        // ll andi = x&y;
+        // cout<<andi<<nl;
+        ll ans = zeros(xorr);
+        ll res = (1<<ans);
+        cout<<res<<nl;
         
-        for(auto x:v){  
-            ans+=(abs(x-v[median]));
-        }
-        cout<<ans;
-
 
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

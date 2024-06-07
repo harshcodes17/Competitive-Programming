@@ -1,4 +1,4 @@
-// 2024-06-04 10:28:01
+// 2024-06-03 21:09:11
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -104,27 +104,52 @@ int32_t main()
         cin>>n;
         vl v(n);
         cin>>v;
-        sort(v.begin(),v.end());
-        ll ans = 0;
-        float median = 0;
-        if(n%2==0){
-            median = (((n/2)-1)+((n/2)))/2;
-        }
-        else{
-            median = (n/2);
-        }
-        
-        for(auto x:v){  
-            ans+=(abs(x-v[median]));
-        }
-        cout<<ans;
 
+        vl gc;
 
+        for(int i=1;i<n;i++){
+            ll temp = gcd(v[i],v[i-1]);
+            gc.pb(temp);
+        }
+        vl idx;
+
+        for(int i=1;i<gc.size();i++){
+            if(gc[i]>gc[i-1]){
+                idx.pb(i);
+            }
+        }
+        if(idx.size()>1){
+           cout<<"NO"<<nl;
+            return;
+        }
+        ll l = idx[0];
+        if(l==0 || is_sorted(gc.begin()+1,gc.end())){
+            cout<<"YES"<<nl;
+            return;
+        }
+        if(l==n-2){
+            if(is_sorted(gc.begin(),gc.end()-1)){
+                cout<<"YES"<<nl;
+                return;
+            }
+            
+        }
+        if(l>0 && l<n-2){
+            ll temp = gcd(v[l],v[l+2]);
+            vl t = gc;
+            t[l] = temp;
+            t.erase(t.begin()+l+1);
+            if(is_sorted(t.begin(),t.end())){
+                cout<<"YES"<<nl;
+                return;
+            }
+        }
+        cout<<"NO"<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

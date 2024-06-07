@@ -1,4 +1,4 @@
-// 2024-06-04 10:28:01
+// 2024-06-03 20:06:09
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,29 +102,31 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        sort(v.begin(),v.end());
+        ll m;
+        cin>>m;
+        string s;
+        cin>>s;
+
+        map<char,ll>mp;
+
+        for(auto x:s){
+            mp[x]++;
+        }
         ll ans = 0;
-        float median = 0;
-        if(n%2==0){
-            median = (((n/2)-1)+((n/2)))/2;
+        for(auto x:mp){
+            if(x.second<m){
+                ans+= m-x.second;
+            }
         }
-        else{
-            median = (n/2);
+        if(mp.size()<7){
+            ans+=(7-mp.size())*m;
         }
-        
-        for(auto x:v){  
-            ans+=(abs(x-v[median]));
-        }
-        cout<<ans;
-
-
+        cout<<ans<<endl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

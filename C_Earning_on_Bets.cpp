@@ -1,4 +1,4 @@
-// 2024-06-04 10:28:01
+// 2024-06-07 09:52:11
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,36 +95,63 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+bool checker(ll mid, const vl &v) {
+    ll sum = 0;
+    vl mul(v.size());
+
+    for (int i = 0; i < v.size(); ++i) {
+        mul[i] = (mid + v[i] - 1) / v[i];
+        sum += mul[i];
+    }
+
+    for (int i = 0; i < v.size(); ++i) {
+        if (mul[i] * v[i] <= sum) {
+            return false;
+        }
+    }
+    return true;
+}
+
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
+
+        // inputing the values
+         ll n;
+        cin >> n;
         vl v(n);
-        cin>>v;
-        sort(v.begin(),v.end());
-        ll ans = 0;
-        float median = 0;
-        if(n%2==0){
-            median = (((n/2)-1)+((n/2)))/2;
-        }
-        else{
-            median = (n/2);
-        }
-        
-        for(auto x:v){  
-            ans+=(abs(x-v[median]));
-        }
-        cout<<ans;
+        for (ll &x : v) cin >> x;
 
+        //calulating the lcm
+        ll lcmm=v[0];
+        for(auto x:v){
+            lcmm = lcm(lcmm,x);
+        }
+        ll add =0 ;
+        // formula
+        for(int i=1;i<n;i++){
+            add+=lcmm/v[i];
+        }
+        vl ans(n);
+        // counting freeq of zeros
+        if(count(all(ans),0)==n){
+            cout<<-1<<endl;
+            return;
+        }
 
+        // print the answer
+        for(auto x:ans){
+            cout<<x<<" ";
+        }   
+        cout<<"\n";
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

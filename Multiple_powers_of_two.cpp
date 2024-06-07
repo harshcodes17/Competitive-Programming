@@ -1,4 +1,4 @@
-// 2024-06-04 10:28:01
+// 2024-06-04 09:44:00
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -101,25 +101,24 @@ int32_t main()
     
     auto solve = [&] () {
         ll n;
-        cin>>n;
+        cin>>n; 
+        ll q ;
+        cin>>q;
         vl v(n);
         cin>>v;
-        sort(v.begin(),v.end());
-        ll ans = 0;
-        float median = 0;
-        if(n%2==0){
-            median = (((n/2)-1)+((n/2)))/2;
-        }
-        else{
-            median = (n/2);
-        }
-        
-        for(auto x:v){  
-            ans+=(abs(x-v[median]));
-        }
-        cout<<ans;
+        while(q--){
+            ll num;
+            cin>>num;
+            ll div = pow(2,num);
+            ll add = pow(2,num)-1;
 
-
+            for(auto &x:v){
+                if(x%div==0){
+                    x+=add;
+                }
+            }
+        }
+        cout<<v<<nl;
     };
 
     int t;

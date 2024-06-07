@@ -1,6 +1,16 @@
-ans 15
-ans 31
-ans 63
-ans 127
-ans 255
+check1 0
+check2 4
+vis [ 0 0 0 0 0 ]
+check1 0
+check2 3
+vis [ 0 0 0 0 ]
+check1 0
+check2 3
+vis [ 0 0 0 0 ]
+check1 1
+check2 2
+vis [ 1 1 1 1 1 ]
+check1 1
+check2 3
+vis [ 1 1 0 0 ]
 Time: 0

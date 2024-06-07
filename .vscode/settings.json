@@ -31,6 +31,7 @@
         "type_traits": "cpp",
         "utility": "cpp",
         "random": "cpp",
-        "stacktrace": "cpp"
+        "stacktrace": "cpp",
+        "numeric": "cpp"
     }
 }

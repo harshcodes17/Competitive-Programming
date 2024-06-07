@@ -1,56 +1,71 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define ll long long
+#define vl vector<ll>
+#define all(x) (x).begin(), (x).end()
+#define pb push_back
+#define fastio ios::sync_with_stdio(0); cin.tie(0);
 
-vector<int> parseIPorMask(const string& str) {
-    stringstream ss(str);
-    string token;
-    vector<int> result;
-    while (getline(ss, token, '.')) {
-        result.push_back(stoi(token));
+bool checker(ll mid, const vl &v) {
+    ll sum = 0;
+    vl mul(v.size());
+
+    for (int i = 0; i < v.size(); ++i) {
+        mul[i] = (mid + v[i] - 1) / v[i];
+        sum += mul[i];
     }
-    return result;
+
+    for (int i = 0; i < v.size(); ++i) {
+        if (mul[i] * v[i] <= sum) {
+            return false;
+        }
+    }
+    return true;
 }
 
-vector<int> getNetworkAddress(const vector<int>& ip, const vector<int>& mask) {
-    vector<int> networkAddress(4);
-    for (int i = 0; i < 4; ++i) {
-        networkAddress[i] = ip[i] & mask[i];
-    }
-    return networkAddress;
-}
+int32_t main() {
+    fastio
 
-int calculateHosts(const vector<int>& mask) {
-    int hostBits = 0;
-    for (const int& part : mask) {
-        hostBits += bitset<8>(~part).count();
-    }
-    return hostBits ? (1 << hostBits) - 2 : 0;
-}
-
-string networkAddressToString(const vector<int>& networkAddress) {
-    stringstream ss;
-    for (int i = 0; i < 4; ++i) {
-        if (i != 0) ss << ".";
-        ss << networkAddress[i];
-    }
-    return ss.str();
-}
-
-int main() {
     int t;
     cin >> t;
     while (t--) {
-        string ip, mask;
-        cin >> ip >> mask;
+        ll n;
+        cin >> n;
+        vl v(n);
+        for (ll &x : v) cin >> x;
+        ll lcmm=v[0];
+        for(auto x:v){
+            lcmm = lcm(lcmm,x);
+        }
+        ll add =0 ;
+        for(auto x:v){
+            add+=lcmm/x;
+        }
+        if(add<=lcmm){
+            cout<<-1<<endl;
+            return;
+        }
 
-        vector<int> ipParts = parseIPorMask(ip);
-        vector<int> maskParts = parseIPorMask(mask);
-
-        vector<int> networkAddress = getNetworkAddress(ipParts, maskParts);
-        int hostCount = calculateHosts(maskParts);
-
-        cout << hostCount << endl;
-        cout << networkAddressToString(networkAddress) << endl;
+        ll l = 1, r = 1e4;
+        vl ans(n);
+        ll lmid = 0;
+        while (l <= r) {
+            ll mid = l + (r - l) / 2;
+            if (checker(mid, v)) {
+                lmid = mid;
+                r = mid - 1;
+            } else {
+                l = mid + 1;
+            }
+        }
+        for (int i = 0; i < n; ++i) {
+                    ans[i] = (lmid + v[i] - 1) / v[i];
+                }
+        for(auto x:ans){
+            cout<<x<<" ";
+        }   
+        cout<<"\n";
     }
+
     return 0;
 }
