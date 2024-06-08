@@ -36,6 +36,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 #define inll(x) long long int x; cin>>x;
 #define instr(x) string x; cin>>x;
 #define all(x) x.begin(), x.end()
+#define rall(x) x.rbegin(), x.rend()
 #define out(x) cout << x << endl;
 #define py cout<<"YES"<<endl
 #define pn cout<<"NO"<<endl
@@ -115,25 +116,22 @@ int32_t main()
             cin>>c[i].first;
             c[i].second = i;       
         }
-        sort(all(a));
-        sort(all(b));
-        sort(all(c));
-        vector<vector<ll>>mat; 
-        for(int i=n-3;i<n;i++){
-
-        }
+        sort(rall(a));
+        sort(rall(b));
+        sort(rall(c));
         ll ans = 0;
         ll sum = 0;
         for(int i=0;i<3;i++){
             for(int j=0;j<3;j++){
                 for(int k=0;k<3;k++){
-                    sum = 
-                    if(i!=j && j!=k && k!=i){
-                        ans = max(ans,sum)
+                    sum = a[i].first + b[j].first + c[k].first;
+                    if(a[i].second != b[j].second && b[j].second != c[k].second && c[k].second != a[i].second){
+                        ans = max(ans,sum);
                     }
                 }
             }
         }
+        cout<<ans<<nl;
         
 
 

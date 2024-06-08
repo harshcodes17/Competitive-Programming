@@ -1,4 +1,4 @@
-// 2024-05-25 10:37:40
+// 2024-06-08 22:10:06
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -104,10 +104,35 @@ int32_t main()
         cin>>n>>k;
         vl v(n);
         cin>>v;
-        sort(all(v));
-        for(int i=0;i<n;i++){
-            
+
+        vector<pair<ll,ll>> a(n);
+        for(ll i=0;i<n;i++)
+        {
+            a[i].first=v[i];
+            a[i].second=i+1;
         }
+        sort(all(a));
+        for(int i=0;i<n;i++){
+            int rem = k-a[i].first;
+            ll l=i+1,r=n-1;
+            ll sum = 0;
+            while(l<r){
+                sum = a[l].first+a[r].first;
+                if(sum==rem){
+                    cout<<a[i].second<<" "<<a[l].second<<" "<<a[r].second;
+                    return;
+                }
+                else if(sum<rem){
+                    l++;
+                }
+                else{
+                    r--;
+                }
+            }
+        }
+
+        cout<<"IMPOSSIBLE";
+
     };
 
     int t;

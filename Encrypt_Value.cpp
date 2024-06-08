@@ -518,44 +518,29 @@ bool sortbysec(const pair<int, int> &a,const pair<int, int> &b)
 }
 
 // -----------> Tatakae Tatakae <----------- //
-ll binary_to_int(string s){
-    ll ans = 0;
-    for(int i=0;i<s.size();i++){
-        ans = ans*2 + (s[i]-'0');
-    }
-    return ans;
-}
-
-
 
 void solve()
 {
-    ll n,k;
-    cin>>n>>k;
+    ll n;
+    cin>>n;
 
-    vector<string>v(n);
-
+    vector<ll>v(n);
     for(int i=0;i<n;i++){
         cin>>v[i];       
     }
 
-    vector<ll>val(n);
+    sort(v.begin(), v.end());
 
-    for(int i=0;i<n;i++){
-        val[i] = binary_to_int(v[i]);
-    }
-
-    for(int i=0;i<k;i++){
-        ll temp = 1LL<<i;
-       
-        
-        if(count(val.begin(),val.end(),temp)==0){
-            cout<<"NO\n";
-            return;
+    ll ans = 0;
+    for(auto x:v){
+        if(ans > 1 && x > 1){
+            ans = (ans*x)%mod;
+        }
+        else{
+            ans = (ans+x)%mod;
         }
     }
-    
-    cout<<"YES\n";
+    cout<<ans%mod<<nl;
 }
 // ----------> 2023 was the warm-up <-----------
 int main()
@@ -573,52 +558,3 @@ int main()
     }
     return 0;
 }
-
-// 4  3
-/*
-    000
-    010
-    011
-    100
-
-    001
-    010
-    100
-
-    001 | 010 = 3
-    001 | 100 = 5
-    010 | 100 = 6
-    100 | 001 | 010 = 7
-                       1
-                       2
-                        4
-
-
-    1 ---> 2^k-1
-
-    1 2 4 8  ... 2^k-1
- 
-
-
-    {1,2,3,4,5,6,7}
-
-    j<2^k
-    j<=7
-\
-
-       1<<1 = 10 = 2
-       1<<2 = 100 =4
-       1<<3 = 1000  =8
-
-
-
-
-
-
-
-
-
-
-
-
-*/

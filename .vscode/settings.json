@@ -32,6 +32,9 @@
         "utility": "cpp",
         "random": "cpp",
         "stacktrace": "cpp",
-        "numeric": "cpp"
+        "numeric": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "xutility": "cpp"
     }
 }
