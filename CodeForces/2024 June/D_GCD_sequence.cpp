@@ -95,6 +95,22 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+bool check(vl v,int idx){
+    vl n;
+    for(int i=0;i<v.size();i++){
+        if(i!=idx){
+            n.pb(v[i]);
+        }
+    }
+    vl gc;
+    for(int i=1;i<n.size();i++){
+        ll temp = gcd(n[i],n[i-1]);
+        gc.pb(temp);
+    }
+    return is_sorted(all(gc));
+}
+
+
 int32_t main()
 {
     fastio()
@@ -111,40 +127,25 @@ int32_t main()
             ll temp = gcd(v[i],v[i-1]);
             gc.pb(temp);
         }
-        vl idx;
-
+        // cout<<gc<<nl;
+        if(is_sorted(all(gc))){
+            py;
+            return;
+        }
         for(int i=1;i<gc.size();i++){
-            if(gc[i]>gc[i-1]){
-                idx.pb(i);
+            if(gc[i]<gc[i-1]){
+                if(check(v,i-1)||check(v,i)||check(v,i+1)){
+                    py;
+                    return;
+                }
+                else{
+                    pn;
+                    return;
+                
+                }
             }
         }
-        if(idx.size()>1){
-           cout<<"NO"<<nl;
-            return;
-        }
-        ll l = idx[0];
-        if(l==0 || is_sorted(gc.begin()+1,gc.end())){
-            cout<<"YES"<<nl;
-            return;
-        }
-        if(l==n-2){
-            if(is_sorted(gc.begin(),gc.end()-1)){
-                cout<<"YES"<<nl;
-                return;
-            }
-            
-        }
-        if(l>0 && l<n-2){
-            ll temp = gcd(v[l],v[l+2]);
-            vl t = gc;
-            t[l] = temp;
-            t.erase(t.begin()+l+1);
-            if(is_sorted(t.begin(),t.end())){
-                cout<<"YES"<<nl;
-                return;
-            }
-        }
-        cout<<"NO"<<nl;
+        pn;
     };
 
     int t;
