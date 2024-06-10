@@ -34,6 +34,7 @@ using namespace __gnu_pbds;
 #define sz(x) ((int)(x).size())
 #define all(x) (x).begin(), (x).end()
 
+
 #ifdef HarshBamane17
 #define debug(x)       \
     cerr << #x << " "; \
@@ -50,6 +51,7 @@ typedef long double lld;
 typedef __int128 ell;
 typedef tree<pair<ll, ll>, null_type, less<pair<ll, ll>>, rb_tree_tag, tree_order_statistics_node_update> pbds; // find_by_order, order_of_key
 typedef vector<ll> vl;
+typedef vector<vl> vvl;
 
 void _print(ll t) { cerr << t; }
 void _print(int t) { cerr << t; }
@@ -260,36 +262,53 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 
 
 void solve(){
-    ll n;
-        cin >> n;
-        vl v(n),p(n);
-        cin >> v >> p;
-
-        int check1 = 0;
-        int check2 = n - 1;
-        vl vis(n,0);
-        int i = 0;
-        while (i < n - 1 && v[i] + p[i] >= v[i + 1]) {
-            vis[i]=1;
-            vis[i+1] = 1;
-            ++i;
+    ll n,m;
+        cin>>n>>m;
+        vvl v(n,vl(m));
+        vvl v2(n,vl(m));
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                cin>>v[i][j];
+            }
         }
-        check1 = i;
-        int j = n - 1;
-        while (j > 0 && v[j] - p[j] <= v[j - 1]) {
-            vis[j] = 1;
-            vis[j-1]=1;
-            --j;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                cin>>v2[i][j];
+            }
         }
-        check2 = j;
-        debug(check1);
-        debug(check2);
-        debug(vis);
-        if(check1<=check2){
-            cout<<"YES\n";
+        if(n==1 || m==1){
+            cout<<"YES"<<endl;
             return;
+        
         }
+        vector<set<ll>>se;
+        vector<set<ll>>se2;
+        
 
+        for(int i=0;i<m;i++){
+            set<ll> s;
+            for(int j=0;j<n;j++){
+                s.insert(v[j][i]);
+            }
+            se.push_back(s);
+        }
+        for(int i=0;i<m;i++){
+            set<ll> s;
+            for(int j=0;j<n;j++){
+                s.insert(v2[j][i]);
+            }
+            se2.push_back(s);
+        }
+        sort(all(se));
+        sort(all(se2));
+        debug(se);
+        debug(se2);
+        if(se==se2){
+            cout<<"YES"<<endl;
+        }
+        else{
+            cout<<"NO"<<endl;
+        }
 }
 
 int main()
