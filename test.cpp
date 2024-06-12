@@ -1,71 +1,64 @@
 #include <bits/stdc++.h>
+// #include <ext/pb_ds/assoc_container.hpp>
+// #include <ext/pb_ds/tree_policy.hpp>
+
 using namespace std;
+// using namespace __gnu_pbds;
+
+// typedef tree<pair<int, int>, null_type, greater<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update> ordered_set;
+#pragma GCC optimize("O3,Ofast")
+#define all(a) (a).begin(), (a).end()
+#define ull unsigned long long
 #define ll long long
-#define vl vector<ll>
-#define all(x) (x).begin(), (x).end()
-#define pb push_back
-#define fastio ios::sync_with_stdio(0); cin.tie(0);
 
-bool checker(ll mid, const vl &v) {
-    ll sum = 0;
-    vl mul(v.size());
-
-    for (int i = 0; i < v.size(); ++i) {
-        mul[i] = (mid + v[i] - 1) / v[i];
-        sum += mul[i];
-    }
-
-    for (int i = 0; i < v.size(); ++i) {
-        if (mul[i] * v[i] <= sum) {
-            return false;
-        }
-    }
-    return true;
+int ceil_div(int a, int b) {
+    if (a % b == 0) return a / b;
+    else return a / b + 1;
 }
 
-int32_t main() {
-    fastio
-
-    int t;
-    cin >> t;
-    while (t--) {
-        ll n;
-        cin >> n;
-        vl v(n);
-        for (ll &x : v) cin >> x;
-        ll lcmm=v[0];
-        for(auto x:v){
-            lcmm = lcm(lcmm,x);
-        }
-        ll add =0 ;
-        for(auto x:v){
-            add+=lcmm/x;
-        }
-        if(add<=lcmm){
-            cout<<-1<<endl;
-            return;
-        }
-
-        ll l = 1, r = 1e4;
-        vl ans(n);
-        ll lmid = 0;
-        while (l <= r) {
-            ll mid = l + (r - l) / 2;
-            if (checker(mid, v)) {
-                lmid = mid;
-                r = mid - 1;
-            } else {
-                l = mid + 1;
-            }
-        }
-        for (int i = 0; i < n; ++i) {
-                    ans[i] = (lmid + v[i] - 1) / v[i];
-                }
-        for(auto x:ans){
-            cout<<x<<" ";
-        }   
-        cout<<"\n";
+struct splitmix_hash {
+public:
+    size_t operator()(ull x) const {
+        static const ull FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        x += FIXED_RANDOM;
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
     }
+};
 
-    return 0;
+struct pairhash {
+public:
+    template <typename T, typename U>
+    std::size_t operator()(const std::pair<T, U> &x) const {
+        int n = std::hash<T>()(x.first) ^ std::hash<U>()(x.second);
+        return splitmix_hash()(n);
+    }
+};
+
+#define MOD 1000000007
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
+    // insert_numbers(42043ul);
+    // int start = 100;
+    // for(int i = start; i < start + 20; i++)
+    //     insert_numbers(__prime_list[i]);
+
+    const int m = 42043;
+    const int mod_rep = 23700;
+    const int n = 2e5;
+    cout << 1 << '\n';
+    cout << n << '\n';
+    auto f = [](int i) {
+        return (i % mod_rep) * m + (i / mod_rep);
+    };
+    for (int i = n + 1; i <= n * 2; i++)
+        if (i == n * 2) cout << f(i);
+        else cout << f(i) << ' ';
+    cout << '\n';
 }
