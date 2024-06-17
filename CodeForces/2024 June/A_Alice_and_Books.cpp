@@ -1,4 +1,4 @@
-// 2024-06-11 20:53:27
+// 2024-06-16 14:38:48
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,61 +100,20 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,m;
-        cin>>n>>m;
-        vector<vector<char>> v(n,vector<char>(m));
-        cin>>v;
-        // cout<<v<<nl;
-        ll idx = 0;
-        
+        ll n;
+        cin>>n;
+        ll ans=0;
         ll maxi = 0;
-        for(int i=0;i<n;i++){
-            ll cnt = 0;
-            for(int j=0;j<m;j++){
-                if(v[i][j]=='#'){
-                    cnt++;
-                }
-            }
-            if(cnt>maxi){
-                maxi = cnt;
-                idx = i;
-            }
+        for(int i=0;i<n-1;i++){
+            ll x;
+            cin>>x;
+            maxi = max(maxi,x);
         }
-        // cout<<idx<<nl;
-        ll len = 0;
-        for(int i=0;i<m;i++){
-            if(v[idx][i]=='#'){
-                len++;
-            }
-        }
-        ll idx2 = 0;
-        if(len==1){
-            
-            for(int i=0;i<m;i++){
-                if(v[idx][i]=='#'){
-                    idx2 = i;
-                    break;
-                }
-            }
-        }
-        else{
-            ll p1 = 0;
-            ll p2 = 0;
-            for(int i=0;i<m;i++){
-                if(v[idx][i]=='#'){
-                    p1 = i;
-                    break;
-                }
-            }
-            for(int i=m-1;i>=0;i--){
-                if(v[idx][i]=='#'){
-                    p2 = i;
-                    break;
-                }
-            }
-            idx2 = (p1+p2)/2;
-        }
-        cout<<idx+1<<" "<<idx2+1<<nl;
+        ans = maxi;
+        ll add;
+        cin>>add;
+        cout<<ans+add<<endl;
+
     };
 
     int t;

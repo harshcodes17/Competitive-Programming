@@ -1,4 +1,4 @@
-// 2024-06-11 20:28:47
+// 2024-06-15 12:01:24
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,48 +100,67 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
+        ll u,ps,ups;
+        cin>>u>>ps>>ups;
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        if(n==1){
-            if(v[0]==0){
-                cout<<1<<nl;
+        multiset<ll>usb;
+        multiset<ll>ps2;
+        while(n--){
+            ll num;
+            cin>>num;
+            string s;
+            cin>>s;
+            if(s=="USB"){
+                usb.insert(num);
             }
             else{
-                cout<<0<<nl;
+                ps2.insert(num);
             }
-            return;
         }
-
-        // cout<<v<<nl;
-        // cout<<pre<<nl;
-
-        ll ans = 0;
-        if(v[0]==0){
-            ans++;
+        ll ans=0;
+        ll cnt = 0;
+        while(u && usb.size()){
+            ans+=*(usb.begin());
+            u--;
+            usb.erase(usb.begin());
+            cnt++;
         }
-        ll l = 1;
-        
-        ll sum = v[0];
-        ll maxi = v[0];
-        // cout<<ans<<nl;
-        while(l<n){
-            maxi = max(maxi,v[l]);
-            sum+=v[l];
-            ll rem = sum-maxi;
-            if(rem==maxi){
-                ans++;
+        while(ps && ps2.size()){
+            ans+=*(ps2.begin());
+            ps--;
+            ps2.erase(ps2.begin());
+            cnt++;
+        }
+        while(ups && (usb.size() || ps2.size())){
+            if(usb.size() && ps2.size()){
+                if(*usb.begin()<=*ps2.begin()){
+                    ans+=*usb.begin();
+                    usb.erase(usb.begin());
+                }
+                else{
+                    ans+=*ps2.begin();
+                    ps2.erase(ps2.begin());
+                }
             }
-            l++;
+            else if(usb.size()){
+                ans+=*usb.begin();
+                usb.erase(usb.begin());
+            }
+            else{
+                ans+=*ps2.begin();
+                ps2.erase(ps2.begin());
+            }
+            ups--;
+            cnt++;
         }
-        cout<<ans<<nl;
+        cout<<cnt<<" "<<ans<<nl;
 
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();

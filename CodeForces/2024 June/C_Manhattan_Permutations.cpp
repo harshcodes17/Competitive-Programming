@@ -1,4 +1,4 @@
-// 2024-06-11 20:05:46
+// 2024-06-16 15:33:51
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,11 +100,43 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s1,s2;
-        cin>>s1>>s2;
-
-        swap(s1[0],s2[0]);
-        cout<<s1<<" "<<s2<<endl;
+        ll n,k;
+        cin>>n>>k;
+        if((k&1)==1){
+            cout<<"NO\n";
+            return;
+        }
+        ll maxi = 0;
+        vl v;
+        for(int i=1;i<=n;i++){
+            v.pb(i);
+        }
+        vl w = v;
+        sort(w.rbegin(),w.rend());
+        for(int i=0;i<n;i++){
+            maxi+=abs(v[i]-w[i]);
+        }
+        if(k>maxi){
+            cout<<"NO\n";
+        }
+        else{
+            cout<<"YES\n";
+            ll i = 0;
+            ll cn = n;
+            ll limit = (cn-1)*2; 
+            while(k>((cn-1)*2)){
+                swap(v[i],v[n-i-1]);
+                k-=(cn-1)*2;
+                cn-=2;
+                i++;
+            }   
+            k/=2;
+            swap(v[i+k],v[i]);
+            for(auto x:v){
+                cout<<x<<" ";
+            }
+            cout<<nl;
+        }
     };
 
     int t;

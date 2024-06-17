@@ -1,4 +1,4 @@
-// 2024-06-11 20:08:38
+// 2024-06-16 09:59:20
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,27 +102,38 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        ll sum = 0;
-
-        ll ans = 0;
-
-        for(int i=2;i<=n;i++){
-            ll div = n/i;
-            ll temp = i*div*(div+1)/2;
-            if(temp>sum){
-                sum = temp;
-                ans = i;
-            }
+        vector<pair<ll,ll>>v(n);
+        
+        for(ll i=0;i<n;i++){
+            cin>>v[i].f;
+            cin>>v[i].s;
         }
-        cout<<ans<<nl;
+        sort(all(v));
+        multiset<ll>ms;
+        for(auto [x,y]:v){
+            ms.insert(y);
+        }
+        vl ans;
+        ll cnt = 1;
+        ans.pb(cnt);
+        for(int i=1;i<n;i++){
+            if(v[i].first<=*ms.begin()){
+                cnt++;
+            }
+            else{
+                cnt = max(1LL,cnt-1);
+                ms.erase(ms.begin());
+            }
+            ans.pb(cnt);
+        }
         
-        
-
+        cout<<*max_element(all(ans))<<nl;
+        cout<<ans;
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();
