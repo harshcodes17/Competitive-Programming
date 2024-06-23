@@ -262,52 +262,38 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 
 
 void solve(){
-    ll n,m;
-        cin>>n>>m;
-        vvl v(n,vl(m));
-        vvl v2(n,vl(m));
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                cin>>v[i][j];
+    ll n;
+        cin>>n;
+        vl v(n);
+        cin>>v;
+        ll l=0,r=1;
+        vector<pair<ll,ll>> s;
+        while(r<n){
+             while(r<n&&v[r]==v[l]){
+                 r++;
+             }
+       
+             s.pb({l+1,r});
+             l=r;
+        }
+        debug(s);
+        ll q;
+        cin>>q;
+        while(q--){
+            ll lt,rt;
+            cin>>lt>>rt;
+            for(int i=0;i<s.size();i++){
+                if(lt>=s[i].ff && lt<=s[i].ss){
+                    if(rt>=s[i].ff && rt<=s[i].ss){
+                        cout<<-1<<" "<<-1<<nline;
+                        break;
+                    }
+                    else{
+                        cout<<lt<<" "<<s[i+1].ff<<nline;
+                        break;
+                    }
+                }
             }
-        }
-        for(int i=0;i<n;i++){
-            for(int j=0;j<m;j++){
-                cin>>v2[i][j];
-            }
-        }
-        if(n==1 || m==1){
-            cout<<"YES"<<endl;
-            return;
-        
-        }
-        vector<set<ll>>se;
-        vector<set<ll>>se2;
-        
-
-        for(int i=0;i<m;i++){
-            set<ll> s;
-            for(int j=0;j<n;j++){
-                s.insert(v[j][i]);
-            }
-            se.push_back(s);
-        }
-        for(int i=0;i<m;i++){
-            set<ll> s;
-            for(int j=0;j<n;j++){
-                s.insert(v2[j][i]);
-            }
-            se2.push_back(s);
-        }
-        sort(all(se));
-        sort(all(se2));
-        debug(se);
-        debug(se2);
-        if(se==se2){
-            cout<<"YES"<<endl;
-        }
-        else{
-            cout<<"NO"<<endl;
         }
 }
 

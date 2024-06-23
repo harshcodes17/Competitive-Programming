@@ -1,4 +1,4 @@
-// 2024-06-16 09:59:20
+// 2024-06-18 17:16:56
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -98,37 +98,43 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 int32_t main()
 {
     fastio()
-    
+    struct person{
+        int a,d,i;
+    };
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vector<pair<ll,ll>>v(n);
-        
-        for(ll i=0;i<n;i++){
-            cin>>v[i].f;
-            cin>>v[i].s;
+        vector<person>v(n);
+        for(int i=0;i<n;i++){
+            cin>>v[i].a>>v[i].d;
+            v[i].i = i;
         }
-        sort(all(v));
-        multiset<ll>ms;
-        for(auto [x,y]:v){
-            ms.insert(y);
-        }
-        vl ans;
-        ll cnt = 1;
-        ans.pb(cnt);
-        for(int i=1;i<n;i++){
-            if(v[i].first<=*ms.begin()){
+        set<pair<ll,ll>>s;
+        sort(v.begin(),v.end(),[&](auto a,auto b){
+            return a.a<b.a;
+        }); 
+        vl ans(n);
+        ll cnt = 0;
+        for(auto person:v){
+            int room;
+            if(s.empty() || (*(s.begin())).first > person.a){
                 cnt++;
+                room = cnt;
             }
             else{
-                cnt = max(1LL,cnt-1);
-                ms.erase(ms.begin());
+                room = (*(s.begin())).second;
+                s.erase(s.begin());
             }
-            ans.pb(cnt);
+            ans[person.i] = room;
+            s.insert({person.d+1,room});
+            
         }
-        
-        cout<<*max_element(all(ans))<<nl;
-        cout<<ans;
+        cout<<cnt<<endl;
+        for(auto i:ans){
+            cout<<i<<" ";
+        }
+        cout<<endl;
+
     };
 
     int t;
