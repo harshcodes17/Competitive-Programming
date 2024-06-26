@@ -260,42 +260,89 @@ ll phin(ll n)
 ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng); }
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
+ll compute(string s1,string s,ll idx){
+    ll ans = 0;
+    ll term = stoll(s1);
+    ans+=term;
+    string s2 = "";
+    string s3 = "";
+    if(idx==0){
+        for(int i=2;i<s.size();i++){
+            if(s[i]=='1'){
+                ans*=s[i];
+            }
+            if(s[i]=='0'){
+                ans*=s[i];
+            }
+            else{
+                ans+=s[i];
+            }
+        }
+        return ans;
+    }
+    if(idx==s.size()-2){
+        for(int i=0;i<s.size()-2;i++){
+            if(s[i]=='1'){
+                ans*=s[i];
+            }
+            if(s[i]=='0'){
+                ans*=s[i];
+            }
+            else{
+                ans+=s[i];
+            }
+        }
+        return ans;
+    }
+    else{
+        for(int i=0;i<idx;i++){
+            if(s[i]=='1'){
+                ans*=s[i];
+            }
+            if(s[i]=='0'){
+                ans*=s[i];
+            }
+            else{
+                ans+=s[i];
+            }
+        }
+        for(int i=idx+2;i<s.size();i++){
+            if(s[i]=='1'){
+                ans*=s[i];
+            }
+            if(s[i]=='0'){
+                ans*=s[i];
+            }
+            else{
+                ans+=s[i];
+            }
+        }
+        return ans;
+    
+    }
+
+}
+
+
 
 void solve(){
     ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        ll l=0,r=1;
-        vector<pair<ll,ll>> s;
-        while(r<n){
-             while(r<n&&v[r]==v[l]){
-                 r++;
-             }
-       
-             s.pb({l+1,r});
-             l=r;
+        string s;
+        cin>>s;
+        
+        ll ans = INT_MAX;
+        for(int i=0;i<n-1;i++){
+            string temp1 = s.substr(i,2); 
+            // cout<<temp1<<nl;
+            ll t = compute(temp1,s,i);
+            debug(t);
+            ans = min(ans,t);
+            
         }
-        debug(s);
-        ll q;
-        cin>>q;
-        while(q--){
-            ll lt,rt;
-            cin>>lt>>rt;
-            for(int i=0;i<s.size();i++){
-                if(lt>=s[i].ff && lt<=s[i].ss){
-                    if(rt>=s[i].ff && rt<=s[i].ss){
-                        cout<<-1<<" "<<-1<<nline;
-                        break;
-                    }
-                    else{
-                        cout<<lt<<" "<<s[i+1].ff<<nline;
-                        break;
-                    }
-                }
-            }
-        }
-}
+    cout<<ans<<nl;
+}   
+
 
 int main()
 {
