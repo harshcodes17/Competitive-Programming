@@ -1,4 +1,13 @@
-t 3577
-t 3577
-t 121
+sum 6
+ssum 14
+sum 9
+ssum 29
+sum 12
+ssum 50
+sum 15
+ssum 77
+sum 18
+ssum 110
+sum 21
+ssum 149
 Time: 0

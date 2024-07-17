@@ -1,4 +1,4 @@
-// 2024-06-08 22:48:49
+// 2024-07-03 20:02:00
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,7 +100,33 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        
+        ll n;
+        cin>>n;
+        vector<ll> v(n);
+        cin>>v;
+        map<ll,ll>mp;
+        for(auto x:v){
+            mp[x]++;
+        }
+        vector<pair<ll,ll>>p;
+
+        for(auto x:mp){
+            p.push_back({x.second,x.first});
+        }
+
+        vector<ll>ans;
+
+        sort(p.begin(),p.end(),greater<pair<ll,ll>>());
+
+        for(auto x:p){
+            ll rem = n-x.first;
+            ll cost = (rem*x.second);
+            ans.push_back(cost);
+        }
+        ll res = *min_element(ans.begin(),ans.end());
+        cout<<min(n,res)<<endl;
+        // cout<<ans<<nl;
+        // cout<<endl;
     };
 
     int t;

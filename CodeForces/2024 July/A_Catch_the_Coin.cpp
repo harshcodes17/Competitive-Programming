@@ -1,4 +1,4 @@
-// 2024-05-30 21:58:34
+// 2024-06-27 20:10:53
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,69 +100,15 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-    int num1, num2;
-    cin >> num1 >> num2;
-    int total = num1 + num2 + 1;
-    vector<int> arr1(total), arr2(total);
-    for (int i = 0; i < total; ++i) cin >> arr1[i];
-    for (int i = 0; i < total; ++i) cin >> arr2[i];
-
-    int sum1 = 0, sum2 = 0;
-    int count1 = 0, count2 = 0;
-    vector<int> arr1Picked(total), arr2Picked(total);
-
-    for (int i = 0; i < total; ++i) {
-        if (arr1[i] > arr2[i] && count1 <= num1) {
-            sum1 += arr1[i];
-            count1 += 1;
-            arr1Picked[i] = 1;
-        } else if (arr1[i] < arr2[i] && count2 < num2) {
-            sum1 += arr2[i];
-            count2 += 1;
-            arr1Picked[i] = 0;
-        } else if (count1 <= num1) {
-            sum1 += arr1[i];
-            count1 += 1;
-            arr1Picked[i] = 1;
-        } else {
-            sum1 += arr2[i];
-            count2 += 1;
-            arr1Picked[i] = 0;
+        ll n,m;
+        cin>>n>>m;
+        if(n-m>0){
+            cout<<"YES\n";
         }
-    }
-
-    count2 = 0; count1 = 0;
-    for (int i = 0; i < total; ++i) {
-        if (arr1[i] < arr2[i] && count2 <= num2) {
-            sum2 += arr2[i];
-            count2 += 1;
-            arr2Picked[i] = 0;
-        } else if (arr1[i] > arr2[i] && count1 < num1) {
-            sum2 += arr1[i];
-            count1 += 1;
-            arr2Picked[i] = 1;
-        } else if (count2 <= num2) {
-            sum2 += arr2[i];
-            count2 += 1;
-            arr2Picked[i] = 0;
-        } else {
-            sum2 += arr1[i];
-            count1 += 1;
-            arr2Picked[i] = 1;
+        else{
+            cout<<"NO\n";
         }
-    }
-
-    for (int i = 0; i < total; ++i) {
-        int teamSkill = 0;
-        if (arr1Picked[i] == 1) {
-            teamSkill = sum1 - arr1[i];
-        } else if (arr2Picked[i] == 0) {
-            teamSkill = sum2 - arr2[i];
-        }
-        cout << teamSkill << " ";
-    }
-    cout << endl;
-};
+    };
 
     int t;
     t=1;

@@ -1,4 +1,4 @@
-// 2024-06-04 09:44:00
+// 2024-06-08 22:50:27
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,30 +100,12 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n; 
-        ll q ;
-        cin>>q;
-        vl v(n);
-        cin>>v;
-        while(q--){
-            ll num;
-            cin>>num;
-            ll div = pow(2,num);
-            ll add = pow(2,num)-1;
-
-            for(auto &x:v){
-                if(x%div==0){
-                    x+=add;
-                }
-            }
-        }
-        cout<<v<<nl;
+        cout<<builin_clzll(20);
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

@@ -1,4 +1,4 @@
-// 2024-06-12 20:28:58
+// 2024-07-16 15:29:43
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,9 +100,29 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,k;
-        cin>>n>>k;
-        
+        ll n;
+        cin>>n;
+        ll k;
+        cin>>k;
+
+        ll ones = 0;
+        if(k==n){
+            cout<<1<<nl;
+        }
+        if(n==1){
+            cout<<"0"<<nl;
+        }
+        ll ans = 0;
+        multiset<ll>ms;
+        ms.insert(n);
+        while(ms.size()!=(n-1)){
+            ans++;
+            int i = k-1;
+            while(i--){
+                ms.insert(1);
+            }
+            ms.insert(2);
+        }
     };
 
     int t;

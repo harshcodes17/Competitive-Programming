@@ -260,87 +260,43 @@ ll phin(ll n)
 ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng); }
 /*--------------------------------------------------------------------------------------------------------------------------*/
 
-ll compute(string s1,string s,ll idx){
-    ll ans = 0;
-    ll term = stoll(s1);
-    ans+=term;
-    string s2 = "";
-    string s3 = "";
-    if(idx==0){
-        for(int i=2;i<s.size();i++){
-            if(s[i]=='1'){
-                ans*=s[i];
-            }
-            if(s[i]=='0'){
-                ans*=s[i];
-            }
-            else{
-                ans+=s[i];
-            }
-        }
-        return ans;
-    }
-    if(idx==s.size()-2){
-        for(int i=0;i<s.size()-2;i++){
-            if(s[i]=='1'){
-                ans*=s[i];
-            }
-            if(s[i]=='0'){
-                ans*=s[i];
-            }
-            else{
-                ans+=s[i];
-            }
-        }
-        return ans;
-    }
-    else{
-        for(int i=0;i<idx;i++){
-            if(s[i]=='1'){
-                ans*=s[i];
-            }
-            if(s[i]=='0'){
-                ans*=s[i];
-            }
-            else{
-                ans+=s[i];
-            }
-        }
-        for(int i=idx+2;i<s.size();i++){
-            if(s[i]=='1'){
-                ans*=s[i];
-            }
-            if(s[i]=='0'){
-                ans*=s[i];
-            }
-            else{
-                ans+=s[i];
-            }
-        }
-        return ans;
-    
-    }
-
-}
-
-
 
 void solve(){
-    ll n;
-        cin>>n;
-        string s;
-        cin>>s;
-        
-        ll ans = INT_MAX;
-        for(int i=0;i<n-1;i++){
-            string temp1 = s.substr(i,2); 
-            // cout<<temp1<<nl;
-            ll t = compute(temp1,s,i);
-            debug(t);
-            ans = min(ans,t);
-            
+    ll n,k;
+        cin>>n>>k;
+        vl v(n);
+        cin>>v;
+        ll ans1 = 0;
+        ll ans2 = INT_MAX;
+        ll sum=0;
+        ll ssum = 0;
+
+        for(int i=0;i<k;i++){
+            sum+=v[i];
+            ssum+=v[i]*v[i];
         }
-    cout<<ans<<nl;
+
+        ans1 = sum;
+        ans2 = ssum;
+        ll i=k;
+        debug(sum);
+            debug(ssum);
+        while(i<n){
+            
+            sum = sum - v[i-k] + v[i];
+            ssum = ssum - (v[i-k]*v[i-k]) + (v[i]*v[i]);
+            if(sum>ans1){
+                ans1 = sum;
+                ans2 = ssum;
+            }
+            if(sum==ans1){
+                ans2 = min(ans2,ssum);
+            }
+            debug(sum);
+            debug(ssum);
+            i++;
+        }
+        cout<<ans1<<" "<<ans2<<nl;
 }   
 
 
