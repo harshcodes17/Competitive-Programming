@@ -262,41 +262,30 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 
 
 void solve(){
-    ll n,k;
-        cin>>n>>k;
+   ll n;
+        cin>>n;
         vl v(n);
         cin>>v;
-        ll ans1 = 0;
-        ll ans2 = INT_MAX;
-        ll sum=0;
-        ll ssum = 0;
-
-        for(int i=0;i<k;i++){
-            sum+=v[i];
-            ssum+=v[i]*v[i];
+        ll ans = 0;
+        map<ll,ll> mp;
+        for(auto x:v){
+            mp[x]++;
         }
-
-        ans1 = sum;
-        ans2 = ssum;
-        ll i=k;
-        debug(sum);
-            debug(ssum);
-        while(i<n){
+        debug(mp);
+        vl v1;
+        for(auto x:mp){
+            v1.push_back(x.second);
+        }
+        sort(v1.rbegin(),v1.rend());
+        debug(v1);
+        ll sum = 0;
+        for(int i=0;i<v1.size();i++){
+            sum+=v1[i];
+            ll add = (sum/(i+1))*(i+1);
+            ans = max(ans,add);
             
-            sum = sum - v[i-k] + v[i];
-            ssum = ssum - (v[i-k]*v[i-k]) + (v[i]*v[i]);
-            if(sum>ans1){
-                ans1 = sum;
-                ans2 = ssum;
-            }
-            if(sum==ans1){
-                ans2 = min(ans2,ssum);
-            }
-            debug(sum);
-            debug(ssum);
-            i++;
         }
-        cout<<ans1<<" "<<ans2<<nl;
+        cout<<ans<<nl;
 }   
 
 

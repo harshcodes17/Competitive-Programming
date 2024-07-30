@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-07-18 09:57:39
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,25 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
-            return;
+        ll n;
+        cin>>n;
+        vl v(n+1);
+        v[0]=0;
+        ll t = 1;
+        v[1]=t;
+        for(int i=1;i<=n;i++){
+            ll temp = v[i]+1;
+            for(int j=i+i;j<=n;j+=i){
+                if(j%i==0){
+                    v[j]=temp;
+                }
+            }
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+        cout<<*max_element(v.begin(),v.end())<<endl;
+        for(int i=1;i<=n;i++){
+            cout<<v[i]<<" ";
+        }
+        cout<<endl;
     };
 
     int t;
@@ -120,4 +129,4 @@ int32_t main()
         solve();
     }
     return 0;
-}
+}       

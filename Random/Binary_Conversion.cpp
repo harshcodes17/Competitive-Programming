@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-07-17 20:01:15
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,98 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
+        ll n,k;
+        cin>>n>>k;
+        ll cnt = 0;
+
+        string s,t;
+        cin>>s>>t;
+        ll ones = count(s.begin(),s.end(),'1');
+        ll zero = count(s.begin(),s.end(),'0');
+        ll o = count(t.begin(),t.end(),'1');
+        ll z = count(t.begin(),t.end(),'0');
+        if(ones!=o || zero!=z){
+            cout<<"NO"<<endl;
             return;
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+        for(int i=0;i<n;i++){
+            if(s[i]!=t[i]){
+                cnt++;
+            }
+        }
+        if(n==2){
+            if(s=="10" && t=="10"){
+                if(k%2==1){
+                    cout<<"NO\n";
+                    return;
+                }
+                else{
+                    cout<<"YES\n";
+                    return;
+                }
+            }
+            if(s=="00" && t=="00"){
+                cout<<"YES\n";
+                return;
+            }
+            if(s=="11" && t=="11"){
+                cout<<"YES\n";
+                return;
+            }
+            if(s=="10" && t=="01"){
+                if(k%2==0){
+                    cout<<"NO\n";
+                    return;
+                }
+                else{
+                    cout<<"YES\n";
+                    return;
+                }
+            }
+            if(s=="01" && t=="10"){
+                if(k%2==0){
+                    cout<<"NO\n";
+                    return;
+                }
+                else{
+                    cout<<"YES\n";
+                    return;
+                }
+            }
+            if(s=="01" && t=="01"){
+                if(k%2==1){
+                    cout<<"NO\n";
+                    return;
+                }
+                else{
+                    cout<<"YES\n";
+                    return;
+                }
+            }
+            if(s=="10" && t=="10"){
+                if(k%2){
+                    cout<<"NO\n";
+                    return;
+                }
+                else{
+                    cout<<"YES\n";
+                    return;
+                }
+            }
+        }
+        else{
+            if((cnt/2)>k){
+                cout<<"NO\n";
+                return;
+            }
+            else{
+                cout<<"YES\n";
+                return;
+            
+            }
+            
+        }
+        
     };
 
     int t;

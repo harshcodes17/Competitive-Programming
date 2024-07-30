@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-07-27 10:40:35
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,23 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
-            return;
+
+        ll n;
+        cin>>n;
+        if(n>2){
+            ll rem = n%4;
+            if(rem==0){
+                cout<<n/4<<nl;
+            }
+            else{
+                
+
+                cout<<n/4 + 1<<nl;
+            }
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+        else{
+            cout<<1<<nl;
+        }
     };
 
     int t;

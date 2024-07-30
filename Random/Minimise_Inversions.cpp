@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-07-25 10:39:01
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,15 +100,47 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
-            return;
+        ll n,k;
+        cin>>n>>k;
+        ll ans = 1e9;
+        string s;
+        cin>>s;
+        for(int i=0;i<=k;i++){
+            ll cnt = i;
+            ll l = 0;
+            string t = s;
+
+            while(l<n && cnt>0 ){
+                if(t[l]=='1'){
+                    cnt--;
+                    t[l]='0';
+                }
+                l++;
+            }
+            ll cnt2 = k-i;
+            ll r = n-1;
+            while(r>=0 && cnt2>0){
+                if(t[r]=='0'){
+                    cnt2--;
+                    t[r]='1';
+                }
+                r--;
+            }
+            ll ans1 = 0;
+            ll c=0;
+            for(int idx=0;idx<n;idx++){
+                if(t[idx]=='1'){
+                    c++;
+
+                }
+                else{
+                    ans1+=c;
+                }
+                
+            }
+            ans = min(ans,ans1);
+
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
         cout<<ans<<nl;
     };
 

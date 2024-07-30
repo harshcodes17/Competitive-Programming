@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-07-24 20:02:15
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,53 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
-            return;
+        ll n,k;
+        cin>>n>>k;
+        vl v(n);
+        cin>>v;
+        vl pos;
+        ll ans = 0;
+        for(auto x:v){
+            if(x>=k){
+                pos.pb(x-k);
+                ans++;
+            }
+            else{
+                pos.pb(0);
+            }
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
+        // cout<<ans<<nl;
+        vl req;
+        for(auto x:v){
+            if(x<k){
+                req.pb(k-x);
+            }
+            else{
+                req.pb(0);
+            
+            }
+        }
+        ll allextra = accumulate(all(pos),0LL);
+        ll allreq = accumulate(all(req),0LL);
+        sort(all(req));
+        for(auto x:req){
+            if(x==0){
+                continue;
+            }
+            if(allextra<=0){
+                break;
+            }
+            if(x<=allextra){
+                ans++;
+                allextra-=x;
+            }
+            
+        
+        }
+        // cout<<pos<<endl;
+        // cout<<req<<endl;
         cout<<ans<<nl;
+        
     };
 
     int t;

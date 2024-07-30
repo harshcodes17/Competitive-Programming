@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-07-19 10:07:52
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,38 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
+        ll n,m;
+        cin>>n>>m;
+
+
+        vector<vector<int>> a(n,vector<int>(m));
+        for(int i=0;i<n;i++)
         {
-            cout<<0<<nl;
-            return;
+            for(int j=0;j<m;j++)
+            {
+                cin>>a[i][j];
+            }
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+
+        vector<vector<int>> b(n,vector<int>(m));
+        b=a;
+
+        for(int i=0;i<n-1;i++){
+            for(int j=0;j<m-1;j++){
+                if(a[i][j]!=b[i][j]){
+                    a[i][j] = (a[i][j]+1)%3;
+                    a[i+1][j+1]=(a[i+1][j+1]+1)%3;
+                    a[i+1][j] = (a[i+1][j]+2)%3;
+                    a[i][j+1] = (a[i][j+1]+2)%3;
+                }
+            }
+        }
+        if(a==b){
+            cout<<"YES"<<endl;
+        }
+        else{
+            cout<<"NO"<<endl;
+        }
     };
 
     int t;

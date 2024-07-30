@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-07-27 11:11:01
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,33 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
-            return;
+        ll n,q;
+        cin>>n>>q;
+        string s;
+        cin>>s;
+        string t;
+        cin>>t;
+        vector<vector<int>> prefs(n + 1, vector<int>(26, 0)), preft(n + 1, vector<int>(26, 0));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < 26; j++) {
+                prefs[i + 1][j] = prefs[i][j] + (s[i] - 'a' == j);
+                preft[i + 1][j] = preft[i][j] + (t[i] - 'a' == j);
+            }
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+
+        while (q--) {
+            ll l, r;
+            cin >> l >> r;
+            ll ans = 0;
+            for (int i = 0; i < 26; i++) {
+                int freqS = prefs[r][i] - prefs[l - 1][i];
+                int freqT = preft[r][i] - preft[l - 1][i];
+                ans += abs(freqS - freqT);
+            }
+            cout << ans / 2 << nl;
+        }
+        
+
     };
 
     int t;

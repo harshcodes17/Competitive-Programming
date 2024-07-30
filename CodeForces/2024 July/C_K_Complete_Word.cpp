@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-07-18 21:55:31
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,19 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
+        ll n,k;
+        cin>>n>>k;
+        string s;
+        cin>>s;
+
+        ll ans=0;
+
+        map<int,vector<char>>mp;
+
+        for(int i=0;i<n;i++)
         {
-            cout<<0<<nl;
-            return;
+            mp[i%k].push_back(s[i]);
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
     };
 
     int t;
