@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-08-08 10:47:06
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,26 +95,54 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+vector<ll>ops(200001,0);
+
+void pre(){
+    for(ll i=0;i<=200000;i++){
+        ll temp = i;
+        ll cnt = 0;
+        while(temp){
+            temp = temp/3;
+            cnt++;
+        }
+        ops[i] = cnt;
+    }
+}
+
+
 int32_t main()
 {
     fastio()
-    
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
-            return;
+        ll l,r;
+        cin>>l>>r;
+        ll first = l;
+        ll cnt =  0;
+        while(first){
+            first = first/3;
+            cnt++;
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+        ll ans = cnt;
+        ll second = l+1;
+        while(cnt--){
+            second = second*3;
+        }
+        // cout<<first<<" "<<second<<endl;
+        while(second){
+            second/=3;
+            ans++;
+        }
+        for(ll i = l+2;i<=r;i++){
+            ans+=ops[i];
+            
+        }
+        cout<<ans<<endl;
     };
 
     int t;
     t=1;
     cin>>t;
+    pre();
     while(t--)
     {
         solve();

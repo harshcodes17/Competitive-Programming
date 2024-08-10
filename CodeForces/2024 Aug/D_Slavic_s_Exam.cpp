@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-08-08 10:36:02
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,17 +100,41 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
+        string s1,s2;
+        cin>>s1>>s2;
+        int n=s1.size();
+        int m=s2.size();
+        ll l = 0;
+        ll r = 0;
+
+        while(l<n && r<m)
         {
-            cout<<0<<nl;
-            return;
+            if((s1[l]==s2[r])||(s1[l]=='?')){
+                s1[l]=s2[r];
+                l++;
+                r++;
+            }
+            else{
+                l++;
+            }
+
+
+        }    
+        if(r==m){
+
+            cout<<"YES"<<endl;
+            for(auto &x:s1){
+                if(x=='?'){
+                    x='a';
+                }
+            }
+            cout<<s1<<endl;
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+        else{
+            cout<<"NO"<<endl;
+        }
     };
+    
 
     int t;
     t=1;

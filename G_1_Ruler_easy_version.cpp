@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-08-09 08:43:12
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,21 +95,36 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+ll query(ll l,ll r){
+    cout<<"? "<<l<<" "<<r<<endl;
+    ll x;
+    cin>>x;
+    return x;
+    // cout.flush();
+}
+
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
-            return;
+        // ll n;
+        // cin>>n;
+        ll l=2,r = 999;
+        while(l<=r){
+            ll mid = (l+r)/2;
+            ll x = query(1,mid);
+            ll real = 1*mid;
+            if(x==real){
+                l = mid+1;
+            }
+            else{
+                r = mid-1;
+            }
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+        cout<<"! "<<r+1<<endl;
+
     };
 
     int t;

@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-08-10 10:27:27
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,21 +100,44 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
+        string s;cin>>s;
+        // ll ans = 0;
+        ll n = s.size();
+        if(n==1){
+            cout<<s<<endl;
             return;
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+        if(n==2){
+            if(s[0]==s[1]){
+                s[1]++;
+                if(s[1]>'z') s[1]='a';
+            }
+            cout<<s<<endl;
+            return;
+        }
+        for(int i=1;i<n-1;i++){
+            if(s[i]==s[i-1]&&s[i]==s[i+1]){
+                while(s[i]==s[i-1] || s[i]==s[i+1]){
+                    s[i]++;
+                    if(s[i]>'z') s[i]='a';
+                }  
+                i++; 
+            }
+        }
+        for(int i=1;i<n;i++){
+            if(s[i]==s[i-1]){
+                while(s[i]==s[i-1] || s[i]==s[i+1]){
+                    s[i]++;
+                    if(s[i]>'z') s[i]='a';
+                }  
+            }
+        }
+        cout<<s<<endl;
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();

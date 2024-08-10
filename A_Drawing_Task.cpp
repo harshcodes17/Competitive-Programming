@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-08-06 11:59:21
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,21 +100,44 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
+        ll n,m,q;
+        cin>>n>>m>>q;
+        char v[n][m];
+        for(int i=0;i<n;i++)
         {
-            cout<<0<<nl;
-            return;
+            for(int j=0;j<m;j++)
+            {
+                v[i][j]='.';
+            }
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+        while(q--){
+            ll r1,c1,r2,c2;
+            cin>>r1>>c1>>r2>>c2;
+            char ch;
+            cin>>ch;
+            r1--;
+            c1--;
+            r2--;
+            c2--;
+            // cout<<r1<<" "<<c1<<" "<<r2<<" "<<c2<<nl;
+            for(int i=r1;i<=r2;i++){
+                for(int j=c1;j<=c2;j++){
+                    v[i][j]=ch;
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                cout<<v[i][j];
+            }
+            cout<<nl;
+        }
+        // cout<<endl;
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();

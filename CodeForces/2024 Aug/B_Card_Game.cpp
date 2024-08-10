@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-08-09 08:34:08
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,43 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
-            return;
+        vector<pair<ll,ll>>v1;
+        vector<pair<ll,ll>>v2;
+        for(int i=0;i<1;i++){
+            ll a,b;
+            cin>>a>>b;
+            v1.pb({a,b});
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+        for(int i=0;i<1;i++){
+            ll a,b;
+            cin>>a>>b;
+            v2.pb({a,b});
+        }
+        v1.push_back({v1[0].second,v1[0].first});
+        v2.push_back({v2[0].second,v2[0].first});
+        ll ans = 0;
+        for(auto [x,y]:v1){ 
+            for(auto [a,b]:v2){
+                ll cnt1 = 0;
+                ll cnt2 = 0;
+                if(x>a){
+                    cnt1++;
+                }
+                if(y>b){
+                    cnt1++;
+                }
+                if(x<a){
+                    cnt2++;
+                }
+                if(y<b){
+                    cnt2++;
+                }
+                if(cnt1>cnt2){
+                    ans++;
+                }
+            }
+        }
+        cout<<ans<<endl;
     };
 
     int t;

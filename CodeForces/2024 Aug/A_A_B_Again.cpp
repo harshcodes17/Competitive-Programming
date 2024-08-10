@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-08-07 12:45:12
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,15 +100,13 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
-            return;
+        string s;
+        cin>>s;
+
+        ll ans = 0;
+        for(auto x:s){
+            ans+=x-'0';
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
         cout<<ans<<nl;
     };
 

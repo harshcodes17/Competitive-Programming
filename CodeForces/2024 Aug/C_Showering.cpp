@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-08-07 14:18:22
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,28 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
-            return;
+        ll n,s,m;
+        cin>>n>>s>>m;
+        ll maxi = 0;
+        ll prev =0;
+        while(n--){
+            ll a,b;
+            cin>>a>>b;
+            ll dist = max(a-prev,0ll);
+            // cout<<dist<<nl;
+            prev = b;
+            maxi = max(maxi,dist);
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+        ll last = m-prev;
+        maxi = max(maxi,last);
+        if(maxi>=s){
+            py;
+        }
+        else{
+            pn;
+        }
+
+        // cout<<maxi<<nl;
     };
 
     int t;

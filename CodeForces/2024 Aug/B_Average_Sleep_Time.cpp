@@ -1,4 +1,4 @@
-// 2024-07-26 10:13:16
+// 2024-08-10 10:43:39
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,21 +100,34 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,r,limit;
-        cin>>n>>r>>limit;
-        if((n*r)<=limit)
-        {
-            cout<<0<<nl;
-            return;
+        double n,k;
+        cin>>n>>k;
+        vector<ll> v(n);
+        cin>>v;
+        double ans = 0;
+        double sum = 0;
+        double total = n-k+1;
+        for(int i=0;i<k;i++){
+            sum+=v[i];
         }
-        ll possible = limit/r;
-        ll ans = n-possible;
-        cout<<ans<<nl;
+        ans+=sum;
+        for(int i=k;i<n;i++){
+            sum+=v[i];
+            sum-=v[i-k];
+            ans+=sum;
+        }
+        
+        double res = ans/total;
+        printf("%.6f\n",res);
+
+
+
+
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();
