@@ -1,4 +1,4 @@
-// 2024-08-15 23:55:36
+// 2024-08-14 20:01:03
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,12 +100,20 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        
+        ll a,b,x,y;
+        cin>>a>>b>>x>>y;
+
+        if(x>y){
+            cout<<a <<nl;
+        }
+        else{
+            cout<<b<<nl;
+        }
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();

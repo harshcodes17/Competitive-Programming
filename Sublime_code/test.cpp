@@ -262,30 +262,58 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 
 
 void solve(){
-   ll n;
-        cin>>n;
+   ll n,p;
+        cin>>n>>p;
         vl v(n);
         cin>>v;
-        ll ans = 0;
-        map<ll,ll> mp;
-        for(auto x:v){
-            mp[x]++;
+        if(n==1){
+            cout<<0<<" "<<ceil(p/(double)v[0]);
+            return;
         }
-        debug(mp);
-        vl v1;
-        for(auto x:mp){
-            v1.push_back(x.second);
+
+        ll l=0,r=1;
+        pair<ll,ll>ans= {0,INT_MAX};
+        ll currsum = v[0];
+        if(currsum>=p){
+            cout<<0<<" "<<1;
+            return;
         }
-        sort(v1.rbegin(),v1.rend());
-        debug(v1);
-        ll sum = 0;
-        for(int i=0;i<v1.size();i++){
-            sum+=v1[i];
-            ll add = (sum/(i+1))*(i+1);
-            ans = max(ans,add);
-            
+        ll ops = 0;
+        ll cnt = 1;
+        while(l<n){
+            ops++;
+            if(ops>=(2*n)){
+                break;
+            }
+            if(r>=n){
+                r%=n;
+            }
+            debug(l);
+            debug(r);
+            // cout<<"idx: "<<l<<" "<<r<<nl;
+            currsum+=v[r];
+            cnt++;
+            debug(currsum);
+            if(currsum>=p){
+                pair<ll,ll>temp = {l+1,cnt};
+                // cout<<"-------------------\n";
+                // cout<<temp.first<<" "<<temp.second<<nl;
+                // cout<<"-------------------\n";
+                if(temp.second<ans.second){
+                    ans = temp;
+                }
+                
+                l = r+1;
+
+                r = l+1;
+                cnt = 1;
+                currsum = v[l];
+            }
+            else{
+                r++;
+            }
         }
-        cout<<ans<<nl;
+        cout<<ans.first<<" "<<ans.second;
 }   
 
 
@@ -298,7 +326,7 @@ int main()
     auto start1 = high_resolution_clock::now();
     int t;
     t = 1;
-    cin >> t;
+    // cin >> t;
 
     while (t--)
     {

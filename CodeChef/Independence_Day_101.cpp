@@ -1,4 +1,4 @@
-// 2024-08-15 23:55:36
+// 2024-08-14 20:04:01
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,7 +100,19 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
+        vl v(3);
+        cin>>v;
+        sort(all(v));
         
+        ll a = v[0];
+        ll b = v[1];
+        ll c = v[2];
+        if(abs(a-b)>=2 || abs(b-c)>=2){
+            pn;
+        }
+        else{
+            py;
+        }
     };
 
     int t;

@@ -1,4 +1,4 @@
-// 2024-08-15 23:55:36
+// 2024-08-16 19:55:37
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,12 +100,31 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        
+        ll n,r;
+        cin>>n>>r;
+        vl v(n);
+        cin>>v;
+
+        ll l = 0;
+        ll rg = 1;
+        ll ans = 0;
+        while(l<n && rg<n){
+            ll left = v[l];
+            ll right = v[rg];
+            if(right-left>r){
+                ans+=(n-rg);
+                l++;
+            }
+            else{
+                rg++;
+            }
+        }
+        cout<<ans<<endl;
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();
