@@ -1,52 +1,37 @@
-l 0
-r 1
-currsum 3
-l 0
-r 2
-currsum 6
-l 0
-r 3
-currsum 10
-l 4
-r 5
-currsum 9
-l 4
-r 6
-currsum 12
-l 7
-r 8
-currsum 3
-l 7
-r 0
-currsum 4
-l 7
-r 1
-currsum 6
-l 7
-r 2
-currsum 9
-l 7
-r 3
-currsum 13
-l 4
-r 5
-currsum 9
-l 4
-r 6
-currsum 12
-l 7
-r 8
-currsum 3
-l 7
-r 0
-currsum 4
-l 7
-r 1
-currsum 6
-l 7
-r 2
-currsum 9
-l 7
-r 3
-currsum 13
+p1 0
+p2 0
+vis [ 0 0 0 0 0 0 ]
+ans 0
+p1 0
+p2 1
+vis [ 0 0 0 1 0 0 ]
+ans 1
+p1 1
+p2 1
+vis [ 0 0 0 1 0 0 ]
+ans 1
+p1 1
+p2 2
+vis [ 0 0 1 1 0 0 ]
+ans 2
+p1 1
+p2 3
+vis [ 0 0 1 1 0 1 ]
+ans 3
+p1 2
+p2 3
+vis [ 0 0 1 1 0 1 ]
+ans 3
+p1 3
+p2 3
+vis [ 0 0 1 1 0 1 ]
+ans 3
+p1 3
+p2 4
+vis [ 0 1 1 1 0 1 ]
+ans 4
+p1 4
+p2 4
+vis [ 0 1 1 1 0 1 ]
+ans 4
 Time: 0

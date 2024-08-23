@@ -262,58 +262,40 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 
 
 void solve(){
-   ll n,p;
-        cin>>n>>p;
+   ll n;
+        cin>>n;
         vl v(n);
         cin>>v;
-        if(n==1){
-            cout<<0<<" "<<ceil(p/(double)v[0]);
-            return;
-        }
+        vl w(n);
+        cin>>w;
 
-        ll l=0,r=1;
-        pair<ll,ll>ans= {0,INT_MAX};
-        ll currsum = v[0];
-        if(currsum>=p){
-            cout<<0<<" "<<1;
-            return;
-        }
-        ll ops = 0;
-        ll cnt = 1;
-        while(l<n){
-            ops++;
-            if(ops>=(2*n)){
-                break;
-            }
-            if(r>=n){
-                r%=n;
-            }
-            debug(l);
-            debug(r);
-            // cout<<"idx: "<<l<<" "<<r<<nl;
-            currsum+=v[r];
-            cnt++;
-            debug(currsum);
-            if(currsum>=p){
-                pair<ll,ll>temp = {l+1,cnt};
-                // cout<<"-------------------\n";
-                // cout<<temp.first<<" "<<temp.second<<nl;
-                // cout<<"-------------------\n";
-                if(temp.second<ans.second){
-                    ans = temp;
+        ll p1=0,p2=0;
+        ll ans =0;
+        // v [ 3 5 2 1 4 ]
+        // w [ 4 3 2 5 1 ]
+        vector<ll>vis(n+1,0);
+        while(p1<n && p2<n){
+            debug(p1);
+            debug(p2);
+            debug(vis);
+            debug(ans);
+            if(vis[v[p1]]==0){
+                if(v[p1]==w[p2]){
+                    p1++;
+                    p2++;
+                    vis[v[p1]] = 1;
                 }
-                
-                l = r+1;
-
-                r = l+1;
-                cnt = 1;
-                currsum = v[l];
+                else{
+                    ans++;
+                    p2++;
+                }
+                vis[w[p2]] = 1;
             }
             else{
-                r++;
+                p1++;
             }
         }
-        cout<<ans.first<<" "<<ans.second;
+        cout<<ans<<nl;
 }   
 
 
