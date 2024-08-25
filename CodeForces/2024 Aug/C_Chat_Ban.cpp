@@ -1,4 +1,4 @@
-// 2024-08-24 19:33:17
+// 2024-08-25 15:55:52
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,48 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        string s;
-        cin>>s;
-        cout<<a+b+c<<nl<<s<<nl;
+        ll k,x;
+        cin>>k>>x;
+        ll one = k*(k-1)+k;
+
+        if(one<=x){
+            cout<<2*k-1<<nl;
+            return;
+        }
+        ll l=1,r=2*k-1;
+        ll ans = -1;
+        while(l<=r){
+            ll mid = (l+r)/2;
+            ll val=0;
+            if(mid<=k){
+                val = mid*(mid+1)/2;
+            }
+            if(mid>k){
+                ll num = mid-k;
+                num = k-num;
+                ll total = (k-1)*(k)/2;
+                val = total - (((num-1)*num)/2);
+                val += (k*(k+1)/2);
+            }
+            if(val==x){
+                ans = mid;
+                break;
+                
+            }
+            if(val>x){
+                ans = mid;
+                r = mid-1;
+            }
+            else{
+                l = mid+1;
+            }
+        }
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

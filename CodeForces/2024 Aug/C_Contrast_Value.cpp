@@ -1,4 +1,4 @@
-// 2024-08-24 19:33:17
+// 2024-08-23 11:16:31
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,21 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        string s;
-        cin>>s;
-        cout<<a+b+c<<nl<<s<<nl;
+        ll n;
+        cin>>n;
+        vl v(n);
+        cin>>v;
+        ll ans = unique(v.begin(),v.end())-v.begin();
+        for(int i=0;i+2<n;i++){
+            ans-=(v[i]>v[i+1] &&v[i+1]>v[i+2]);
+            ans-= (v[i]<v[i+1] && v[i+1]<v[i+2]);
+        }
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

@@ -1,4 +1,4 @@
-// 2024-08-24 19:33:17
+// 2024-08-23 10:23:03
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,41 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        string s;
-        cin>>s;
-        cout<<a+b+c<<nl<<s<<nl;
+        ll n;
+        cin>>n;
+
+        vl v(n);
+        cin>>v;
+        ll l=0;
+        ll r=1;
+        vl ans;
+        ans.pb(1);
+        float mul = v[0];
+        float score = 0;
+        while(r<n){
+            mul*=v[r];
+            score = mul/(r+1);
+            if(score>=v[r]){
+                ans.pb(r-l+1);
+            }
+            else{
+                ll mulc = mul;
+                while(score<v[r]){
+                    mulc/=v[l];
+                    l++;
+                    score = mulc/(r+1);
+                }
+                ans.pb(r-l+1);
+            }
+            r++;
+
+        }
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

@@ -1,4 +1,4 @@
-// 2024-08-24 19:33:17
+// 2024-08-25 20:59:40
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -94,22 +94,57 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
+struct compare {
+    bool operator()(pair<char, int> const& p1, pair<char, int> const& p2) {
+        return p1.second < p2.second;
+    }
+};
 
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
+        ll n;
+        cin >> n;
         string s;
-        cin>>s;
-        cout<<a+b+c<<nl<<s<<nl;
+        cin >> s;
+        char c = s[0];
+        if(count(all(s), c) == n) {
+            cout << s << endl;
+            return;
+        }
+        unordered_map<char, int> freq;
+        for (char c : s) {
+            freq[c]++;
+        }
+        priority_queue<pair<char, int>, vector<pair<char, int>>, compare> maxHeap;
+        for (auto& entry : freq) {
+            maxHeap.push(entry);
+        }
+        string result = "";
+        pair<char, int> prev = {-1, 0};
+            while (!maxHeap.empty()) {
+                auto current = maxHeap.top();
+                maxHeap.pop();
+                result += current.first;
+                if (prev.second > 0) {
+                    maxHeap.push(prev);
+                }
+                current.second--;
+                prev = current;
+            }
+            if (prev.second > 0) {
+                while (prev.second--) {
+                    result += prev.first;
+                }
+            }
+        cout<<result<<endl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

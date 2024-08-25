@@ -1,4 +1,4 @@
-// 2024-08-24 19:33:17
+// 2024-08-24 09:06:54
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,11 +100,24 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        string s;
-        cin>>s;
-        cout<<a+b+c<<nl<<s<<nl;
+        ll n;
+        cin>>n;
+        vl v(n);
+        cin>>v;
+        sort(all(v));
+        ll q;
+        cin>>q;
+        //1 3 4 10 10
+        while(q--){
+            ll l,r;
+            cin>>l>>r;
+            
+            ll idx1 = 0;
+            ll idx2 = 0;
+            idx1 = lower_bound(all(v),l) - v.begin();
+            idx2 = upper_bound(all(v),r) - v.begin();
+            cout<<idx2-idx1<<" ";
+        }
     };
 
     int t;

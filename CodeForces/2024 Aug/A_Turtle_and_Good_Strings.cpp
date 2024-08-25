@@ -1,4 +1,4 @@
-// 2024-08-24 19:33:17
+// 2024-08-25 20:06:12
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,44 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
+        ll n;
+        cin>>n;
         string s;
         cin>>s;
-        cout<<a+b+c<<nl<<s<<nl;
+        if(n<0){
+            pn;
+        }
+        else{
+            map<char,int> m;
+            for(auto x:s){
+                m[x]++;
+            }
+            ll cnt = 0;
+            for(auto x:m){
+                if(x.second>=2){
+                    cnt++;
+                }
+            }
+            if(m.size()==1){
+                pn;
+                
+            }
+            else{
+                if(s[0]==s[n-1]){
+                    pn;
+                }
+                else{
+                    py;
+                }
+
+            }
+
+        }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

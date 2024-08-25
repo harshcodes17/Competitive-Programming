@@ -1,4 +1,4 @@
-// 2024-08-17 19:14:10
+// 2024-08-23 22:16:20
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,42 +100,38 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
+        ll n,x,y;
+        cin>>n>>x>>y;
 
-        vl v(n);
-        cin>>v;
-        if(n==1){
-            cout<<1<<nl;
-        }
-        else if(n==2){
-            cout<<2<<nl;
-        }
-        else if(n==3){
-            if(v[0]==v[1] || v[1]==v[2] || v[0]==v[2]){
-                cout<<1<<nl;
-                return;
+        string s;
+        cin>>s;
+        ll a=0,b=0;
+        for(auto x:s){
+            if(x=='L'){
+                a--;
             }
-            if(is_sorted(all(v))){
-            
-                cout<<2<<nl;
+            else if(x=='R'){
+                a++;
+            }
+            else if(x=='U'){
+                b++;
             }
             else{
-                cout<<3<<nl;
+                b--;
+            }
+        }
+        ll moves = abs(a-x)+abs(b-y);
+        if(moves==n){
+            py;
+            
+        }
+        else if(moves<n){
+            if((moves%2==0 && n%2==0) || (moves%2!=0 && n%2!=0)){
+                py;
             }
         }
         else{
-            map<ll,ll> mp;
-
-            for(int i=1;i<n;i++){
-                mp[abs(v[i]-v[i-1])]++;
-            }
-            ll maxi = 0;
-            for(auto x:mp){
-                maxi = max(maxi,x.s);
-            }
-            cout<<n-maxi<<nl;
-            return;
+            pn;
         }
     };
 

@@ -1,4 +1,4 @@
-// 2024-08-24 19:33:17
+// 2024-08-24 16:39:49
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,46 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
+        ll n,m,k;
+        cin>>n>>m>>k;
         string s;
         cin>>s;
-        cout<<a+b+c<<nl<<s<<nl;
+        if(n+1<=m){
+            py;
+            return;
+        }
+        ll pos = 0;
+        vector<ll>l;
+        
+        l.push_back(0);
+        for(int i=0;i<n;i++){
+            if(s[i]=='L'){
+                l.push_back(i+1);
+            }
+        }
+        l.push_back(n+1);
+        // cout<<l<<nl;
+        for(int i=1;i<l.size();i++){
+            if((l[i]-l[i-1])>m){
+                for(int j=l[i-1]+m-1;j<l[i]-1;j++){
+                    // cout<<s[j]<<" "<<k<<" "<<nl;
+                    if(s[j]=='W' && k){
+                        k--;
+                    }
+                    else{
+                        pn;
+                        return;
+                    }
+                }
+            }
+        }
+        py;
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
