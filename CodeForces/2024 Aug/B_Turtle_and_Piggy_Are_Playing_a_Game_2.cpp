@@ -1,4 +1,4 @@
-// 2024-08-25 20:40:36
+// 2024-08-26 08:18:10
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -104,24 +104,9 @@ int32_t main()
         cin>>n;
         vl v(n);
         cin>>v;
-        multiset<ll> st;
-        for(auto i:v)
-        {
-            st.insert(i);
-        }
-        ll f = 0;
-        while(st.size()>1){
-            if(f){
-                ll x = *st.rbegin();
-                st.erase(--st.end());
-            }
-            else{
-                ll x = *st.begin();
-                st.erase(st.begin());
-            }
-            f^=1;
-        }
-        cout<<*st.begin()<<endl;
+        sort(all(v));
+        ll ans = v[n/2];
+        cout<<ans<<nl;
     };
 
     int t;
