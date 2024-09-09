@@ -264,62 +264,47 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 void solve(){
    ll n;
         cin>>n;
-        vector<vector<ll>>v;
-        vector<pair<ll,ll>>vp;
-        for(int i=0;i<n;i++){
-            ll sz;
-            cin>>sz;
-            vl t(sz);
-            cin>>t;
-            v.pb(t);
+        map<pair<ll,ll>,ll>mp;
+        while(n--){
+            ll x,y;
+            cin>>x>>y;
+            mp[{x,y}]++;
         }
-        debug(v);
-        ll pt = 0;
-        // ll maxi = 0;
-        for(auto x:v){
-            ll mx = 0;
-            pair<ll,ll>temp = {0,-1};
-            for(int i=0;i<x.size();i++){
-
-                ll req = x[i]-i+1;
-                mx = max(req,mx);
-
+        ll xwale = 0;
+        ll ywale = 0;
+        for (const auto& [key, value] : mp) {
+            if (key.second == 0) {
+                xwale++;
             }
-            vp.push_back({mx,x.size()});
+            else if(key.second==1){
+                ywale++;
+            }
         }
-        sort(vp.begin(),vp.end());
-        ll maxi = vp.back().first;
-        debug(maxi);
-       
-        auto f = [&] (ll mid) -> bool{
-            for(int i=0;i<vp.size();i++){
-                if(vp[i].first>mid){
-                    return false;
-                }
-                mid+=vp[i].second;
-            }
-            return true;
-        };
-        debug(vp);
-        ll vpsz = vp.size();
-        ll l = vp[0].first;
-        ll r = maxi;
+        debug(mp);
+
         ll ans = 0;
-        while(l<=r){
-            ll mid = (l+r)/2;
-            if(f(mid)){
-                ans = mid;
-                r = mid-1;
+        ll f = 0;
+        for (const auto& [key, value] : mp) {
+            const auto& [x, y] = key;
+            debug(ans);
+            if (mp[{x, 1}]==1 && f==0){
+                ans += (xwale - 1);
+                f=1;
             }
-            else{
-                l = mid+1;
+            if (mp[{x, 1}]==1 ){
+                ans+=(ywale-1);
             }
-            
+            debug(ans);
+            if(y == 0){
+                debug(x+2);
+                if (mp[{x + 1, 1}]) {
+                    if(mp[{x + 2, 0}]){
+                        ans++;
+                    }
+                }
+            }
         }
         cout<<ans<<nl;
-
-       
-
 }   
 
 
