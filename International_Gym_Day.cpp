@@ -1,4 +1,4 @@
-// 2024-09-10 10:33:26
+// 2024-09-11 20:01:09
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,42 +100,37 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-        uniform_int_distribution<int> uni(10, 16);
-        ll test;
-        test = uni(rng);
-        cout<<test<<nl;
-        while(test--){
-            ll n;
-            n = uni(rng);
-            string s;
-
-            // set<char>st={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-            uniform_int_distribution<int> uni3(0, 9);
-            for(int i=0;i<n;i++){
-                ll num = uni3(rng);
-                s+=to_string(num);
+        ll d,x,y;
+        cin>>d>>x>>y;
+        ll rem = y;
+        ll req = x;
+        ll ans = 0;
+        ll dis = 0;
+        
+        while(rem>0){
+            if(rem>=req){
+                cout<<ans<<nl;
+                break;
+            }
+            else{
+                rem--;
+                dis+=d;
+                req = x*(100-dis)/100;
+                ans++;
+            }
+            if(dis>=100){
+                break;
             }
             
-            cout<<n<<nl;
-            // cout<<s<<nl;
-            string ops = "+-*/";
-            uniform_int_distribution<int> uni2(0, 3);
-            for(int i=1;i<s.size();i++){
-                char c = ops[uni2(rng)];
-                s.insert(i,1,c);
-                i++;
-            }
-            cout<<s<<nl;
         }
-
-
-
+        if(rem<req){
+            cout<<-1<<nl;
+        }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

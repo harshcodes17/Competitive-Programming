@@ -1,4 +1,4 @@
-// 2024-09-10 10:33:26
+// 2024-09-11 20:10:36
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,42 +100,59 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-        uniform_int_distribution<int> uni(10, 16);
-        ll test;
-        test = uni(rng);
-        cout<<test<<nl;
-        while(test--){
-            ll n;
-            n = uni(rng);
-            string s;
+        ll n;
+        cin>>n;
+        string s;
+        cin>>s;
+        ll ans = 0;
 
-            // set<char>st={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
-            uniform_int_distribution<int> uni3(0, 9);
-            for(int i=0;i<n;i++){
-                ll num = uni3(rng);
-                s+=to_string(num);
+        ll cnt1 = count(all(s), '1');
+        ll cnt0 = count(all(s), '0');
+        ll diff = abs(cnt1-cnt0);
+        for(int i=1;i<=n;i++){
+            ll cpi = i;
+            ll cpi2 = i;
+            ll cp0 = cnt0;
+            ll cp1 = cnt1;
+            ll cp20 = cp0;
+            ll cp21 = cp1;
+            ll f = 0;
+            // if(cnt1==i || cnt0==i){
+            //     ans++;
+            //     continue;   
+            // }
+            while(cpi--){
+                // cout<<cpi<<nl;
+                // cout<<cp0<<" "<<cp1<<nl;
+                if(cpi+1==cp0 || cpi+1==cp1){
+                    ans++;
+                    // cout<<"i: "<<i<<nl;
+                    f = 1;
+                    break;
+                }
+                cp0++;
+                cp1--;
+            }
+            if(f==0){
+                while(cpi2--){
+                    if(cpi2+1==cp20 || cpi2+1==cp21){
+                        ans++;
+                        // cout<<"i:"<<i<<nl;
+                        break;
+                    }
+                    cp20--;
+                    cp21++;
+                }
             }
             
-            cout<<n<<nl;
-            // cout<<s<<nl;
-            string ops = "+-*/";
-            uniform_int_distribution<int> uni2(0, 3);
-            for(int i=1;i<s.size();i++){
-                char c = ops[uni2(rng)];
-                s.insert(i,1,c);
-                i++;
-            }
-            cout<<s<<nl;
         }
-
-
+        cout<<ans<<nl;
 
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
