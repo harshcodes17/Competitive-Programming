@@ -1,4 +1,4 @@
-// 2024-09-24 21:48:49
+// 2024-09-25 21:13:32
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,34 +95,50 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+vector<vector<ll>> makeTree(ll N, vector<pair<ll, ll>> edges) {
+    vector<vector<ll>> adj(N + 1);  // adjacency list for the tree
+
+    // Adding edges to the adjacency list
+    for (auto edge : edges) {
+        ll u = edge.first;
+        ll v = edge.second;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    return adj;
+}
+
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll n,l,a;
-        cin>>n>>l>>a;
-        vector<pair<ll,ll>> t(n);
-        for(int i=0;i<n;i++){
-            cin>>t[i].f>>t[i].s;
-        }
-        sort(all(t));
-        ll ans = 0;
+        ll n;
+        cin>>n;
 
-        ll prev = 0;
-        for(int i=0;i<n;i++){
-            ll f = t[i].first;
-            ll add = (f-prev)/a;
-            ans+=add;
-            prev = f+t[i].second;
+        vector<pair<ll,ll>> edges;
+        for(int i=0;i<n-1;i++){
+            ll u,v;
+            cin>>u>>v;
+            edges.pb({u,v});
         }
-        ans+=(l-prev)/a;
-        cout<<ans<<nl;
+        vvl tree = makeTree(n,edges);
+        ll leafs = 0;
+        for(int i=1;i<=n;i++){
+            if(tree[i].size()==1){
+                leafs++;
+            }
+        }
+        ll ans = leafs*3+(n-leafs)*2;
+        out(ans);
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

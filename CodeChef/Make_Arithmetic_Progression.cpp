@@ -1,4 +1,4 @@
-// 2024-09-24 21:48:49
+// 2024-09-25 20:00:50
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,29 +100,22 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,l,a;
-        cin>>n>>l>>a;
-        vector<pair<ll,ll>> t(n);
-        for(int i=0;i<n;i++){
-            cin>>t[i].f>>t[i].s;
+        vl v(3);
+        cin>>v;
+        // sort(all(v));
+        if(v[1]*2==v[0]+v[2])
+        {
+            cout<<0<<nl;
         }
-        sort(all(t));
-        ll ans = 0;
-
-        ll prev = 0;
-        for(int i=0;i<n;i++){
-            ll f = t[i].first;
-            ll add = (f-prev)/a;
-            ans+=add;
-            prev = f+t[i].second;
+        else
+        {
+            cout<<1<<nl;
         }
-        ans+=(l-prev)/a;
-        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
