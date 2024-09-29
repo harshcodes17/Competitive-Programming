@@ -262,49 +262,46 @@ ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng);
 
 
 void solve(){
-   ll n;
-        cin>>n;
-        map<pair<ll,ll>,ll>mp;
-        while(n--){
-            ll x,y;
-            cin>>x>>y;
-            mp[{x,y}]++;
-        }
-        ll xwale = 0;
-        ll ywale = 0;
-        for (const auto& [key, value] : mp) {
-            if (key.second == 0) {
-                xwale++;
-            }
-            else if(key.second==1){
-                ywale++;
+   ll n,q;
+        cin>>n>>q;
+        vl v(n);
+        cin>>v;
+        vl que(q);
+        cin>>que;
+        // for(int i=0;i<n;i++){
+        //     for(int j=i+1;j<n;j++){
+
+        //     }
+        // }
+        map<ll,ll>mp;
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                mp[v[i]]++;
+                mp[v[j]+1]--;;
             }
         }
         debug(mp);
-
-        ll ans = 0;
-        ll f = 0;
-        for (const auto& [key, value] : mp) {
-            const auto& [x, y] = key;
-            debug(ans);
-            if (mp[{x, 1}]==1 && f==0){
-                ans += (xwale - 1);
-                f=1;
+        map<ll,ll>cnt;
+        ll i = 0;
+        for(auto it=mp.begin();it!=mp.end();it++){
+            i+=it->second;
+            cnt[i] = it->second-(it-1)->second;
+        }
+        debug(cnt);
+        vl ans(q,0);
+        for(int i=0;i<q;i++){
+            if(cnt.find(que[i])==cnt.end()){
+                ans[i]=0;
             }
-            if (mp[{x, 1}]==1 ){
-                ans+=(ywale-1);
-            }
-            debug(ans);
-            if(y == 0){
-                debug(x+2);
-                if (mp[{x + 1, 1}]) {
-                    if(mp[{x + 2, 0}]){
-                        ans++;
-                    }
-                }
+            else{
+                ans[i]=cnt[que[i]];
             }
         }
-        cout<<ans<<nl;
+        for(auto x:ans){
+            cout<<x<<" ";
+        }
+        cout<<nl;
+        
 }   
 
 

@@ -27,7 +27,7 @@ void generateInput(int index) {
                 s += to_string(num);
             }
 
-            inputFile << n << "\n";
+            // inputFile << n << "\n";
             string ops = "+-*/";
             uniform_int_distribution<int> uni2(0, 3);
             for (int i = 1; i < s.size(); i++) {
