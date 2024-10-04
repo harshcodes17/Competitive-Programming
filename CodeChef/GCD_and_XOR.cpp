@@ -1,4 +1,4 @@
-// 2024-10-01 09:42:15
+// 2024-10-03 09:49:41
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,35 +100,47 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,q;
-        cin>>n>>q;
-
+        ll n,k;
+        cin>>n>>k;
         vl v(n);
         cin>>v;
-        vl que(q);
-        cin>>que;
+        ll gcddd = v[0];
 
-        map<ll,ll>mp;
-
+        for(auto x:v){
+            gcddd = gcd(gcddd,x);
+        }
+        ll cnt = count(v.begin(),v.end(),k);
+        if(cnt==n){
+            cout<<0<<nl;
+            return;
+        }
+        if(gcddd%k==0){
+            cout<<1<<nl;
+            return;
+        }
+        ll rng = 0;
+        set<ll>st;
+        for(auto x:v){
+            if(x!=k){
+                st.insert(x);
+            }
+        }
+        
         for(int i=0;i<n;i++){
-            ll temp = (i+1)*(n-i)-1;
-            mp[temp]++;
-            if(i>0){
-                ll temp2 = (n-i)*i;
-                mp[temp2]+=(v[i]-v[i-1]-1);
+            
+            if(v[i]==k){
+                continue;
+            }
+            else if(i==0 || v[i-1]==k){
+                rng++;
             }
         }
-        vl ans;
-
-        for(auto x:que){
-            if(mp.find(x)==mp.end()){
-                ans.pb(0);
-            }
-            else{
-                ans.pb(mp[x]);
-            }
+        if(rng==1 && st.size()==1){
+            cout<<1<<nl;
+            return;
         }
-        cout<<ans<<nl;
+        
+        cout<<2<<nl;
     };
 
     int t;

@@ -1,4 +1,4 @@
-// 2024-09-25 20:14:46
+// 2024-09-29 17:56:10
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -104,34 +104,23 @@ int32_t main()
         cin>>n;
         vl v(n);
         cin>>v;
-        if(is_sorted(all(v)))
-        {
-            out(0);
-            return;
+
+        ll maxi = 0;
+
+        for(int i=1;i<=n;i++){
+            ll x = v[i-1];
+            if(x!=(i)){
+                maxi = max(maxi,x);
+            }
+        }
+        if(maxi==0){
+            cout<<0<<nl;
         }
         else{
-            vl diff;
-            for(int i=0;i<n;i++){
-                if(v[i]!=i+1){
-                    diff.pb(v[i]+v[v[i]-1]);
-                }
-                else{
-                    diff.pb(0);
-                }
-            }
-            // cout<<diff<<nl;
-            ll p = diff.size()-1;
-            while(p>=0){
-                if(diff[p]==0){
-                    p--;
-                }
-                else{
-                    break;
-                }
-            }
-            
-            cout<<min(p+2,n+1)<<nl;
+
+        cout<<maxi+1<<nl;
         }
+        // cout<<nl;
     };
 
     int t;

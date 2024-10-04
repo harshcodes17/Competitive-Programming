@@ -1,4 +1,4 @@
-// 2024-10-01 09:42:15
+// 2024-09-29 17:08:59
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,40 +100,20 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,q;
-        cin>>n>>q;
+        int n;
+        cin>>n;
 
-        vl v(n);
-        cin>>v;
-        vl que(q);
-        cin>>que;
-
-        map<ll,ll>mp;
-
-        for(int i=0;i<n;i++){
-            ll temp = (i+1)*(n-i)-1;
-            mp[temp]++;
-            if(i>0){
-                ll temp2 = (n-i)*i;
-                mp[temp2]+=(v[i]-v[i-1]-1);
-            }
+        if(n<=60){
+            cout<<"YES\n";
         }
-        vl ans;
-
-        for(auto x:que){
-            if(mp.find(x)==mp.end()){
-                ans.pb(0);
-            }
-            else{
-                ans.pb(mp[x]);
-            }
+        else{
+            cout<<"NO\n";
         }
-        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();
