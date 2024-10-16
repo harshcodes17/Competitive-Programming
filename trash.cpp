@@ -1,4 +1,4 @@
-// 2024-10-08 18:33:22
+// 2024-10-12 12:42:55
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,12 +100,37 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        
+        ll n,k;
+        cin>>n>>k;
+        vl v(n);
+        cin>>v;
+
+        sort(all(v));
+        cout<<v<<nl;
+        ll ans = 0;
+        ll l = 0,r = 1;
+        while(l<n && r<n){
+
+            ll diff = v[r]-v[l];
+            if(diff==k){
+                ans++;
+                l++;
+                r++;
+            }
+            if(diff<k){
+                r++;
+            }
+            else if(diff>k){
+                l++;
+            }
+        }
+        cout<<ans<<nl;
+
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();

@@ -259,49 +259,55 @@ ll phin(ll n)
 } // O(sqrt(N))
 ll getRandomNumber(ll l, ll r) { return uniform_int_distribution<ll>(l, r)(rng); }
 /*--------------------------------------------------------------------------------------------------------------------------*/
+// void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
+// void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)return false;for(int i=5;i*i<=n;i=i+6)if(n%i==0||n%(i+2)==0)return false;return true;}
+
+
 
 
 void solve(){
-   ll n,q;
-        cin>>n>>q;
+   ll n;
+        cin>>n;
         vl v(n);
         cin>>v;
-        vl que(q);
-        cin>>que;
-        // for(int i=0;i<n;i++){
-        //     for(int j=i+1;j<n;j++){
+        ll ans=0;
+        ll odds = 0;
+        ll pms = 0;
 
-        //     }
-        // }
-        map<ll,ll>mp;
-        for(int i=0;i<n;i++){
-            for(int j=i+1;j<n;j++){
-                mp[v[i]]++;
-                mp[v[j]+1]--;;
+        for(auto x:v){
+            if(x%2!=0 && !isPrime(x)){
+                ans++;
+                break;
             }
         }
-        debug(mp);
-        map<ll,ll>cnt;
-        ll i = 0;
-        for(auto it=mp.begin();it!=mp.end();it++){
-            i+=it->second;
-            cnt[i] = it->second-(it-1)->second;
-        }
-        debug(cnt);
-        vl ans(q,0);
-        for(int i=0;i<q;i++){
-            if(cnt.find(que[i])==cnt.end()){
-                ans[i]=0;
+        ll l=0,r=0;
+        while(l<n && r<n){
+            cout<<l<<' '<<r<<nline;
+            debug(l);
+            debug(r);
+            if(!isPrime(v[l])){
+                if(isPrime(v[r])){
+                    r++;
+                    l = r;
+                    continue;
+                }
+                if(v[r]%2==0){
+                    r++;
+                }
+                if(!isPrime(v[r])){
+                    r++;
+                }
+                ans = max(ans,r-l);
             }
             else{
-                ans[i]=cnt[que[i]];
+                r++;
             }
+
         }
-        for(auto x:ans){
-            cout<<x<<" ";
-        }
-        cout<<nl;
-        
+        // cout<<odds<<" "<<pms<<nl;
+        // ans = max(ans,odds-pms);
+        cout<<ans<<nl;
 }   
 
 
