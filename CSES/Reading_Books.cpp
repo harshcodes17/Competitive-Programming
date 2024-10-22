@@ -1,4 +1,4 @@
-// 2024-10-21 23:12:52
+// 2024-10-22 10:53:06
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,30 +102,19 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vector<pair<ll,ll>> a(n);
-        for(int i=0;i<n;i++)
-        {
-            cin>>a[i].first;
-            cin>>a[i].second;
+        vl v(n);
+        cin>>v;
+
+        sort(all(v));
+        ll maxi = v[n-1];
+        ll sum = accumulate(all(v),0LL);
+        sum-=maxi;
+        if(maxi<=sum){
+            cout<<sum+maxi<<endl;
         }
-        sort(a.begin(),a.end());
-        set<pair<ll,ll>>s;
-        vl ans(n);
-        ll c = 0;
-        for(ll i=0;i<n;i++){
-            ll num;
-            if(s.empty() || ((*s.begin()).first>a[i].first)){
-                num = ++c;
-            }
-            else{
-                num = ((*s.begin()).second);
-                s.erase(s.begin());
-            }
-            ans[i] = num;
-            s.insert({a[i].second+1,num});
+        else{
+            cout<<2*maxi<<endl;
         }
-        ll maxi = *max_element(ans.begin(),ans.end());
-        cout<<maxi<<nl<<ans<<nl;
     };
 
     int t;

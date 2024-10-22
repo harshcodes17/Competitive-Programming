@@ -1,4 +1,4 @@
-// 2024-10-21 23:12:52
+// 2024-10-22 00:41:43
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,37 +100,65 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vector<pair<ll,ll>> a(n);
-        for(int i=0;i<n;i++)
-        {
-            cin>>a[i].first;
-            cin>>a[i].second;
-        }
-        sort(a.begin(),a.end());
-        set<pair<ll,ll>>s;
-        vl ans(n);
-        ll c = 0;
-        for(ll i=0;i<n;i++){
-            ll num;
-            if(s.empty() || ((*s.begin()).first>a[i].first)){
-                num = ++c;
+        ll n,k;
+        cin>>n>>k;
+        string s;
+        cin>>s;
+        ll tochangefirstchar = s[0]-'a'; 
+        if(k==tochangefirstchar){
+            char maxi = s[0];
+
+            for(auto &x:s){
+                if(x<=maxi){
+                    x = 'a';
+                }
             }
-            else{
-                num = ((*s.begin()).second);
-                s.erase(s.begin());
-            }
-            ans[i] = num;
-            s.insert({a[i].second+1,num});
+            cout<<s<<endl;
         }
-        ll maxi = *max_element(ans.begin(),ans.end());
-        cout<<maxi<<nl<<ans<<nl;
+        else if(k>tochangefirstchar){
+            char maxi = s[0];
+            char baher;
+            ll idx = 0;
+            for(int i=0;i<n;i++){
+                if(s[i]-k<='a'){
+                    if(s[i]>maxi){
+                        maxi = s[i];
+                    }
+                }
+                else{
+                    baher = s[i];
+                    idx = i;
+                    break;
+                }
+            }
+            ll rem = k-(maxi-'a');
+
+            for(int i=0;i<n;i++){
+                if(s[i]<=maxi){
+                    s[i] = 'a';
+                }
+                else if(s[i]<=baher && i>=idx){
+                    s[i] = min(s[i],(char)(baher - rem));
+                }
+            }
+            cout<<s<<endl;
+        }
+        else{
+            char to_change_char = s[0]-k;
+            char first = s[0];
+            for(int i=0;i<n;i++){
+                if(s[i]<=first){
+                    s[i] = min(to_change_char,s[i]);
+                }
+            }
+            cout<<s<<endl;
+        }
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

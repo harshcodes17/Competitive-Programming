@@ -1,4 +1,4 @@
-// 2024-10-21 23:12:52
+// 2024-10-21 13:19:54
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,40 +100,41 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vector<pair<ll,ll>> a(n);
-        for(int i=0;i<n;i++)
-        {
-            cin>>a[i].first;
-            cin>>a[i].second;
-        }
-        sort(a.begin(),a.end());
-        set<pair<ll,ll>>s;
-        vl ans(n);
-        ll c = 0;
-        for(ll i=0;i<n;i++){
-            ll num;
-            if(s.empty() || ((*s.begin()).first>a[i].first)){
-                num = ++c;
+        ll n,k;
+        cin>>n>>k;
+
+        vl v(n);
+        cin>>v;
+
+        sort(all(v));
+
+        ll i = 0;
+        ll sum = 0;
+        ll ans = k;
+        while(i<n){
+            v[i] = v[i]-i;
+            cout<<"SUM:"<<sum<<nl;
+            cout<<v[i]<<" \n";
+            ll add = (n-i)*v[i];
+            if((sum+add)>=k){
+                ans = ans+i;
+                break;
             }
             else{
-                num = ((*s.begin()).second);
-                s.erase(s.begin());
+                sum = sum+add;
             }
-            ans[i] = num;
-            s.insert({a[i].second+1,num});
+            i++;
         }
-        ll maxi = *max_element(ans.begin(),ans.end());
-        cout<<maxi<<nl<<ans<<nl;
+        cout<<ans<<nl;
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
     }
     return 0;
-}
+}   
