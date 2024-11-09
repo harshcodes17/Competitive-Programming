@@ -1,4 +1,4 @@
-// 2024-10-21 13:19:54
+// 2024-10-26 19:21:43
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,46 +95,38 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+// vl dp(10000000)
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll n,k;
-        cin>>n>>k;
-
-        vl v(n);
-        cin>>v;
-
-        sort(all(v));
-
-        ll i = 0;
-        ll sum = 0;
-        ll ans = k;
-        while(i<n){
-            v[i] = v[i]-i;
-            cout<<"SUM:"<<sum<<nl;
-            cout<<v[i]<<" \n";
-            ll add = (n-i)*v[i];
-            if((sum+add)>=k){
-                ans = ans+i;
-                break;
+        ll n;
+        cin>>n;
+        vl dp(n+1,0);
+        dp[0] = 1;
+        for(int i=1;i<=n;i++){
+            for(int j=1;j<=6;j++){
+                if(j>i){
+                    break;
+                }
+                else{
+                    dp[i] += dp[i-j];
+                    dp[i]%=M;
+                }
             }
-            else{
-                sum = sum+add;
-            }
-            i++;
         }
-        cout<<ans<<nl;
-
+        ll ans = dp[n];
+        cout<<ans%M<<nl;
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();
     }
     return 0;
-}   
+}

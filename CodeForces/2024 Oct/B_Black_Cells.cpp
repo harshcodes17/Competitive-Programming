@@ -1,3 +1,8 @@
+// 2024-10-29 09:13:52
+// Author : Harshavardhan Bamane
+// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
+// Codeforces: https://codeforces.com/profile/harsh_bamane17
+// Codechef: https://www.codechef.com/users/harsh_bamane17
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -97,31 +102,41 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        map<ll,vector<ll>>mp;
-        for(int i=0;i<n;i++){
-            mp[v[i]].push_back(i);
+        vl v(n);cin>>v;
+        sort(all(v));
+        vl diff;
+        for(int i=1;i<n;i+=2){
+            diff.pb(v[i]-v[i-1]);
         }
-        ll ans = 0;
-        for(auto &x:mp){
-            sort(all(x.second));
-        }
-        ans = n;
-        for(auto &x:mp){
-            ll sz = n;
-            for(int i=0;i<x.second.size()-1;i++){
-                sz = min(sz,(x.second[i+1]-x.second[i])+1);
+        if(n%2==1){
+            ll ans = 1e18;
+            if(n==1){
+                cout<<1<<endl;
+                return;
             }
-            ll var = sz-2;
-            ans = min(ans,var);
+            for(int i=0;i<n;i++){
+                vl temp;
+                for(int z=0;z<n;z++){
+                    if(z==i)continue;
+                    temp.pb(v[z]);
+                }
+                ll rng = temp[1]-temp[0];
+                // cout<<temp<<endl;
+                for(int j=2;j<temp.size()-1;j+=2){
+                    rng = max(rng,(temp[j+1]-temp[j]));
+                }
+                ans = min(ans,rng);
+            }
+            cout<<ans<<endl;
         }
-        cout<<ans;    
+        else{
+            cout<<*max_element(all(diff))<<endl;
+        }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

@@ -1,140 +1,66 @@
+// 2024-11-07 08:05:51
+// Author : Harshavardhan Bamane
+// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
+// Codeforces: https://codeforces.com/profile/harsh_bamane17
+// Codechef: https://www.codechef.com/users/harsh_bamane17
+
 #include <bits/stdc++.h>
+
 using namespace std;
 
-// Function to find precedence of 
-// operators.
-int precedence(char op){
-	if(op == '+'||op == '-')
-	return 2;
-	if(op == '*'||op == '/')
-	return 1;
-}
-bool valid = true;
-// Function to perform arithmetic operations.
-int applyOp(int a, int b, char op){
-  if((op == '/') && (b == 0)){ // Division by zero
-	valid = false;
-	return 0;
-  }
-  switch(op){
-		case '+': return a + b;
-		case '-': return a - b;
-		case '*': return a * b;
-		case '/': return a / b;
-	}
-	return 0;
-}
 
-// Function that returns value of
-// expression after evaluation.
-int evaluate(string tokens){
-	int i;
-	
-	// stack to store integer values.
-	stack <int> values;
-	
-	// stack to store operators.
-	stack <char> ops;
-	
-	for(i = 0; i < tokens.length(); i++){
-		
-		// Current token is a whitespace,
-		// skip it.
-		if(tokens[i] == ' ')
-			continue;
-		
-		// Current token is an opening 
-		// brace, push it to 'ops'
-		else if(tokens[i] == '('){
-			ops.push(tokens[i]);
-		}
-		
-		// Current token is a number, push 
-		// it to stack for numbers.
-		else if(isdigit(tokens[i])){
-			int val = 0;
-			
-			// There may be more than one
-			// digits in number.
-			while(i < tokens.length() && 
-						isdigit(tokens[i]))
-			{
-				val = (val*10) + (tokens[i]-'0');
-				i++;
-			}
-			
-			values.push(val);
-			
-			// right now the i points to 
-			// the character next to the digit,
-			// since the for loop also increases 
-			// the i, we would skip one 
-			// token position; we need to 
-			// decrease the value of i by 1 to
-			// correct the offset.
-			i--;
-		}
-		// Current token is an operator.
-		else
-		{
-			// While top of 'ops' has same or greater 
-			// precedence to current token, which
-			// is an operator. Apply operator on top 
-			// of 'ops' to top two elements in values stack.
-			while(!ops.empty() && precedence(ops.top())
-								>= precedence(tokens[i])){
-				int val2 = values.top();
-				values.pop();
-				
-				int val1 = values.top();
-				values.pop();
-				
-				char op = ops.top();
-				ops.pop();
-				
-				values.push(applyOp(val1, val2, op));
-			}
-			
-			// Push current token to 'ops'.
-			ops.push(tokens[i]);
-		}
-	}
-	
-	// Entire expression has been parsed at this
-	// point, apply remaining ops to remaining
-	// values.
-	while(!ops.empty()){
-		int val2 = values.top();
-		values.pop();
-				
-		int val1 = values.top();
-		values.pop();
-				
-		char op = ops.top();
-		ops.pop();
-				
-		values.push(applyOp(val1, val2, op));
-	}
-	
-	// Top of 'values' contains result, return it.
-	return values.top();
-}
 
-int main() {
-  int t;
-  cin >> t;
-  while(t--){
-	string s;
-	cin >> s;
-	valid = true;
-	int res = evaluate(s);
-	if(valid){
-		  cout << res<<endl;
-	}
-	else{
-		cout << "Infinity"<<endl;
-	}
-  }
-	return 0;
-}
+//Speed
+#define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 
+//Macros
+#define nl "\n"
+
+//Typedef
+typedef long long ll;
+typedef vector<ll> vl;
+
+vector <ll> primes;
+vector <bool> is_prime;
+
+// Mathematical functions
+void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
+void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+
+
+
+int32_t main()
+{
+    fastio()
+    Sieve(1e7+1);
+    ll res = 0;
+    vl v(1e7+1,0);
+    for(int i=1;i*i<1e7+1;i++){
+        for(int j=1;(i*i)+(2*(j*j*j*j))<1e7+1;j++){
+            v[(i*i)+(2*(j*j*j*j))] = 1;
+        }
+    }
+    vl pre(1e7+1,0);
+    for(int i=0;i<1e7+1;i++){
+        if(v[i]&&is_prime[i]){
+            pre[i] = 1;
+        }
+    }
+    for(int i=1;i<1e7+1;i++){
+        pre[i] += pre[i-1];
+    }
+    int t;
+    t=1;
+    cin>>t;
+    auto solve = [&] () {
+        ll n;
+        cin>>n;
+        cout<<pre[n]<<nl;
+    };
+    while(t--)
+    {
+        solve();
+    }
+    
+    return 0;
+}

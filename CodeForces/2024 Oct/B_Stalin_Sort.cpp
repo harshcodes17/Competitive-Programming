@@ -1,3 +1,8 @@
+// 2024-10-27 11:24:48
+// Author : Harshavardhan Bamane
+// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
+// Codeforces: https://codeforces.com/profile/harsh_bamane17
+// Codechef: https://www.codechef.com/users/harsh_bamane17
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -99,29 +104,24 @@ int32_t main()
         cin>>n;
         vl v(n);
         cin>>v;
-        map<ll,vector<ll>>mp;
+
+        ll ans = 1e12;
+
         for(int i=0;i<n;i++){
-            mp[v[i]].push_back(i);
-        }
-        ll ans = 0;
-        for(auto &x:mp){
-            sort(all(x.second));
-        }
-        ans = n;
-        for(auto &x:mp){
-            ll sz = n;
-            for(int i=0;i<x.second.size()-1;i++){
-                sz = min(sz,(x.second[i+1]-x.second[i])+1);
+            ll cnt = i;
+            for(int j=i+1;j<n;j++){
+                if(v[j]>v[i]){
+                    cnt++;
+                }
             }
-            ll var = sz-2;
-            ans = min(ans,var);
+            ans = min(ans,cnt);
         }
-        cout<<ans;    
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

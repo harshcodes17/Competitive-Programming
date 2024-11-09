@@ -1,3 +1,8 @@
+// 2024-10-30 08:23:23
+// Author : Harshavardhan Bamane
+// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
+// Codeforces: https://codeforces.com/profile/harsh_bamane17
+// Codechef: https://www.codechef.com/users/harsh_bamane17
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -89,6 +94,33 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
+// ll ans = 0;
+ll fn(ll idx1,ll idx2, vector<vector<char>>& vect, ll n, vector<vector<ll>>& dp){
+    
+    if(idx1 == n || idx2 == n){
+        return 0;
+    }
+    if(vect[idx1][idx2]=='*'){
+        return 0;
+    }
+    if(dp[idx1][idx2] != -1){
+        return dp[idx1][idx2];
+    }    
+    if(idx1 == n-1 && idx2 == n-1){
+        return 1;
+    }
+    ll left= 0;
+    ll right = 0;
+    if(idx1 !=n-1){
+        left = fn(idx1+1,idx2,vect,n,dp);
+    }
+    if(idx2 !=n-1){
+        right = fn(idx1,idx2+1,vect,n,dp);
+    }
+    // ll right= fn(idx1,idx2+1,vect,n);
+    
+    return dp[idx1][idx2] = (left+right)%M;
+}
 
 int32_t main()
 {
@@ -97,26 +129,34 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        map<ll,vector<ll>>mp;
-        for(int i=0;i<n;i++){
-            mp[v[i]].push_back(i);
-        }
-        ll ans = 0;
-        for(auto &x:mp){
-            sort(all(x.second));
-        }
-        ans = n;
-        for(auto &x:mp){
-            ll sz = n;
-            for(int i=0;i<x.second.size()-1;i++){
-                sz = min(sz,(x.second[i+1]-x.second[i])+1);
+        vector<vector<char>> vect(n, vector<char>(n));
+        vector<vector<ll>> dp(n, vector<ll>(n, 0));
+        rep(i,n){
+            rep(j,n){
+                cin>>vect[i][j];
             }
-            ll var = sz-2;
-            ans = min(ans,var);
         }
-        cout<<ans;    
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(vect[i][j]=='*'){
+                    dp[i][j] = 0;
+                }
+                else if(i==0 && j==0){
+                    dp[i][j] = 1;
+                }
+                else{
+                    dp[i][j] = 0;
+                    if(i>0){
+                        dp[i][j] = (dp[i][j]+dp[i-1][j])%M;
+                    }
+                    if(j>0){
+                        dp[i][j] = (dp[i][j]+dp[i][j-1])%M;
+                    }
+                }
+            }
+        }
+        cout<<dp[n-1][n-1]<<endl;
     };
 
     int t;

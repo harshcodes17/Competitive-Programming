@@ -1,3 +1,8 @@
+// 2024-10-26 20:25:10
+// Author : Harshavardhan Bamane
+// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
+// Codeforces: https://codeforces.com/profile/harsh_bamane17
+// Codechef: https://www.codechef.com/users/harsh_bamane17
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -97,31 +102,33 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        map<ll,vector<ll>>mp;
+
+        vector<pair<ll,ll>>vp;
+
         for(int i=0;i<n;i++){
-            mp[v[i]].push_back(i);
+            pair<ll,ll>p;
+            cin>>p.f;
+            cin>>p.s;
+            vp.pb(p);
         }
-        ll ans = 0;
-        for(auto &x:mp){
-            sort(all(x.second));
-        }
-        ans = n;
-        for(auto &x:mp){
-            ll sz = n;
-            for(int i=0;i<x.second.size()-1;i++){
-                sz = min(sz,(x.second[i+1]-x.second[i])+1);
+
+        ll maxi1 = 0;
+        ll maxi2 = 0;
+
+        for(auto [x,y]:vp){
+            if(x>maxi1){
+                maxi1 = x;
             }
-            ll var = sz-2;
-            ans = min(ans,var);
+            if(y>maxi2){
+                maxi2 = y;
+            }
         }
-        cout<<ans;    
+        cout<<2*(maxi1+maxi2)<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

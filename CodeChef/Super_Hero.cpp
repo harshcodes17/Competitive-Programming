@@ -1,3 +1,8 @@
+// 2024-11-06 20:14:28
+// Author : Harshavardhan Bamane
+// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
+// Codeforces: https://codeforces.com/profile/harsh_bamane17
+// Codechef: https://www.codechef.com/users/harsh_bamane17
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -89,39 +94,33 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
-
+int fn(ll n) {
+    int count = 0;
+    for (ll i = 2; i * i <= n; i++) {
+        while (n % i == 0) {
+            count++;
+            n /= i;
+        }
+    }
+    if (n > 1) count++;
+    return count;
+}
 int32_t main()
 {
     fastio()
-    
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
-        map<ll,vector<ll>>mp;
-        for(int i=0;i<n;i++){
-            mp[v[i]].push_back(i);
-        }
+        ll n,x;
+        cin>>n>>x;
         ll ans = 0;
-        for(auto &x:mp){
-            sort(all(x.second));
-        }
-        ans = n;
-        for(auto &x:mp){
-            ll sz = n;
-            for(int i=0;i<x.second.size()-1;i++){
-                sz = min(sz,(x.second[i+1]-x.second[i])+1);
-            }
-            ll var = sz-2;
-            ans = min(ans,var);
-        }
-        cout<<ans;    
+        ll pw = log2(x);
+        ll p = pow(2,pw);
+        ll num = n*p;
+        ans = fn(num);
+        cout<<ans<<nl;
     };
-
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

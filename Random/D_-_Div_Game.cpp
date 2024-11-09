@@ -1,3 +1,8 @@
+// 2024-11-07 14:02:12
+// Author : Harshavardhan Bamane
+// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
+// Codeforces: https://codeforces.com/profile/harsh_bamane17
+// Codechef: https://www.codechef.com/users/harsh_bamane17
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -80,8 +85,8 @@ vector <ll> primes;
 vector <bool> is_prime;
 
 // Mathematical functions
-void Sieve(int n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
-void get_primes(int n){ for(int i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
+void Sieve(ll n){ is_prime.assign(n + 1, true); is_prime[0] = is_prime[1] = false; for(ll i = 2; i * i <= n; i++) if(is_prime[i]) for(ll j = i * i; j <= n; j += i) is_prime[j] = false;}
+void get_primes(ll n){ for(ll i = 2; i <= n; i++)  if(is_prime[i])  primes.push_back(i); }
 ll mod_add(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a + b) % m) + m) % m;}
 ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) % m;}
 ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd 
@@ -97,28 +102,36 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        map<ll,vector<ll>>mp;
-        for(int i=0;i<n;i++){
-            mp[v[i]].push_back(i);
+        if(n==1){
+            cout<<0<<nl;
+            return;
+        }
+        map<ll,ll> factors;
+        ll num = n;
+        for(ll i=2;i*i<=n;i++){
+            while(n%i==0){
+                factors[i]++;
+                n/=i;
+            }
         }
         ll ans = 0;
-        for(auto &x:mp){
-            sort(all(x.second));
+        if(factors.size()==0){
+            cout<<1<<nl;
+            return;
         }
-        ans = n;
-        for(auto &x:mp){
-            ll sz = n;
-            for(int i=0;i<x.second.size()-1;i++){
-                sz = min(sz,(x.second[i+1]-x.second[i])+1);
+        for(auto &x:factors){
+            ll p = 1;
+            // cout<<x.second<<nl;
+            while(x.s>=p){
+                x.s-=p;
+                p++;
+                ans++;
             }
-            ll var = sz-2;
-            ans = min(ans,var);
         }
-        cout<<ans;    
+        cout<<ans+(n>1)<<nl;
+    
     };
-
+    // Sieve(1000000);
     int t;
     t=1;
     // cin>>t;

@@ -1,3 +1,8 @@
+// 2024-11-06 20:03:55
+// Author : Harshavardhan Bamane
+// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
+// Codeforces: https://codeforces.com/profile/harsh_bamane17
+// Codechef: https://www.codechef.com/users/harsh_bamane17
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -95,33 +100,60 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
-        map<ll,vector<ll>>mp;
+        ll n,x;
+        cin>>n>>x;
+        vl a(n);
+        cin>>a;
+        vl b(n);
+        cin>>b;
+// 
+        // sort(all(a));
+        // sort(all(b));
+
+        vl diff;
+
+        ll won = 0;
+
         for(int i=0;i<n;i++){
-            mp[v[i]].push_back(i);
-        }
-        ll ans = 0;
-        for(auto &x:mp){
-            sort(all(x.second));
-        }
-        ans = n;
-        for(auto &x:mp){
-            ll sz = n;
-            for(int i=0;i<x.second.size()-1;i++){
-                sz = min(sz,(x.second[i+1]-x.second[i])+1);
+            if(a[i]>b[i]){
+                won++;
             }
-            ll var = sz-2;
-            ans = min(ans,var);
+            else{
+                diff.pb(max(b[i]-a[i],0LL));
+            }
         }
-        cout<<ans;    
+        if(won>=(n/2)+1){
+            py;
+        }
+        else{
+            sort(all(diff));
+            for(int i=0;i<diff.size();i++){
+                if(x>0){
+                    if(diff[i]+1<=x){
+                        x-=(diff[i]+1);
+                        won++;
+                    }
+                    else{
+                        break;
+                    }
+                    
+                }
+                else{
+                    break;
+                }
+            }
+            if(won>=(n/2)+1){
+                py;
+            }
+            else{
+                pn;
+            }
+        }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

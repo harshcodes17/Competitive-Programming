@@ -1,3 +1,8 @@
+// 2024-11-06 20:01:50
+// Author : Harshavardhan Bamane
+// Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
+// Codeforces: https://codeforces.com/profile/harsh_bamane17
+// Codechef: https://www.codechef.com/users/harsh_bamane17
 
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -95,33 +100,19 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
-        map<ll,vector<ll>>mp;
-        for(int i=0;i<n;i++){
-            mp[v[i]].push_back(i);
-        }
+        ll n,x;
+        cin>>n>>x;
         ll ans = 0;
-        for(auto &x:mp){
-            sort(all(x.second));
+        for(int i=1;i<=n;i++){
+            if(i==x)continue;
+            if((i+x)%2==0)ans++;
         }
-        ans = n;
-        for(auto &x:mp){
-            ll sz = n;
-            for(int i=0;i<x.second.size()-1;i++){
-                sz = min(sz,(x.second[i+1]-x.second[i])+1);
-            }
-            ll var = sz-2;
-            ans = min(ans,var);
-        }
-        cout<<ans;    
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
