@@ -1,0 +1,1 @@
+{"name":"Local: baloon","url":"/home/harsh/Desktop/Competitive-Programming/baloon.cpp","tests":[{"id":1731655364531,"input":"1 1\n1 2\n2 1","output":"1"},{"id":1731655374814,"input":"1 2\n1 2\n2 1\n1 2","output":"1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/harsh/Desktop/Competitive-Programming/baloon.cpp","group":"local","local":true}

@@ -267,46 +267,59 @@ bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)re
 
 
 void solve(){
-   ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
-        ll ans=0;
-        ll odds = 0;
-        ll pms = 0;
-
-        for(auto x:v){
-            if(x%2!=0 && !isPrime(x)){
-                ans++;
-                break;
+   ll n,m;
+        cin>>n>>m;
+        vector<pair<ll,ll>> red(n);
+        for(int i=0;i<n;i++)
+        {
+            cin>>red[i].first;
+            red[i].second=i;
+        }
+        vector<pair<ll,ll>> blue(m);
+        for(int i=0;i<m;i++)
+        {
+            cin>>blue[i].first;
+            blue[i].second=i;
+        }
+        map<pair<ll,ll>,ll> mp1,mp2;
+        for(auto x:red)
+        {
+            mp1[{x.first,x.second}]++;
+        }
+        for(auto x:blue)
+        {
+            mp2[{x.first,x.second}]++;
+        }
+        ll ans = 0;
+        if(m<n){
+            for(auto x:red)
+            {
+                if(mp2.find({min(x.first,x.second),max(x.first,x.second)})!=mp2.end())
+                {
+                    ans++;
+                    mp2[{min(x.first,x.second),max(x.first,x.second)}]--;
+                }
+                else if(mp2.find({max(x.first,x.second),min(x.first,x.second)})!=mp2.end()){
+                    ans++;
+                    mp2[{max(x.first,x.second),min(x.first,x.second)}]--;
+                }
             }
         }
-        ll l=0,r=0;
-        while(l<n && r<n){
-            cout<<l<<' '<<r<<nline;
-            debug(l);
-            debug(r);
-            if(!isPrime(v[l])){
-                if(isPrime(v[r])){
-                    r++;
-                    l = r;
-                    continue;
+        else{
+            for(auto x:blue)
+            {
+                if(mp1.find({min(x.first,x.second),max(x.first,x.second)})!=mp1.end())
+                {
+                    ans++;
+                    mp1[{min(x.first,x.second),max(x.first,x.second)}]--;
                 }
-                if(v[r]%2==0){
-                    r++;
+                else if(mp1.find({max(x.first,x.second),min(x.first,x.second)})!=mp1.end()){
+                    ans++;
+                    mp1[{max(x.first,x.second),min(x.first,x.second)}]--;
                 }
-                if(!isPrime(v[r])){
-                    r++;
-                }
-                ans = max(ans,r-l);
             }
-            else{
-                r++;
-            }
-
         }
-        // cout<<odds<<" "<<pms<<nl;
-        // ans = max(ans,odds-pms);
+        cerr<<ans<<nl;
         cout<<ans<<nl;
 }   
 
@@ -320,7 +333,7 @@ int main()
     auto start1 = high_resolution_clock::now();
     int t;
     t = 1;
-    cin >> t;
+    // cin >> t;
 
     while (t--)
     {

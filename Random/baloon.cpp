@@ -1,4 +1,4 @@
-// 2024-11-15 07:29:50
+// 2024-11-15 13:21:08
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -225,127 +225,55 @@ ll powermod(ll x, ll y, ll p)
 }
 // To find modulo inverse, call powermod(A,M-2,M)
 
-int BinaryStringToDecimal(string n)
-{
-    string num = n;
-    int dec_value = 0;
-    int base = 1;
-    int len = num.length();
-    for (int i = len - 1; i >= 0; i--)
-    {
-        if (num[i] == '1')
-            dec_value += base;
-        base = base * 2;
-    }
-    return dec_value;
-}
-
 int32_t main()
 {
-    fastio() auto solve = [&]()
-    {
-        ll l, r;
-        cin >> l >> r;
-        
-        int cnt1 = static_cast<int>(log2(l)) + 1;
-        int cnt2 = static_cast<int>(log2(r)) + 1;
-        ll ans = 0;
+    fastio()
 
-        for (int i = 1; i <= cnt1; i++)
+        auto solve = [&]()
+    {
+        ll n, m;
+        cin >> n >> m;
+
+        multiset<ll> mp1, mp2;
+        for (ll i = 0; i < n; i++)
         {
-            if (cnt1 % i == 0)
+            ll x, y;
+            cin >> x >> y;
+            
+            mp1.insert((x*y));
+        }
+        for (ll i = 0; i < m; i++)
+        {
+            ll x, y;
+            cin >> x >> y;
+            
+            mp2.insert((x*y));
+        }
+        ll collisions = 0;
+            for (auto &i : mp2)
             {
-                string temp(cnt1, '0');
-                ll t = 1;
-                ll hehe = 0;
-                for (int k = 0; k < cnt1; k++)
+                if (mp1.find(i) != mp1.end())
                 {
-                    if (t == 1)
-                    {
-                        temp[k] = '1';
-                        hehe++;
-                        if (hehe == i)
-                        {
-                            t = 0;
-                            hehe = 0;
-                        }
-                    }
-                    else
-                    {
-                        temp[k] = '0';
-                        hehe++;
-                        if (hehe == i)
-                        {
-                            t = 1;
-                            hehe = 0;
-                        }
-                    }
-                }
-                // cout<<temp<<nl;
-                ll num = BinaryStringToDecimal(temp);
-                if (num >= l && num <= r)
-                {
-                    ans++;
+                    collisions++;
+                    mp1.erase(mp1.find(i));
+                        
                 }
             }
-        }
-        
-        if (cnt1 == cnt2)
-        {
-            cout << ans << nl;
-            return;
-        }
-        
-        else
-        {
-            for(int z=cnt1+1;z<=cnt2;z++){
-                for (int i = 1; i <= z; i++)
+        ll cnt = 0;
+            for (auto &i : mp1)
             {
-                if (z % i == 0)
+                if (mp2.find(i) != mp2.end())
                 {
-                    // cout<<"i: "<<i<<nl;
-                    string temp(z, '0');
-                    ll t = 1;
-                    ll hehe = 0;
-                    for (int k = 0; k < z; k++)
-                    {
-                        if (t == 1)
-                        {
-                            temp[k] = '1';
-                            hehe++;
-                            if (hehe == i)
-                            {
-                                t = 0;
-                                hehe = 0;
-                            }
-                        }
-                        else
-                        {
-                            temp[k] = '0';
-                            hehe++;
-                            if (hehe == i)
-                            {
-                                t = 1;
-                                hehe = 0;
-                            }
-                        }
-                    }
-                    // cout<<temp<<nl;
-                    ll num = BinaryStringToDecimal(temp);
-                    if (num >= l && num <= r)
-                    {
-                        ans++;
-                    }
+                    cnt++;
+                    mp2.erase(mp2.find(i));
                 }
             }
-            }
-            cout<<ans<<nl;
-        }
+        cout << max(collisions,cnt) << nl;
     };
 
     int t;
     t = 1;
-    cin >> t;
+    // cin >> t;
     while (t--)
     {
         solve();

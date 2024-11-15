@@ -1,4 +1,4 @@
-// 2024-11-09 20:26:32
+// 2024-11-13 20:31:04
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,38 +95,29 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
+        ll n,k;
+        cin>>n>>k;
+        vl v;
+        v.pb(10);
+        v.pb(11);
+        v.pb(12);
         
-        ll n;
-        cin >> n;
-        string s, r;
-        cin >> s >> r;
-        bool f = true;
-        for (int i = 0;i < n - 1; ++i){
-            bool f2 = false;
-            for (int k = 0; k < s.size() - 1; ++k) {
-                if (s[k] != s[k + 1]) {
-                    s[k] = r[i];
-                    s.erase(s.begin() + k + 1); 
-                    f2 = true;
-                    break;
-                }
-            }
-            if (!f2) {
-                f = false;
-                break;
-            }
-        }
-        if(f){
-            py;
-        }
-        else{
+        if(k<(10*n) || k>(12*n)){
             pn;
         }
+        else{
+            py;
+        }
+
+
+
+        
     };
 
     int t;
@@ -137,4 +128,4 @@ int32_t main()
         solve();
     }
     return 0;
-}   
+}
