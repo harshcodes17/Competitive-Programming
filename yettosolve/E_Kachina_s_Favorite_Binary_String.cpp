@@ -1,4 +1,4 @@
-// 2024-11-15 17:52:40
+// 2024-11-17 22:02:22
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,6 +95,15 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+
+ll f(ll l, ll r) {
+    cout <<"? "<< l << " " << r << endl;
+    cout.flush();
+    ll y;
+    cin >> y;
+    return y;
+}
+
 int32_t main()
 {
     fastio()
@@ -102,30 +111,72 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vector<vector<ll>>dp(n+1,vector<ll>(4,0));
 
-        for(int i=1;i<4;i++){
-            dp[0][i]=1;
+        string s(n,'0');
+        ll prevans = f(1,n);
+        if(n==2){
+            if(prevans==1){
+                cout<<"! 01"<<endl;
+                return;
+            }
+            else{
+                cout<<"! IMPOSSIBLE"<<endl;
+                return;
+            }
         }
-
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<4;j++){
+        ll zones = prevans;
+        if(prevans==0){
+            cout<<"! IMPOSSIBLE"<<endl;
+            return;
+        }
+        else{
+            for(int i=2;i<n;i++){
+                ll currans = f(i,n);
+                if(currans<prevans){
+                    s[i-2] = '0';
+                }
+                else{
+                    s[i-2] = '1';
+                }
+                if(i==n-1){
+                    if(currans==0){
+                        if(zones-currans==2){
+                            s[n-1]='1';
+                            s[n-2]='1';
+                        }
+                        else if(zones-currans==0){
+                            s[n-1]='0';
+                            s[n-2]='0';
+                        }
+                        else{
+                            s[n-1]='0';
+                            s[n-2]='1';
+                        }
+                        
+                    }
+                    else{
+                        s[n-1]='1';
+                        s[n-2] = '0';
+                    }
+                }
+                prevans = currans;
+                if(currans>0){
+                    zones = currans;
+                }
                 
             }
+            
+            
         }
-        ll ans=0;
-        for(auto x:dp){
-            for(auto y:x){
-                cout<<y<<" ";
-            }
-            cout<<endl;
-        }
-        cout<<ans<<endl;
+        cout<<"! "<<s<<endl;
+
+    
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

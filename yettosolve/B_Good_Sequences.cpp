@@ -1,4 +1,4 @@
-// 2024-11-19 11:55:32
+// 2024-11-19 11:11:10
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,6 +95,23 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+// ll lis(vl &v,ll idx,vl &dp){
+//     if(idx==0){
+//         return 1;
+//     }
+//     if(dp[idx]!=-1){
+//         return dp[idx];
+//     }
+//     ll maxi = 1;
+//     for(int prev=0;prev<idx;prev++){
+//         if(gcd(v[prev],v[idx])>1){
+//             maxi = max(maxi,1+lis(v,prev,dp));
+//         }
+
+//     }
+//     return dp[idx]=maxi;
+// }
+
 int32_t main()
 {
     fastio()
@@ -102,9 +119,33 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
+        vl v(n);
+        cin>>v;
+        
+        map<ll,ll>dp;
+        
         for(int i=0;i<n;i++){
-            cout<<"q";
+            map<ll,ll>curr;
+            for(auto &[g,len]:dp){
+                ll ng = gcd(g,v[i]);
+                if(ng>1){
+                    curr[ng] = max(curr[ng],len+1);
+                }
+            }
+            if(v[i]>1){
+                curr[v[i]] = max(curr[v[i]],1ll);
+            }
+            for(auto &[g,len]:curr){
+                dp[g] = max(dp[g],len);
+            }
         }
+        ll ans = 0;
+        for(auto &[g,len]:dp){
+            ans = max(ans,len);
+        }
+        cout<<ans<<nl;
+
+        
     };
 
     int t;

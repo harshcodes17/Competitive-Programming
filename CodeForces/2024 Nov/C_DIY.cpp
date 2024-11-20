@@ -1,4 +1,4 @@
-// 2024-11-19 11:55:32
+// 2024-11-18 16:20:08
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,14 +102,60 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        for(int i=0;i<n;i++){
-            cout<<"q";
+
+        vl v(n);
+        cin>>v;
+
+        map<ll,ll>mp;
+        rep(i,n)
+        {
+            mp[v[i]]++;
         }
+        multiset<ll>st;
+        for(auto x:mp){
+            if(x.s>1){
+                ll num = x.s/2;
+                num*=2;
+                rep(i,num){
+                    st.insert(x.f);
+                }
+            }
+        }
+        for(auto it = st.begin(); it != st.end(); ) {
+            it = st.erase(it);
+            if (it != st.end()) ++it;
+        }
+        for(auto x:st){
+            cout<<x<<" ";
+        }
+        cout<<nl;
+        if(st.size()<4){
+            pn;
+            return;
+        }
+        vl cord(4,0);
+        auto first = st.begin();
+        auto last = st.end();
+        last--;
+        cord[0] = *first;
+        cord[3] = *last;
+        st.erase(first);
+        st.erase(last);
+
+        first = st.begin();
+        last = st.end();
+        last--;
+        cord[1] = *first;
+        cord[2] = *last;
+        // py;
+        // cout<<cord[0]<<" "<<cord[1]<<" "<<cord[0]<<" "<<cord[3]<<" "<<cord[2]<<" "
+        // <<cord[1]<<" "<<cord[2]<<" "<<cord[3]<<nl;
+        
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

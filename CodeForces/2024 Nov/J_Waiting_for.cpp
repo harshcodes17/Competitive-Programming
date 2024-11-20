@@ -1,4 +1,4 @@
-// 2024-11-19 11:55:32
+// 2024-11-18 16:14:38
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,9 +102,31 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
+        vector<string>ans;
+        ll curr_people = 0;
         for(int i=0;i<n;i++){
-            cout<<"q";
+            char c;
+            cin>>c;
+            ll num;
+            cin>>num;
+            if(c=='P'){
+                curr_people+=num;
+            }
+            else{
+                if(num>curr_people){
+                    ans.pb("YES");
+                    curr_people = 0;
+                }
+                else{
+                    ans.pb("NO");
+                    curr_people-=num;
+                }
+            }
         }
+        for(auto x:ans){
+            cout<<x<<endl;
+        }
+        
     };
 
     int t;

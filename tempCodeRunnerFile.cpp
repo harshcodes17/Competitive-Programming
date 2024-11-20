@@ -1,4 +1,4 @@
-// 2024-11-13 20:31:04
+// 2024-11-17 22:02:22
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -96,28 +96,54 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 //To find modulo inverse, call powermod(A,M-2,M)
 
 
+ll f(ll l, ll r) {
+    cout <<"? "<< l << " " << r << endl;
+    cout.flush();
+    ll y;
+    cin >> y;
+    return y;
+}
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll n,k;
-        cin>>n>>k;
-        vl v;
-        v.pb(10);
-        v.pb(11);
-        v.pb(12);
-        
-        if(k<(10*n) || k>(12*n)){
-            pn;
+        ll n;
+        cin>>n;
+
+        string s(n,'0');
+        ll prevans = f(1,n);
+        ll zones = prevans;
+        if(prevans==0){
+            cout<<"! IMPOSSIBLE"<<endl;
+            return;
         }
         else{
-            py;
+            for(int i=2;i<n;i++){
+                ll currans = f(i,n);
+                if(currans<prevans){
+                    s[i-2] = '0';
+                }
+                else{
+                    s[i-2] = '1';
+                }
+                prevans = currans;
+            }
+            if(prevans==0){
+                s[n-2] = '1';
+                s[n-1] = '0';
+            }
+            else{
+                s[n-2] = '0';
+                s[n-1] = '1';
+            }
+            
         }
+        cout<<"! "<<s<<endl;
 
+    
 
-
-        
     };
 
     int t;

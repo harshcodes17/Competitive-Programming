@@ -1,4 +1,4 @@
-// 2024-11-19 11:55:32
+// 2024-11-17 20:09:14
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,14 +102,39 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        for(int i=0;i<n;i++){
-            cout<<"q";
+
+        vl v(n);
+        cin>>v;
+
+        ll tot = n-2;
+
+        map<ll,ll>mp;
+        for(auto x:v){
+            mp[x]++;
         }
+
+        for(int i=1;i*i<=tot;i++){
+            if(tot%i==0){
+                if(i==tot/i){
+                    if(mp[i]>=2){
+                        cout<<i<<" "<<i<<endl;
+                        return;
+                    }
+                }
+                else{
+                    if(mp[i]>=1 && mp[tot/i]>=1){
+                        cout<<i<<" "<<tot/i<<endl;
+                        return;
+                    }    
+                }    
+            }
+        }
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

@@ -1,4 +1,4 @@
-// 2024-11-19 11:55:32
+// 2024-11-15 17:52:40
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,16 +95,42 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+const int N = 1e7+2;
+ll dp[2][N];
+
+// ll f(int s,int des,int steps){
+//     if(steps==0){
+//         if(s==des)return 1;
+//         return 0;
+//     }
+//     if(dp[s][des][steps]!=-1)return dp[s][des][steps];
+//     ll ans=0;
+
+//     for(int i=0;i<4;i++){
+//         if(i!=s){
+//             ans+=f(i,des,steps-1);
+//             ans%=M;
+//         }
+//     }
+//     return dp[s][des][steps]=ans;
+// }
+
 int32_t main()
 {
-    fastio()
-    
+    fastio();
+    // memset(dp, -1, sizeof(dp));
     auto solve = [&] () {
         ll n;
         cin>>n;
-        for(int i=0;i<n;i++){
-            cout<<"q";
+        dp[1][0] = 1;
+        for(ll i=1;i<N;i++){
+            dp[1][i] = (3*dp[0][i-1])%M;
+            dp[0][i] = (2*dp[0][i-1])%M;
+            dp[0][i]+=dp[1][i-1];
+            dp[0][i]%=M;
         }
+        cout<<dp[1][n]<<nl;
+
     };
 
     int t;

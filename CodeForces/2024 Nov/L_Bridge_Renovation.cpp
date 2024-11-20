@@ -1,4 +1,4 @@
-// 2024-11-19 11:55:32
+// 2024-11-18 17:14:48
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,6 +95,7 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+
 int32_t main()
 {
     fastio()
@@ -102,9 +103,35 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        for(int i=0;i<n;i++){
-            cout<<"q";
+        ll a=18,b=21,c=25;
+        ll plank = 60;
+
+        ll ans = 0;
+        ll t1 = n,t2 = n,t3 = n;
+        while(t1>0 || t2>0 || t3>0){
+            ll best = 0;
+            ll used1 = 0,used2 = 0,used3 = 0;
+            for(ll i=0;i<=t1 && i*a<=plank;i++){
+                for(ll j=0;j<=t2 && i*a+j*b<=plank;j++){
+                    ll rem = plank - (i*a+j*b);
+                    ll k = min(t3,rem/c);
+                    ll usage = i*a+j*b+k*c;
+                    if(usage>best){
+                        best = usage;
+                        used1 = i;
+                        used2 = j;
+                        used3 = k;
+                    }
+                }
+            }
+            t1-=used1;
+            t2-=used2;
+            t3-=used3;
+            ans++;
         }
+        cout<<ans<<nl;
+
+          
     };
 
     int t;

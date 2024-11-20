@@ -1,4 +1,4 @@
-// 2024-11-19 11:55:32
+// 2024-11-18 16:08:10
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,16 +100,26 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        for(int i=0;i<n;i++){
-            cout<<"q";
+        string s;
+        cin>>s;
+
+
+        ll num1 = s[0]-'0';
+        ll num2 = s[2]-'0';
+        if(num1<num2){
+            cout<<num1<<"<"<<num2<<endl;
+        }
+        else if(num1>num2){
+            cout<<num1<<">"<<num2<<endl;
+        }
+        else{
+            cout<<num1<<"="<<num2<<endl;
         }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

@@ -1,4 +1,4 @@
-// 2024-11-19 11:55:32
+// 2024-11-17 20:41:14
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,14 +102,28 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        for(int i=0;i<n;i++){
-            cout<<"q";
+
+        if(n<=4){
+            cout<<-1<<nl;
+        }
+        else{
+            for(int i=2;i<=n;i+=2){
+                if(i==4)continue;
+                cout<<i<<" ";
+            }
+            cout<<4<<" ";
+            cout<<5<<" ";
+            for(int i=1;i<=n;i+=2){
+                if(i==5)continue;
+                cout<<i<<" ";
+            }
+            cout<<nl;
         }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

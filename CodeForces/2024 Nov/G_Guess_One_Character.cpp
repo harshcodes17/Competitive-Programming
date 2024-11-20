@@ -1,4 +1,4 @@
-// 2024-11-19 11:55:32
+// 2024-11-18 21:11:01
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,21 +95,40 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+
+
 int32_t main()
 {
-    fastio()
+    // fastio()
     
     auto solve = [&] () {
-        ll n;
+        int n;
         cin>>n;
-        for(int i=0;i<n;i++){
-            cout<<"q";
+        cout<<1<<" "<<"01"<<endl;
+        int oz;
+        cin>>oz;
+        cout<<1<<" "<<"11"<<endl;
+        int oo,ones;
+        cin>>oo;
+        cout<<1<<" "<<"1"<<endl;
+        cin>>ones;
+        if(oz+oo==ones){
+            cout<<0<<" 1 0"<<endl;
+            int fucku;
+            cin>>fucku;
+            return fucku;
+        }
+        else{
+            cout<<0<<" 1 1"<<endl;
+            int fucku;
+            cin>>fucku;
+            return fucku;
         }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

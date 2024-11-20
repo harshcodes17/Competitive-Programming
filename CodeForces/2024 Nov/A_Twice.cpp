@@ -1,4 +1,4 @@
-// 2024-11-19 11:55:32
+// 2024-11-17 20:05:45
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,14 +102,26 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        for(int i=0;i<n;i++){
-            cout<<"q";
+        vl v(n);
+        cin>>v;
+
+        map<ll,ll>mp;
+
+        for(auto x:v){
+            mp[x]++;
         }
+
+        ll ans = 0;
+
+        for(auto x:mp){
+            ans+=(x.second/2);
+        }
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
