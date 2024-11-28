@@ -1,5 +1,4 @@
-
-// 2024-11-23 19:07:53
+// 2024-11-26 08:18:53
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -101,9 +100,28 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cout<<s.max_size()<<endl;
-        cout<<LLONG_MAX/2<<endl;    
+        ll a,b;
+        cin>>a>>b;
+        if(a==b){
+            cout<<1<<nl;
+            cout<<a<<nl;    
+        }
+        else{
+
+            ll sum = a*3;
+            ll mid = b;
+            ll rem  = sum-mid;
+            for(int i=-10000;i<=10000;i++){
+                ll first = i;
+                ll last = rem - first;
+
+                if(first<=mid && last>=mid){
+                    cout<<3<<nl;
+                    cout<<first<<" "<<mid<<" "<<last<<nl;
+                    return;
+                }
+            }
+        }
     };
 
     int t;

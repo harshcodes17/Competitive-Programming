@@ -1,5 +1,4 @@
-
-// 2024-11-23 19:07:53
+// 2024-11-20 21:41:02
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -101,14 +100,30 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cout<<s.max_size()<<endl;
-        cout<<LLONG_MAX/2<<endl;    
+        ll n;
+        cin>>n;
+        vl v(n);
+        cin>>v;
+        vl w(n);
+        iota(all(w), 1);
+        if(v==w){
+            cout<<n<<nl;
+            return;
+        }
+        else{
+            for(int i=0;i<n;i++){
+                if(v[i]==w[i]){
+                    cout<<n-1<<nl;
+                    return;
+                }
+            }
+            cout<<n-2<<nl;
+        }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

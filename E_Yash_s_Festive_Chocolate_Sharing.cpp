@@ -1,5 +1,4 @@
-
-// 2024-11-23 19:07:53
+// 2024-11-29 01:20:04
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -101,14 +100,34 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cout<<s.max_size()<<endl;
-        cout<<LLONG_MAX/2<<endl;    
+        ll n;
+        cin>>n;
+        ll k;
+        cin>>k;
+
+        vl v(n);
+        cin>>v;
+        ll ans = LLONG_MAX;
+        ll f = 0;
+        for(int i=0;i<n;i++){
+            ll rem = v[i]%k;
+            ans = min(ans,rem);
+            if(v[i]>=k){
+                f = 1;
+            }
+        }
+        if(f){
+            cout<<ans<<nl;
+        }
+        else{
+            cout<<-1<<nl;
+        }
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

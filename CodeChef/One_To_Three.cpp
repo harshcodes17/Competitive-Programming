@@ -1,5 +1,4 @@
-
-// 2024-11-23 19:07:53
+// 2024-11-20 21:30:09
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -101,14 +100,27 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cout<<s.max_size()<<endl;
-        cout<<LLONG_MAX/2<<endl;    
+        ll n;
+        cin>>n;
+        vl v(n);
+        cin>>v;
+        for(int i=1;i<n-1;i++){
+            if(v[i-1]+v[i+1]==4){
+                v[i] = min(v[i],4-v[i]);
+            }
+        }
+        for(int i=n-2;i>0;i--){
+            if(v[i-1]+v[i+1]==4){
+                v[i] = min(v[i],4-v[i]);
+            }
+        }
+        ll sum = accumulate(all(v),0LL);
+        cout<<sum<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

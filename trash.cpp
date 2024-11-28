@@ -100,7 +100,17 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        cout<<"C";
+        ll maxsize = 10;
+        ll maxelement = 150;
+
+        ll size = rand() % maxsize + 1;
+        cout<<size<<endl;
+        for(int i=0;i<size;i++)
+        {
+            ll element = rand() % maxelement + 1;
+            cout<<element<<" ";
+        }
+
     };
 
     int t;

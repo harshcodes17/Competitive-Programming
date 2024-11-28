@@ -1,5 +1,4 @@
-
-// 2024-11-23 19:07:53
+// 2024-11-20 21:18:53
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -96,19 +95,59 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+bool check(vl &v,ll n,ll k,ll mid){
+    ll cnt = 1;
+    ll cl = v[0]-mid;
+    ll cr = v[0]+mid;
+
+    for(int i=1;i<n;i++){
+        ll nlw = v[i]-mid;
+        ll nr = v[i]+mid;
+        cl = max(cl, nlw);
+        cr = min(cr, nr);
+
+        if(cl>cr){
+            cnt++;
+            cl = nlw;
+            cr = nr;
+        }
+
+    }
+    return cnt<=k+1;
+}
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cout<<s.max_size()<<endl;
-        cout<<LLONG_MAX/2<<endl;    
+        ll n,k;
+        cin>>n>>k;
+        vl v(n);
+        cin>>v;
+        ll ans = 0;
+        ll maxi = *max_element(all(v));
+        ll mini = *min_element(all(v));
+        ll l=0;
+        ll r = maxi-mini;
+
+        while(l<=r){
+            ll mid = (l+r)/2;
+            if(check(v,n,k,mid)){
+                ans = mid;
+                r = mid-1;
+            }
+            else{
+                l = mid+1;
+            }
+
+        }
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

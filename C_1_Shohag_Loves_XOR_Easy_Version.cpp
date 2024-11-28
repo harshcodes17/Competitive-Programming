@@ -1,5 +1,4 @@
-
-// 2024-11-23 19:07:53
+// 2024-11-25 09:34:14
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -101,14 +100,22 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cout<<s.max_size()<<endl;
-        cout<<LLONG_MAX/2<<endl;    
+        ll x,m;
+        cin>>x>>m;
+
+        ll ans=0;
+        for(int i=1;i<=10*x && i<=m;i++){
+            ll xori = x^i;
+            if(xori!=0 && (i%xori==0 || x%xori==0)){
+                ans++;
+            }
+        }
+        cout<<ans<<endl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

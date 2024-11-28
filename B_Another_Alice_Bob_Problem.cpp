@@ -1,5 +1,4 @@
-
-// 2024-11-23 19:07:53
+// 2024-11-29 01:14:29
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -101,14 +100,22 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cout<<s.max_size()<<endl;
-        cout<<LLONG_MAX/2<<endl;    
+        ll n;
+        cin>>n;
+        if(n%2==0 && n%7==0){
+            cout<<"Alice"<<nl;
+        }
+        else if(n%2 && n%9==0){
+            cout<<"Bob"<<nl;
+        }
+        else{
+            cout<<"Charlie"<<nl;
+        }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

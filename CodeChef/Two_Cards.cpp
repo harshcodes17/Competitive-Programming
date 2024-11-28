@@ -1,5 +1,4 @@
-
-// 2024-11-23 19:07:53
+// 2024-11-20 20:11:57
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -101,14 +100,87 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cout<<s.max_size()<<endl;
-        cout<<LLONG_MAX/2<<endl;    
+        ll n;
+        cin>>n;
+        vl v(n);
+        vl w(n);
+        cin>>v;
+        cin>>w;
+            vector<pair<pair<ll,ll>,ll>> ans;
+            for(int i=0;i<n;i++){
+                ans.pb({{v[i], w[i]}, max(v[i], w[i])});
+            }
+            sort(all(ans));
+            reverse(all(ans));
+            for(auto x:ans){
+                // cout<<"{"<<x.f.f<<","<<x.f.s<<"} "<<x.s<<nl;
+            }
+            ll alice = 0;
+            ll bob = 0;
+            ll turn = 0;
+            // while(ans.empty()==false){
+                
+            //     if(turn==0){
+            //         auto it = max_element(ans.begin(), ans.end(), [](const pair<pair<ll, ll>, ll>& a, const pair<pair<ll, ll>, ll>& b) {
+            //             return a.second < b.second;
+            //         });
+            //         if (it != ans.end()) {
+            //             alice = max(alice, it->second);
+            //             ans.erase(it);
+            //         }
+                    
+            //     }
+            //     else{
+            //         auto top = ans.begin();
+            //         bob = max(bob, top->s);
+            //         ans.erase(top);
+            //     }
+            //     turn^=1;
+            // }
+            // // cout<<alice<<" "<<bob<<nl;
+            // if(alice<=bob){
+            //     pn;
+            // }
+            // else{
+            //     py;
+            // }
+
+
+        ll maxi = 0, maxidx = 0;
+        for (int i = 0; i < n; i++) {
+            if (max(v[i], w[i]) > maxi) {
+                maxi = max(v[i], w[i]);
+                maxidx = i;
+            }
+        }
+        ll max1 = 0, max2 = 0;
+        ll idx1 = -1, idx2 = -1;
+        for (int i = n - 1; i >= 0; i--) {
+            if (v[i] > max1) {
+                max2 = max1;
+                idx2 = idx1;
+                max1 = v[i];
+                idx1 = i;
+            } else if (v[i] > max2) {
+                max2 = v[i];
+                idx2 = i;
+            }
+        }
+        ll ans1 = max(v[idx1], w[idx1]);
+        ll ans2 = max(v[idx2], w[idx2]);
+
+        if(ans1 == ans2 && maxi == ans1){
+            pn;
+        }
+        else{
+            py;
+        }
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

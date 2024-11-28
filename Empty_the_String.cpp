@@ -1,5 +1,4 @@
-
-// 2024-11-23 19:07:53
+// 2024-11-28 22:07:24
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -101,14 +100,41 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
+        ll n;
+        cin>>n;
         string s;
-        cout<<s.max_size()<<endl;
-        cout<<LLONG_MAX/2<<endl;    
+        cin>>s;
+
+        ll cnta=0,cntb = 0;
+        ll ans = 0;
+        for(int i=0;i<n;i++){
+            if(s[i]=='A'){
+                if(cntb==0){
+                    cnta++;
+                    ans++;
+                }
+                else{
+                    cnta++;
+                    cntb--;
+                }
+            }
+            else{
+                if(cnta==0){
+                    cntb++;
+                    ans++;
+                }
+                else{
+                    cntb++;
+                    cnta--;
+                }
+            }
+        }
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

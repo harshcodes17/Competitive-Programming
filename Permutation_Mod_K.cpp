@@ -1,5 +1,4 @@
-
-// 2024-11-23 19:07:53
+// 2024-11-28 14:33:45
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -96,22 +95,65 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+bool check(vl a,vl b,ll k){
+    // cout<<a<<nl;
+    // cout<<b<<nl;
+    for(int i=0;i<a.size();i++){
+        if(a[i]%k==b[i]%k){
+            return false;
+        }
+    }
+    return true;
+}
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cout<<s.max_size()<<endl;
-        cout<<LLONG_MAX/2<<endl;    
+        ll n,k;
+        cin>>n>>k;
+        
+        vl a(n);
+        iota(all(a),1);
+
+        ll combi = n;
+        vl b(n);
+        iota(all(b),1);
+
+        ll f = 0;
+        while(combi--){
+            deque<ll>ans;
+            for(auto &x:b){
+                ans.push_back(x);
+            }
+            ll first = ans.front();
+            ans.pop_front();
+            ans.push_back(first);
+            b.clear();
+            while(ans.size()){
+                b.push_back(ans.front());
+                ans.pop_front();
+            }
+            if(check(a,b,k)){
+                cout<<b<<nl;
+                return;
+            }
+        }
+        if(f==1){
+            cout<<b<<nl;
+        }
+        else{
+            cout<<-1<<nl;
+        }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
     }
     return 0;
-}
+}   

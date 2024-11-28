@@ -1,5 +1,4 @@
-
-// 2024-11-23 19:07:53
+// 2024-11-29 01:15:58
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -101,9 +100,21 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s;
-        cout<<s.max_size()<<endl;
-        cout<<LLONG_MAX/2<<endl;    
+        ll n;
+        cin>>n;
+        vl v(n);
+        cin>>v;
+        pair<pair<ll,ll>,ll>ans;
+
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                ll gccd = gcd(v[i],v[j]);
+                if(gccd>ans.s){
+                    ans = {{i,j},gccd};
+                }
+            }
+        }
+        cout<<ans.f.f<<" "<<ans.f.s<<endl;
     };
 
     int t;
