@@ -1,4 +1,4 @@
-// 2024-12-06 00:52:37
+// 2024-12-10 08:35:28
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,81 +100,27 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string str;
-        cin>>str;
-        ll sum = 0;
-        ll cnt2 = 0;
-        ll cnt3 = 0;
-        for(auto x:str){
-            sum += x-'0';
-            if(x=='2') cnt2++;
-            if(x=='3') cnt3++;
+        ll n,m,k;
+        cin>>n>>m>>k;
+        vl v(n);
+        cin>>v;
+        vl diff;
+        for(int i=1;i<n;i++){
+            diff.pb(v[i]-v[i-1]-1);
         }
-        ll first = 9-(sum%9);
-        if(first==9){
-            py;
-            return;
+        sort(all(diff));
+        ll ans = n;
+        // cout<<diff<<endl;
+        for(int i=0;i<n-k;i++){
+            ans+=diff[i];
         }
-        ll second = 18-(sum%9);
-        
-        // cout<<first<<" "<<second<<endl;
-        // cout<<"cnt2:"<<cnt2<<" cnt3:"<<cnt3<<endl;
-        if(first%2 && second%2){
-            pn;
-        }
-        else{
-            
-            if(first%2==0){
-                if(cnt3==0){
-                    ll req = first/2;
-                    if(req<=cnt2){
-                        py;
-                        return;
-                    }
-                }
-                else{
-                    // cout<<"cnt3:"<<cnt3<<endl;
-                    for(int i=0;i<=cnt3;i++){
-                        ll temp = first-(6*i);
-                        if(temp%2==0 && temp>=0){
-                            if(temp/2<=cnt2){
-                                py;
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-            else{
-                
-                if(cnt3==0){
-                    ll req = second/2;
-                    if(req<=cnt2){
-                        py;
-                        return;
-                    }
-                }
-                else{
-                    for(int i=0;i<=cnt3;i++){
-                        ll temp = second-(6*i);
-                        if(temp%2==0 && temp>=0){
-                            if(temp/2<=cnt2){
-                                py;
-                                return;
-                            }
-                        }
-                    }
-                }
-            }
-            pn;
-            
-        }
-        
+        cout<<ans<<endl;
+
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();
