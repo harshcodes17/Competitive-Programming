@@ -1,4 +1,4 @@
-// 2024-11-19 11:11:10
+// 2024-12-10 09:57:24
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,23 +95,6 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
-// ll lis(vl &v,ll idx,vl &dp){
-//     if(idx==0){
-//         return 1;
-//     }
-//     if(dp[idx]!=-1){
-//         return dp[idx];
-//     }
-//     ll maxi = 1;
-//     for(int prev=0;prev<idx;prev++){
-//         if(gcd(v[prev],v[idx])>1){
-//             maxi = max(maxi,1+lis(v,prev,dp));
-//         }
-
-//     }
-//     return dp[idx]=maxi;
-// }
-
 int32_t main()
 {
     fastio()
@@ -121,23 +104,36 @@ int32_t main()
         cin>>n;
         vl v(n);
         cin>>v;
-        vl dp(n,1);
-        
-        for(int i=1;i<n;i++){
-            for(int prev=0;prev<i;prev++){
-                if(gcd(v[prev],v[i])>1){
-                    dp[i] = max(dp[i],1+dp[prev]);
-                }
-            }
+        map<ll,ll> mp;
+        for(auto x:v){
+            mp[x]++;
         }
-        cout<<*max_element(all(dp))<<nl;
-
         
+        ll ans = 0;
+        vl freqs;
+        for(auto x:mp){
+            freqs.pb(x.s);
+        }
+        sort(all(freqs));
+        reverse(all(freqs));
+        // cout<<freqs<<nl;
+        ll sum = freqs[0];
+        ans = sum;
+        sum--;
+        for(int i=1;i<freqs.size();i++){
+            if(freqs[i]<sum){
+                sum = freqs[i];
+            }
+            ans+=sum;
+            sum--;
+            if(sum<=0)break;
+        }
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
