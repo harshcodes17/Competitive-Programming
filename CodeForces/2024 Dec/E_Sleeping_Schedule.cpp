@@ -1,4 +1,4 @@
-// 2024-12-16 20:15:59
+// 2024-12-16 15:10:04
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,15 +95,46 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+
+
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll i = 5;
-        i = i++;
-        // cout<<j<<nl;
-        cout<<i<<nl;
+        ll n,h,l,r;
+        cin>>n>>h>>l>>r;
+        vl v(n+1);
+        for(int i=1;i<=n;i++){
+            cin>>v[i];
+        }
+        
+        int INF = 1e9;
+
+        vector<vector<ll>>dp(n+1,vector<ll>(h,-INF));
+
+        dp[0][0] = 0;
+
+        for(int i=1;i<=n;i++){
+            for(int j=0;j<h;j++){
+                dp[i][j] = max(dp[i-1][((j-v[i]+1+h))%h],dp[i-1][((j-v[i]+h))%h]);
+                if(l<=j && j<=r && dp[i][j]!=-INF){
+                    dp[i][j]++;
+                }
+            }
+        }
+        ll ans = 0;
+        // for(auto x:dp){
+        //     for(auto y:x){
+        //         cout<<y<<" ";
+        //     }
+        //     cout<<endl;
+        // }
+        for(int i=0;i<h;i++){
+            ans = max(ans,dp[n][i]);
+        }
+        cout<<ans<<endl;
     };
 
     int t;

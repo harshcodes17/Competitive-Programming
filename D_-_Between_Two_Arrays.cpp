@@ -1,4 +1,4 @@
-// 2024-12-16 20:15:59
+// 2024-12-16 11:59:01
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -21,7 +21,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 #define nl "\n"
 #define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
 #define PI (3.141592653589)
-#define M 1000000007
+#define M 998244353
 #define pb push_back
 #define f first
 #define s second
@@ -100,10 +100,40 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll i = 5;
-        i = i++;
-        // cout<<j<<nl;
-        cout<<i<<nl;
+        ll n;
+        cin>>n;
+        vl a(n),b(n);
+        cin>>a>>b;
+        ll ans=1;
+        vl dp(n,0);
+        for(int i=n-1;i>0;i--){
+            ll left = a[i];
+            ll right = b[i];
+            ll temp = 0;
+            for(int j=right;j>=left;j--){
+                ll l = a[i-1];
+                ll r = b[i-1];
+                // cout<<"j: "<<j<<nl;
+                // cout<<l<<" "<<r<<nl;
+                if(r<=j){
+                    temp+=r-l+1;
+                }
+                else
+                {
+                    
+                    temp+=max(0LL,j-l+1);
+                }
+                temp%=M;
+            }
+            dp[i]=temp;
+        }
+        
+        // cout<<dp<<nl;
+        for(int i=1;i<n;i++){
+            ans*=dp[i];
+            ans%=M;
+        }
+        cout<<ans<<nl;
     };
 
     int t;

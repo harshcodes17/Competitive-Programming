@@ -1,4 +1,4 @@
-// 2024-12-16 20:15:59
+// 2024-12-18 13:53:21
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,15 +95,49 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+// ll f(ll idx,ll k,vvl &dp,ll sum,vl &price,vl &pages){
+//     if(idx==price.size()){
+//         return 0;
+//     }
+
+//     if(dp[idx][k]!=-1){
+//         return dp[idx][k];
+//     }
+//     ll pick = 0;
+//     if(k>=price[idx]){
+//         pick = pages[idx]+f(idx+1,k-price[idx],dp,sum,price,pages);
+//     }
+//     ll skip = f(idx+1,k,dp,sum,price,pages);
+//     return dp[idx][k] = max(pick,skip);
+// }
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll i = 5;
-        i = i++;
-        // cout<<j<<nl;
-        cout<<i<<nl;
+        int n,k;
+        cin>>n>>k;
+        vector<int> price(n),pages(n);
+        cin>>price>>pages;
+        vector<vector<int>>dp(n+1,vector<int>(k+1,0));
+        for(int i=0;i<n;i++){
+            dp[i][0]=0;
+        }
+        // f(0,k,dp,0,price,pages);
+        // cout<<dp[0][k]<<endl;
+
+        for(int i=n-1;i>=0;i--){
+            for(int j=0;j<=k;j++){
+                int pick = 0,skip = 0;
+                if(j>=price[i]){
+                    pick = pages[i]+dp[i+1][j-price[i]];
+                }
+                skip = dp[i+1][j];
+                dp[i][j] = max(pick,skip);
+            }
+        }
+        cout<<dp[0][k]<<endl;
     };
 
     int t;

@@ -1,4 +1,4 @@
-// 2024-12-16 20:15:59
+// 2024-12-16 11:05:37
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,18 +100,37 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll i = 5;
-        i = i++;
-        // cout<<j<<nl;
-        cout<<i<<nl;
+        ll k,l1,r1,l2,r2;
+        cin>>k>>l1>>r1>>l2>>r2;
+        ll maxi = (r2/l1);
+        ll mini = (l2/l1);
+        vl ratio;
+        ll pw = 1;
+        while(pw<=maxi){
+            
+                ratio.pb(pw);
+            
+            pw*=k;
+        }
+        ll ans = 0;
+        // cout<<ratio<<nl;
+        for(int i=0;i<ratio.size();i++){
+            ll left = ceil(l2/(double)ratio[i]);
+            ll right = r2/ratio[i];
+            left = max(left,l1);
+            right = min(right,r1);
+            ans+=(max(0LL,right-left+1));
+        }
+        cout<<ans<<nl;
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
     }
     return 0;
-}
+}   

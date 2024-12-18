@@ -1,4 +1,4 @@
-// 2024-12-16 20:15:59
+// 2024-12-15 21:01:04
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,15 +100,25 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll i = 5;
-        i = i++;
-        // cout<<j<<nl;
-        cout<<i<<nl;
+        string s;
+        cin>>s;
+
+        string ans;
+        map<char,char> m;
+        m['p'] = 'q';
+        m['q'] = 'p';
+        m['w'] = 'w';
+
+        for(int i=s.size()-1;i>=0;i--)
+        {
+            ans+=m[s[i]];
+        }
+        out(ans);
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

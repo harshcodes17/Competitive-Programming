@@ -1,4 +1,4 @@
-// 2024-12-16 20:15:59
+// 2024-12-18 10:04:31
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,10 +100,44 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll i = 5;
-        i = i++;
-        // cout<<j<<nl;
-        cout<<i<<nl;
+        string s,t;
+        cin>>s>>t;
+        ll k;
+        cin>>k;
+        vector<vector<ll>>dp(k+1,vector<ll>(2,0));
+        if(s==t){
+            dp[0][1] = 1;
+
+        }
+        if(s!=t){
+            dp[0][0] = 1;
+        }
+
+        ll cnt = 0;
+        ll n = s.size();
+        for(int i=0;i<n;i++){
+            string temp = s.substr(0,i);
+            string temp1 = s.substr(i,n-i);
+            // cout<<temp<<" "<<temp1<<endl;
+            string made = temp1+temp;
+
+            if(made==t){
+                cnt++;
+            }
+        }
+        // cout<<cnt<<endl;
+        for(int i=1;i<=k;i++){
+            dp[i][0] = dp[i-1][0]*max((n-cnt-1),0LL)%M;
+            dp[i][0] += dp[i-1][1]*(n-cnt)%M;
+            dp[i][0]%=M;
+            dp[i][1] = dp[i-1][0]*cnt%M;
+            dp[i][1]+=dp[i-1][1]*max(cnt-1,0LL)%M;
+            dp[i][1]%=M;
+        }
+        for(auto x:dp){
+            // cout<<x[0]<<" "<<x[1]<<nl;
+        }
+        cout<<dp[k][1]<<endl;
     };
 
     int t;

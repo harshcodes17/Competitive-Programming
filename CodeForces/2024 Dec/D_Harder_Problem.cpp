@@ -1,4 +1,4 @@
-// 2024-12-16 20:15:59
+// 2024-12-15 20:45:12
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,15 +100,45 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll i = 5;
-        i = i++;
-        // cout<<j<<nl;
-        cout<<i<<nl;
+        ll n;
+        cin>>n;
+        vl v(n);
+        cin>>v;
+        
+        map<ll,ll> mp;
+        multiset<ll>unsed;
+        for(auto x:v)
+        {
+            mp[x]++;
+        }
+
+        for(int i=1;i<=n;i++){
+            if(mp[i]==0)
+            {
+                unsed.insert(i);
+            }
+        }
+        
+        vl ans;
+        map<ll,ll>mp2;
+        for(int i=0;i<n;i++){
+            if(mp2[v[i]]==0){
+                ans.pb(v[i]);
+                mp2[v[i]]=1;
+            }
+            else{
+                ll top = *unsed.begin();
+                ans.pb(top);
+                unsed.erase(unsed.begin());
+            }
+        }
+        cout<<ans<<endl;
+        
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
