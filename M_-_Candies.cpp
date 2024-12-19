@@ -1,4 +1,4 @@
-// 2024-12-19 14:14:26
+// 2024-12-19 11:47:45
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -21,7 +21,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 #define nl "\n"
 #define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
 #define PI (3.141592653589)
-#define M 998244353
+#define M 1000000007
 #define pb push_back
 #define f first
 #define s second
@@ -95,49 +95,52 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+
+ll f(ll idx,ll rem,vl &v,vvl &dp){
+    if(idx<0){
+        return 0;
+    }
+    if(dp[idx][rem]!=-1){
+        return dp[idx][rem];
+    }
+    ll ans=0;
+
+    for(int i=0;i<=v[idx];i++){
+        if(rem-i>=0){
+            ans+=(1+f(idx-1,rem-i,v,dp));
+            ans%=M;
+        }
+        else{
+            
+            break;
+        }
+    }
+    return dp[idx][rem]=ans;
+}
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        int n;
-        cin>>n;
-        vector<int> a(n),b(n);
-        cin>>a>>b;
-        int maxi1 = *max_element(all(a));
-        int maxi2 = *max_element(all(b));
-        int maxi = max(maxi1,maxi2);
+        ll n,k;
+        cin>>n>>k;
+        vl v(n);
+        cin>>v;
 
-        int dp[n][maxi+1];
-        memset(dp,0,sizeof(dp));
-
-        for(int i=a[0];i<=b[0];i++){
+        vector<vector<ll>>dp(n,vector<ll>(k+1,0));
+        for(int i=0;i<=v[0];i++){
             dp[0][i]=1;
         }
-
-        for(int i=1;i<n;i++){
-            for(int k=a[i];k<=a[i];k++){
-                int sum = 0;
-                for(int j=a[i-1];j<=k;j++){
-                    
-                    sum = (sum+dp[i-1][j])%M;
-                    
-                }
-                dp[i][k]=sum;
+        f(n-1,k,v,dp);
+        for(auto x:dp){
+            for(auto y:x){
+                cout<<y<<" ";
             }
-            for(int j=a[i]+1;j<=b[i];j++){
-                dp[i][j] = (dp[i][j-1]+dp[i-1][j])%M;
-            }
-            
-            
+            cout<<nl;
         }
-        int ans = 0;
-        
-        for(int i=1;i<=maxi;i++){
-            ans = (ans+dp[n-1][i])%M;
-        }
-        cout<<ans<<nl;
-
+        cout<<nl;
+        cout<<dp[n-1][k]<<nl;
     };
 
     int t;

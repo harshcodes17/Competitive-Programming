@@ -1,4 +1,4 @@
-// 2024-12-19 14:14:26
+// 2024-12-18 20:05:22
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -21,7 +21,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 #define nl "\n"
 #define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
 #define PI (3.141592653589)
-#define M 998244353
+#define M 1000000007
 #define pb push_back
 #define f first
 #define s second
@@ -91,8 +91,8 @@ ll mod_add(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a + b) % m) + m) %
 ll mod_sub(ll a, ll b, ll m) {a = a % m; b = b % m; return (((a - b) % m) + m) % m;}
 ll gcd(ll a, ll b){if (b == 0)return a;return gcd(b, a % b);} //__gcd 
 ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
-ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
-ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
+ll moduloMultiplication(ll a,ll b,ll mod){ll left = 0;a %= mod;while (b){if (b & 1)left = (left + a) % mod;b >>= 1;}return left;}
+ll powermod(ll x, ll y, ll p){ll left = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)left = (left*x) % p;y = y>>1;x = (x*x) % p;}return left;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
 int32_t main()
@@ -100,41 +100,28 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        int n;
+        ll n;
         cin>>n;
-        vector<int> a(n),b(n);
-        cin>>a>>b;
-        int maxi1 = *max_element(all(a));
-        int maxi2 = *max_element(all(b));
-        int maxi = max(maxi1,maxi2);
-
-        int dp[n][maxi+1];
-        memset(dp,0,sizeof(dp));
-
-        for(int i=a[0];i<=b[0];i++){
-            dp[0][i]=1;
-        }
-
-        for(int i=1;i<n;i++){
-            for(int k=a[i];k<=a[i];k++){
-                int sum = 0;
-                for(int j=a[i-1];j<=k;j++){
-                    
-                    sum = (sum+dp[i-1][j])%M;
-                    
-                }
-                dp[i][k]=sum;
+        vl v(n);
+        cin>>v;
+        stack<pair<ll,ll>>st;
+        vl left(n,0);
+        for(int i=0;i<n;i++){
+            while(!st.empty() && st.top().first<v[i]){
+                st.pop();
             }
-            for(int j=a[i]+1;j<=b[i];j++){
-                dp[i][j] = (dp[i][j-1]+dp[i-1][j])%M;
+            if(st.size()==0){
+                left[i] = -1;
             }
-            
-            
+            else{
+                left[i] = st.top().second;
+            }
+            st.push({v[i],i});
         }
-        int ans = 0;
-        
-        for(int i=1;i<=maxi;i++){
-            ans = (ans+dp[n-1][i])%M;
+        // cout<<left<<nl;
+        ll ans = 0;
+        for(int i =0;i<n;i++){
+            ans = max(ans,i-left[i]-1);
         }
         cout<<ans<<nl;
 
@@ -142,7 +129,7 @@ int32_t main()
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

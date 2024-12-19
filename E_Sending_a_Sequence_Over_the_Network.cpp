@@ -1,4 +1,4 @@
-// 2024-12-19 14:14:26
+// 2024-12-19 13:54:07
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -21,7 +21,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 #define nl "\n"
 #define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
 #define PI (3.141592653589)
-#define M 998244353
+#define M 1000000007
 #define pb push_back
 #define f first
 #define s second
@@ -100,49 +100,35 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        int n;
+        ll n;
         cin>>n;
-        vector<int> a(n),b(n);
-        cin>>a>>b;
-        int maxi1 = *max_element(all(a));
-        int maxi2 = *max_element(all(b));
-        int maxi = max(maxi1,maxi2);
-
-        int dp[n][maxi+1];
-        memset(dp,0,sizeof(dp));
-
-        for(int i=a[0];i<=b[0];i++){
-            dp[0][i]=1;
+        vl v(n+1);
+        for(int i=1;i<=n;i++){
+            cin>>v[i];
         }
+        vl dp(n+1,0);
+        dp[0]=1;
 
-        for(int i=1;i<n;i++){
-            for(int k=a[i];k<=a[i];k++){
-                int sum = 0;
-                for(int j=a[i-1];j<=k;j++){
-                    
-                    sum = (sum+dp[i-1][j])%M;
-                    
-                }
-                dp[i][k]=sum;
+        for(int i=1;i<=n;i++){
+            if(i+v[i]<=n && dp[i-1]){
+                dp[i+v[i]]=1;
             }
-            for(int j=a[i]+1;j<=b[i];j++){
-                dp[i][j] = (dp[i][j-1]+dp[i-1][j])%M;
-            }
-            
-            
-        }
-        int ans = 0;
-        
-        for(int i=1;i<=maxi;i++){
-            ans = (ans+dp[n-1][i])%M;
-        }
-        cout<<ans<<nl;
 
+            if(i-v[i]-1>=0 && dp[i-v[i]-1]){
+                dp[i] = 1;
+            }
+        }
+        if(dp[n]){
+            py;
+        }
+        else{
+            pn;
+        }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
