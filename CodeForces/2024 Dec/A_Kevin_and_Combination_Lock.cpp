@@ -1,4 +1,4 @@
-// 2024-12-20 13:52:46
+// 2024-12-19 20:06:09
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,25 +102,18 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        ll maxi = log2(n);
-        ll ans = 0;
-        for(int i=0;i<=maxi;i++){
-            ll len = pow(2,i);
-            ll sum = 0;
-            for(int j=len-1;j<len-1+len;j++){
-                sum+=v[j];
-            }
-            ans = max(ans,sum);
-        }
-        out(ans);
 
+        if(n%33==0){
+            py;
+        }
+        else{
+            pn;
+        }
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

@@ -1,4 +1,4 @@
-// 2024-12-20 13:52:46
+// 2024-12-22 11:03:06
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,25 +102,60 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        ll maxi = log2(n);
-        ll ans = 0;
-        for(int i=0;i<=maxi;i++){
-            ll len = pow(2,i);
-            ll sum = 0;
-            for(int j=len-1;j<len-1+len;j++){
-                sum+=v[j];
+        string s;
+        cin>>s;
+        vl dp(4,1e9);
+
+        string s1=s,s2=s,s3=s,s4=s;
+        s1[0]='L',s1[1]='L';
+        s2[0]='L',s2[1]='R';
+        s3[0]='R',s3[1]='L';
+        s4[0]='R',s4[1]='R';
+        vector<string>v;
+        v.pb(s1);
+        v.pb(s2);
+        v.pb(s3);
+        v.pb(s4);
+        for(int i=0;i<4;i++){
+            ll cnt = 0;
+            ll prev=0,curr=1,next=2;
+            cnt+=(v[i][prev]!=s[prev]);
+            cnt+=(v[i][curr]!=s[curr]);
+            // cout<<cnt<<nl;
+            while(next<n){
+                if(v[i][prev]==v[i][curr] && v[i][curr]==v[i][next]){
+                    cnt++;
+                    if(v[i][curr]=='L'){
+                        v[i][curr]='R';
+                    }
+                    else{
+                        v[i][curr]='L';
+                    }
+                }
+                if(curr==n-2){
+                    if(v[i][next]==v[i][curr] && v[i][0]==v[i][next]){
+                        cnt = 1e9;
+                    }
+                    if(v[i][next]==v[i][0] && v[i][0]==v[i][1]){
+                        cnt = 1e9;
+                    }
+                }
+                prev++;
+                curr++;
+                next++;
             }
-            ans = max(ans,sum);
+            dp[i]=cnt;
         }
-        out(ans);
+        for(int i=0;i<4;i++){
+            // cout<<v[i]<<" "<<dp[i]<<nl;
+        }
+        cout<<*min_element(all(dp))<<nl;
 
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

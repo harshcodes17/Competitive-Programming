@@ -1,4 +1,4 @@
-// 2024-12-20 13:52:46
+// 2024-12-20 14:56:37
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,20 +102,21 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        ll maxi = log2(n);
-        ll ans = 0;
-        for(int i=0;i<=maxi;i++){
-            ll len = pow(2,i);
-            ll sum = 0;
-            for(int j=len-1;j<len-1+len;j++){
-                sum+=v[j];
-            }
-            ans = max(ans,sum);
-        }
-        out(ans);
+        vl dp;
 
+        for(int i=0;i<n;i++){
+            ll x;
+            cin>>x;
+            auto it = lower_bound(all(dp),x);
+            if(it==dp.end()){
+                dp.pb(x);
+            }
+            else{
+                *it = x;
+            }
+            // cout<<dp<<endl;
+        }
+        cout<<dp.size()<<endl;
     };
 
     int t;

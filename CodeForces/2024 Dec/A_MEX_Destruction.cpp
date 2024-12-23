@@ -1,4 +1,4 @@
-// 2024-12-05 09:11:22
+// 2024-12-21 11:10:29
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -18,7 +18,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 #define fastio() ios_base::sync_with_stdio(false), cin.tie(nullptr), cout.tie(nullptr);
 
 //Macros
-#define nl "\n"
+#define nline "\n"
 #define IOtext freopen("input.txt","r",stdin); freopen("output.txt","w",stdout);
 #define PI (3.141592653589)
 #define M 1000000007
@@ -100,42 +100,56 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        string s,t;
-        cin>>s>>t;
-        string ans;
-        ll f = 0;
-        for(int i=0;i<s.size()-1;i++){
-            for(int j=0;j<t.size()-1;j++){
-                string temp;
-                temp+=s[i];
-                temp+=s[i+1];
-                string temp2;
-                temp2+=t[j];
-                temp2+=t[j+1];
-                if(temp==temp2){
-                    f=1;
-                    for(int k=0;k<i;k++){
-                        ans+=s[k];
-                    }
-                    for(int k=j;k<t.size();k++){
-                        ans+=t[k];
-                    }
-                }
+        ll n;
+      cin>>n;
+      vector<ll>v(n);
+      vector<ll>freq(1e5,0);
+      for(int i=0;i<n;i++){
+        cin>>v[i];
+        freq[v[i]]++;
+      }
+       
 
-                
-            }
+       if(freq[0]==n){
+           cout<<0<<nline;
+           return;
+       }
+
+       if(freq[0]==0){
+        cout<<1<<nline;
+        return;
+
+       }
+
+       ll cnt=0;
+       for(int i=0;i<n;i++){
+        if(v[i]==0){
+            cnt++;
+        }else{
+            break;
         }
-        if(f){
-            cout<<ans<<nl;
+       }
+        ll cnt1 =0;
+       for(int i=n-1;i>=0;i--){
+        if(v[i]==0){
+            cnt1++;
+        }else{
+            break;
         }
-        else{
-            cout<<-1<<nl;
-        }
+       }
+        cout<<cnt<<nline;
+        cout<<cnt1<<nline;
+        
+       if(cnt1==freq[0] || cnt==freq[0] || cnt+cnt1==freq[0]){
+        cout<<1<<nline;
+        return;
+       }
+       cout<<2<<nline;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

@@ -1,4 +1,4 @@
-// 2024-12-20 13:52:46
+// 2024-12-22 21:07:10
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,27 +100,33 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
-        ll maxi = log2(n);
-        ll ans = 0;
-        for(int i=0;i<=maxi;i++){
-            ll len = pow(2,i);
-            ll sum = 0;
-            for(int j=len-1;j<len-1+len;j++){
-                sum+=v[j];
-            }
-            ans = max(ans,sum);
-        }
-        out(ans);
+        ll n,k;
+        cin>>n>>k;
+        vl a(n),b(n);
+        cin>>a>>b;
+        sort(all(a));
+        sort(all(b));
 
+        set<ll>st;
+        for(int i=0;i<n;i++){
+            st.insert(a[i]);
+            st.insert(b[i]);
+        }
+        ll ans = 0;
+        vl unq(all(st));
+        for(auto &x:unq){
+            ll pos = 0;
+            ll neg = 0;
+            pos = lower_bound(all(a), x)-a.begin();
+            neg = lower_bound(all(b), x)-b.begin();
+            
+        }
+        cout<<ans<<endl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

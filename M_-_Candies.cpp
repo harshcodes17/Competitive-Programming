@@ -97,6 +97,9 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 
 
 ll f(ll idx,ll rem,vl &v,vvl &dp){
+    if(rem == 0) {
+        return 1;
+    }
     if(idx<0){
         return 0;
     }
@@ -107,12 +110,8 @@ ll f(ll idx,ll rem,vl &v,vvl &dp){
 
     for(int i=0;i<=v[idx];i++){
         if(rem-i>=0){
-            ans+=(1+f(idx-1,rem-i,v,dp));
+            ans+=f(idx-1,rem-i,v,dp);
             ans%=M;
-        }
-        else{
-            
-            break;
         }
     }
     return dp[idx][rem]=ans;
@@ -128,19 +127,18 @@ int32_t main()
         vl v(n);
         cin>>v;
 
-        vector<vector<ll>>dp(n,vector<ll>(k+1,0));
+        vector<vector<ll>>dp(n,vector<ll>(k+1,-1));
         for(int i=0;i<=v[0];i++){
             dp[0][i]=1;
         }
-        f(n-1,k,v,dp);
-        for(auto x:dp){
-            for(auto y:x){
-                cout<<y<<" ";
-            }
-            cout<<nl;
-        }
-        cout<<nl;
-        cout<<dp[n-1][k]<<nl;
+        // for(auto x:dp){
+        //     for(auto y:x){
+        //         cout<<y<<" ";
+        //     }
+        //     cout<<nl;
+        // }
+        // cout<<nl;
+        cout<<f(n-1,k,v,dp)<<endl;
     };
 
     int t;

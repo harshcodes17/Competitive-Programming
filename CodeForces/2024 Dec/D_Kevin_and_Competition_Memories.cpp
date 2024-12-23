@@ -1,4 +1,4 @@
-// 2024-12-11 09:56:32
+// 2024-12-19 21:52:34
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,55 +100,47 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n,k;
-        cin>>n>>k;
-        vl v(n);
-        iota(all(v),1);
-        ll temp = 0;
-        vl tp;
-        for(int i=0;i<n;i++){
-                tp.clear();
-                temp+=v[i];
-                tp.pb(v[i]);
-                for(int j=i+1;j<n;j++){
-                    tp.pb(v[j]);
-                    // cout<<tp<<nl;
-                    ll mini = *min_element(all(tp));
-                    temp+=mini;
+        ll n, m;
+        cin >> n >> m;
+        vector<ll> ratings(n);
+        vector<ll> prob(m);
+        cin >> ratings >> prob;
+
+        ll kevin = ratings[0];
+        sort(prob.begin(), prob.end());
+        sort(ratings.begin(), ratings.end());
+
+        ll idx = m;
+        for (int i = 0; i < m; i++) {
+            if (prob[i] > kevin) {
+                idx = i;
+                break;
+            }
+        }
+        reverse(prob.begin() + idx, prob.end());
+
+        vector<ll> cnt(m, 0);
+        for (int i = idx; i < m; i++) {
+            cnt[i] = ratings.end() - lower_bound(ratings.begin(), ratings.end(), prob[i]);
+        }
+
+        vector<ll> ans(m + 1, 0);
+        for (int i = 1; i <= m; i++) {
+            ll sum = 0;
+            for (int j = i - 1; j < m; j += i) {
+                if (prob[j] <= kevin) {
+                    sum++;
+                } else {
+                    sum += cnt[j] + 1;
                 }
             }
-        ll sum = temp;
-        sort(all(v));
-        vvl ans;
-        ans.pb(v);
-        // cout<<v<<nl;
-        while(next_permutation(all(v))){
-            ll temp = 0;
-            vl tp;
-            for(int i=0;i<n;i++){
-                tp.clear();
-                temp+=v[i];
-                tp.pb(v[i]);
-                for(int j=i+1;j<n;j++){
-                    tp.pb(v[j]);
-                    // cout<<tp<<nl;
-                    ll mini = *min_element(all(tp));
-                    temp+=mini;
-                }
-            }
-            // cout<<temp<<nl;
-            if(temp==sum){
-                ans.pb(v);
-            }
+            ans[i] = sum;
         }
-        for(auto x:ans){
-            // cout<<x<<nl;
+
+        for (int i = 1; i <= m; i++) {
+            cout << ans[i] << " ";
         }
-        if(k>ans.size()){
-            cout<<-1<<nl;
-            return;
-        }
-        cout<<ans[k-1]<<nl;
+        cout << nl;
     };
 
     int t;

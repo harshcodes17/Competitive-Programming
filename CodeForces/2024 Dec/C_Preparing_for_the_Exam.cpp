@@ -1,4 +1,4 @@
-// 2024-12-20 13:52:46
+// 2024-12-22 20:33:19
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,27 +100,54 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
-        ll maxi = log2(n);
-        ll ans = 0;
-        for(int i=0;i<=maxi;i++){
-            ll len = pow(2,i);
-            ll sum = 0;
-            for(int j=len-1;j<len-1+len;j++){
-                sum+=v[j];
-            }
-            ans = max(ans,sum);
+        ll n,m,k;
+        cin>>n>>m>>k;
+        vl v(n+1,1);
+        vl a(m);
+        cin>>a;
+        map<ll,ll>mp;
+        for(int i=0;i<k;i++){
+            ll q;
+            cin>>q;
+            mp[q]=1;
         }
-        out(ans);
-
+        if(k==n){
+            for(int i=0;i<m;i++){
+                cout<<1;
+            }
+            cout<<endl;
+        }
+        else if(k==n-1){
+            ll miss = 1;
+            for(int i=1;i<=n;i++){
+                if(mp.find(i)==mp.end()){
+                    miss = i;
+                    break;
+                }
+            }
+            for(int i=0;i<m;i++){
+                if(a[i]==miss){
+                    cout<<1;
+                }
+                else{
+                    cout<<0;
+                }
+            }
+            cout<<endl;
+        }
+        else{
+            for(int i=0;i<m;i++){
+                cout<<0;
+            }
+            cout<<endl;
+        }
+        
+        
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

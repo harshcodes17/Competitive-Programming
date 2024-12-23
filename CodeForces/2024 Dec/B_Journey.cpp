@@ -1,4 +1,4 @@
-// 2024-12-20 13:52:46
+// 2024-12-22 20:13:03
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -94,33 +94,48 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
+bool check(ll n,ll a,ll b,ll c,ll days){
+    ll sum = a+b+c;
+    ll div = days/3;
+    ll rem = days%3;
+    ll dist = div*sum;
+    if(rem==1){
+        dist+=a;
+    }
+    else if(rem==2){
+        dist+=a+b;
+    }
+    return dist>=n;
+}
 
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
-        ll maxi = log2(n);
+        ll n,a,b,c;
+        cin>>n>>a>>b>>c;
+        ll sum = a+b+c;
+        ll l = 1;
+        ll r = 1e9;
         ll ans = 0;
-        for(int i=0;i<=maxi;i++){
-            ll len = pow(2,i);
-            ll sum = 0;
-            for(int j=len-1;j<len-1+len;j++){
-                sum+=v[j];
+        while(l<=r){
+            ll mid = (l+r)/2;
+            if(check(n,a,b,c,mid)){
+                ans = mid;
+                r = mid-1;
             }
-            ans = max(ans,sum);
+            else{
+                l = mid+1;
+            }
         }
-        out(ans);
-
+        cout<<ans<<endl;
+        
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
