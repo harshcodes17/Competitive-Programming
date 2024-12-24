@@ -1,4 +1,4 @@
-// 2024-12-22 21:07:10
+// 2024-12-19 11:47:45
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,6 +95,28 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+
+// ll f(ll idx,ll rem,vl &v,vvl &dp){
+//     if(rem == 0) {
+//         return 1;
+//     }
+//     if(idx<0){
+//         return 0;
+//     }
+//     if(dp[idx][rem]!=-1){
+//         return dp[idx][rem];
+//     }
+//     ll ans=0;
+
+//     for(int i=0;i<=v[idx];i++){
+//         if(rem-i>=0){
+//             ans+=f(idx-1,rem-i,v,dp);
+//             ans%=M;
+//         }
+//     }
+//     return dp[idx][rem]=ans;
+// }
+
 int32_t main()
 {
     fastio()
@@ -102,31 +124,35 @@ int32_t main()
     auto solve = [&] () {
         ll n,k;
         cin>>n>>k;
-        vl a(n),b(n);
-        cin>>a>>b;
-        sort(all(a));
-        sort(all(b));
+        vl v(n);
+        cin>>v;
 
-        set<ll>st;
-        for(int i=0;i<n;i++){
-            st.insert(a[i]);
-            st.insert(b[i]);
+        vector<vector<ll>>dp(n+1,vector<ll>(k+1,0));
+        dp[0][0]=1;
+
+        for(int i=1;i<=n;i++){
+            vl pre(k+1,0);
+            pre[0]=dp[i-1][0];
+            for(int j=1;j<=k;j++){
+                pre[j]=(pre[j-1]+dp[i-1][j])%M;
+                pre[j]%=M;
+            }
+            for(int j=0;j<=k;j++){
+                if(j-v[i-1]-1>=0){
+                    dp[i][j]=(pre[j]-pre[j-v[i-1]-1]+M)%M;
+                }
+                else{
+                    dp[i][j]=pre[j];
+                }    
+            }
         }
-        ll ans = 0;
-        vl unq(all(st));
-        for(auto &x:unq){
-            ll pos = 0;
-            ll neg = 0;
-            pos = lower_bound(all(a), x)-a.begin();
-            neg = lower_bound(all(b), x)-b.begin();
-            
-        }
-        cout<<ans<<endl;
+        cout<<dp[n][k]<<endl;
+        
     };
 
     int t;
     t=1;
-    cin>>t;
+    // cin>>t;
     while(t--)
     {
         solve();

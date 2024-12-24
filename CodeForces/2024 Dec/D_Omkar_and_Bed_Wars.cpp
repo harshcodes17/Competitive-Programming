@@ -95,6 +95,31 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+ll helper(ll idx,string &s,vector<vector<vector<ll>>>&dp,ll secprev,ll prev,ll f, ll sec){
+    ll n = s.size();
+    if(idx==n-1){
+        ll changes = 5e5;
+        if((secprev!=0||prev!=0)&&(f!=0||sec!=0)&&(prev!=0 || f!=0)){
+            changes = min(changes,s[idx]!='L'?1LL:0LL);
+        }
+        if((secprev!=1||prev!=1)&&(f!=1||sec!=1)&&(prev!=1 || f!=1)){
+            changes = min(changes,s[idx]!='R'?1LL:0LL);
+        }
+        return changes;
+    }
+    if(dp[idx][secprev][prev]!=-1){
+        return dp[idx][secprev][prev];
+    }
+    ll changes = 5e5;
+    if(secprev!=0||prev!=0){
+        changes = min(changes,(s[idx]!='L'?1LL:0LL)+helper(idx+1,s,dp,prev,0,f,sec));
+    }
+    if(secprev!=1||prev!=1){
+        changes = min(changes,(s[idx]!='R'?1LL:0LL)+helper(idx+1,s,dp,prev,1,f,sec));
+    }
+    return dp[idx][secprev][prev] = changes;
+}
+
 int32_t main()
 {
     fastio()
@@ -104,52 +129,17 @@ int32_t main()
         cin>>n;
         string s;
         cin>>s;
-        vl dp(4,1e9);
+        ll ans = n;
 
-        string s1=s,s2=s,s3=s,s4=s;
-        s1[0]='L',s1[1]='L';
-        s2[0]='L',s2[1]='R';
-        s3[0]='R',s3[1]='L';
-        s4[0]='R',s4[1]='R';
-        vector<string>v;
-        v.pb(s1);
-        v.pb(s2);
-        v.pb(s3);
-        v.pb(s4);
-        for(int i=0;i<4;i++){
-            ll cnt = 0;
-            ll prev=0,curr=1,next=2;
-            cnt+=(v[i][prev]!=s[prev]);
-            cnt+=(v[i][curr]!=s[curr]);
-            // cout<<cnt<<nl;
-            while(next<n){
-                if(v[i][prev]==v[i][curr] && v[i][curr]==v[i][next]){
-                    cnt++;
-                    if(v[i][curr]=='L'){
-                        v[i][curr]='R';
-                    }
-                    else{
-                        v[i][curr]='L';
-                    }
-                }
-                if(curr==n-2){
-                    if(v[i][next]==v[i][curr] && v[i][0]==v[i][next]){
-                        cnt = 1e9;
-                    }
-                    if(v[i][next]==v[i][0] && v[i][0]==v[i][1]){
-                        cnt = 1e9;
-                    }
-                }
-                prev++;
-                curr++;
-                next++;
+        for(int i=0;i<=1;i++){
+            for(int j=0;j<=1;j++){
+                vector<vector<vector<ll>>>dp(n,vector<vector<ll>>(2,vector<ll>(2,-1)));
+                ll cnt1 = (i==0)?s[0]!='L':s[0]!='R';
+                ll cnt2 = (j==0)?s[1]!='L':s[1]!='R';
+                ans = min(ans,helper(2,s,dp,i,j,i,j)+cnt1+cnt2);
             }
-            dp[i]=cnt;
         }
-        for(int i=0;i<4;i++){
-            // cout<<v[i]<<" "<<dp[i]<<nl;
-        }
-        cout<<*min_element(all(dp))<<nl;
+        cout<<ans<<endl;
 
     };
 
