@@ -1,4 +1,4 @@
-// 2024-12-26 13:20:32
+// 2024-12-26 15:14:06
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,14 +100,21 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        vl ans;
-        ans.pb(180-a);
-        ans.pb(180-b);
-        ans.pb(180-c);
-        sort(all(ans));
-        cout<<ans<<nl;
+        ll n;
+        cin>>n;
+        vl v(n);
+        cin>>v;
+        map<ll,ll>mp;
+        for(auto x:v){
+            mp[x]++;
+        }
+        ll maxi = *max_element(all(v));
+        vl dp(maxi+1,0);
+        dp[1] = mp[1];
+        for(int i=2;i<=maxi;i++){
+            dp[i] = max(mp[i]*i + dp[i-2],dp[i-1]);
+        }
+        out(*max_element(all(dp)));
     };
 
     int t;
@@ -118,4 +125,4 @@ int32_t main()
         solve();
     }
     return 0;
-}
+}   

@@ -1,4 +1,4 @@
-// 2024-12-26 13:20:32
+// 2024-12-27 14:44:54
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,19 +100,20 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        vl ans;
-        ans.pb(180-a);
-        ans.pb(180-b);
-        ans.pb(180-c);
-        sort(all(ans));
-        cout<<ans<<nl;
+        ll n;
+        cin>>n;
+        for(int d=0;d<11;d++){
+            if(n>=111*d && (n-111*d)%11==0){
+                py;
+                return;
+            }
+        }
+        pn;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

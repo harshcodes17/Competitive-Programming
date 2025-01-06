@@ -1,4 +1,4 @@
-// 2024-12-26 13:20:32
+// 2024-12-26 21:53:49
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,19 +100,18 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        vl ans;
-        ans.pb(180-a);
-        ans.pb(180-b);
-        ans.pb(180-c);
-        sort(all(ans));
-        cout<<ans<<nl;
+        string s,t;
+        cin>>s>>t;
+        ll diff =0 ;
+        for(int i=0;i<s.size();i++){
+            diff+=(s[i]-t[i]);
+        }
+        cout<<diff<<endl;   
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

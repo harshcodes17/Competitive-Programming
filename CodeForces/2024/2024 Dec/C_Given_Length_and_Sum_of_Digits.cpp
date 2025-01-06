@@ -1,4 +1,4 @@
-// 2024-12-26 13:20:32
+// 2024-12-27 11:40:01
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,19 +95,58 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+
+
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        vl ans;
-        ans.pb(180-a);
-        ans.pb(180-b);
-        ans.pb(180-c);
-        sort(all(ans));
+        ll n,sum;
+        cin>>n>>sum;
+        ll maxi = 9*n;
+        string ans="";
+        if(sum==0){
+            if(n==1){
+                cout<<"0 0"<<nl;
+                return;
+            }
+            else{
+                cout<<"-1 -1"<<nl;
+                return;
+            }
+        }   
+        if(sum>maxi){
+            cout<<"-1 -1"<<nl;
+            return;
+        }
+        vector<vector<string>> dp(n + 1, vector<string>(sum + 1, "-1"));
+        dp[0][0] = "";
+        for (int i = 1; i <= n; ++i) {
+            for (int j = 0; j <= sum; ++j) {
+            for (int d = 0; d <= 9; ++d) {
+                if (j >= d && dp[i - 1][j - d] != "-1") {
+                string candidate = dp[i - 1][j - d] + char('0' + d);
+                if (dp[i][j] == "-1" || candidate < dp[i][j]) {
+                    dp[i][j] = candidate;
+                }
+                }
+            }
+            }
+        }
+        ans = dp[n][sum];
         cout<<ans<<nl;
+        string ans2 = ans;
+        for(auto &x:ans){
+            if(x!='0'){
+                swap(x,ans[0]);
+                break;
+            }
+        }
+        reverse(all(ans2));
+        
+        cout<<ans<<" "<<ans2<<nl;
+        
     };
 
     int t;

@@ -1,4 +1,4 @@
-// 2024-12-26 13:20:32
+// 2024-12-26 14:39:08
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,14 +100,57 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        vl ans;
-        ans.pb(180-a);
-        ans.pb(180-b);
-        ans.pb(180-c);
-        sort(all(ans));
-        cout<<ans<<nl;
+        ll n,m,k;
+        cin>>n>>m>>k;
+        vvl horizontal(n,vl(m-1));
+        vvl vertical(n-1,vl(m));
+        rep(i,n) rep(j,m-1) cin>>horizontal[i][j];
+        rep(i,n-1) rep(j,m) cin>>vertical[i][j];
+
+        vector<vector<vector<ll>>> dp(n,vector<vector<ll>>(m,vector<ll>(21)));
+
+        vl dx = {0,0,1,-1};
+        vl dy = {1,-1,0,0};
+
+        for(int steps=0;steps<=20;steps++){
+            for(int i=0;i<n;i++){
+                for(int j=0;j<m;j++){
+                    if(steps==0){
+                        dp[i][j][steps] = 0;
+                        continue;
+                    }
+                    else{
+                        if(k&1){
+                            dp[i][j][steps] = -1;
+                        }
+                        else{
+                            dp[i][j][steps] = 2e9;
+                            for(int dir=0;dir<4;dir++){
+                                int ni = i+dx[dir];
+                                int nj = j+dy[dir];
+                                if(ni>=0 && ni<n && nj>=0 && nj<m){
+                                    ll ew = 0;
+                                    if(ni!=i){
+                                        ew = vertical[min(i,ni)][j];
+                                    }
+                                    else{
+                                        ew = horizontal[i][min(j,nj)];
+                                    }
+                                    dp[i][j][steps] = min(dp[i][j][steps],dp[ni][nj][steps-2]+(2*ew));
+                                }
+                            }
+                        }
+                    }
+                    
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                cout<<dp[i][j][k]<<" ";
+            }
+            cout<<endl;
+        }   
     };
 
     int t;

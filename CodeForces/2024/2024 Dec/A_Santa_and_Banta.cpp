@@ -1,4 +1,4 @@
-// 2024-12-26 13:20:32
+// 2024-12-26 22:27:51
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,19 +100,30 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        vl ans;
-        ans.pb(180-a);
-        ans.pb(180-b);
-        ans.pb(180-c);
-        sort(all(ans));
+        ll n,k;
+        cin>>n>>k;
+        vl v(n);
+        cin>>v;
+        ll mini = 2e18;
+        for(int i=0;i<n;i++){
+            mini = min(mini,abs(v[i]));
+        }
+        v.pb(0);
+        vl minis;
+        for(int i=0;i<n+1;i++){
+            minis.pb(abs(v[i]-k));
+        }
+        
+        ll ans = *min_element(all(minis));
+        ans+=mini;
+        ans = min(ans,abs(k));
         cout<<ans<<nl;
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

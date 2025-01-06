@@ -1,4 +1,4 @@
-// 2024-12-26 13:20:32
+// 2024-12-27 09:51:29
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,19 +100,41 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        vl ans;
-        ans.pb(180-a);
-        ans.pb(180-b);
-        ans.pb(180-c);
-        sort(all(ans));
-        cout<<ans<<nl;
+        ll n;
+        cin>>n;
+        vl v(n);
+        cin>>v;
+        unordered_map<ll,ll>mp;
+        for(int i=0;i<v.size();i++)
+        {
+           int j=i-1;
+           int x=0, y=v[i];
+           mp[v[i]]++;
+           while(j>=0 && x!=y){
+               x|=v[j];
+               y|=v[j];
+               mp[y]++;
+               j--;
+           }
+        }
+        ll ans1 = -1, ans2 = -1;
+        for(auto x:mp){
+            if(x.second==1){
+                if(ans1==-1 || x.first<ans1){
+                    ans1 = x.first;
+                }
+                if(ans2==-1 || x.first>ans2){
+                    ans2 = x.first;
+                }
+            }
+        }
+        out(ans1<<" "<<ans2);
+        
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

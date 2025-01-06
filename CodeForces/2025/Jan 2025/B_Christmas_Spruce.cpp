@@ -1,4 +1,4 @@
-// 2024-12-26 13:20:32
+// 2025-01-05 19:26:54
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,14 +100,32 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll a,b,c;
-        cin>>a>>b>>c;
-        vl ans;
-        ans.pb(180-a);
-        ans.pb(180-b);
-        ans.pb(180-c);
-        sort(all(ans));
-        cout<<ans<<nl;
+        ll n;
+        cin>>n;
+        vector<vector<ll>>tree(n);
+        for(int i=2;i<=n;i++){
+            ll x;
+            cin>>x;
+            x--;
+            tree[x].push_back(i);
+        }
+        ll f=1;
+        for(int i=0;i<n;i++){
+            ll cnt = 0;
+            if(tree[i].size()==0){
+                continue;
+            }
+            for(auto x:tree[i]){
+                if(tree[--x].size()==0){
+                    cnt++;
+                }
+            }
+            if(cnt<3){
+                f=0;
+                break;
+            }
+        }
+        cout<<(f?"Yes":"No")<<endl;
     };
 
     int t;
