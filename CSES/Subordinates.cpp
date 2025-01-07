@@ -1,4 +1,4 @@
-// 2025-01-06 13:56:22
+// 2025-01-07 14:21:11
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -95,6 +95,19 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+int dfs(ll node,ll parent,vvl &tree,vl &ans){
+    if(tree[node].size()==0){
+        return 1;
+    }
+    ll sum=0;
+    for(auto child:tree[node]){
+        int temp = dfs(child,node,tree,ans);
+        sum+=temp;
+    }
+    ans[node]=sum;
+    return sum+1;
+}
+
 int32_t main()
 {
     fastio()
@@ -102,15 +115,18 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        for(auto &x:v){
-            if(x<=0){
-                x=abs(x);
-            }
+        vvl tree(n);
+        for(int i=0;i<n-1;i++){
+            ll u;
+            cin>>u;
+            u--;
+            tree[u].pb(i+1);
         }
-        sort(all(v));
-        cout<<v<<nl;
+        vl ans(n,0);
+        dfs(0,-1,tree,ans);
+        cout<<ans<<nl;
+
+
     };
 
     int t;

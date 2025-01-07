@@ -1,4 +1,4 @@
-// 2025-01-06 13:56:22
+// 2025-01-07 09:25:10
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,22 +100,48 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
-        for(auto &x:v){
-            if(x<=0){
-                x=abs(x);
+        ll n,k;
+        cin>>n>>k;
+        vvl tree(n);
+        vl deg(n,0);
+        for(int i=0;i<n-1;i++)
+        {
+            ll u,v;
+            cin>>u>>v;
+            u--,v--;
+            tree[u].pb(v);
+            tree[v].pb(u);
+            deg[u]++;
+            deg[v]++;
+        }
+        ll ans=n;
+        queue<ll> q;
+        for(int i=0;i<deg.size();i++){
+            if(deg[i]<=1){
+                q.push(i);
             }
         }
-        sort(all(v));
-        cout<<v<<nl;
+        ll removed=0;
+        while(!q.empty() && k--){
+            ll size = q.size();
+            for(int i=0;i<size;i++){
+                ll leaf = q.front();
+                q.pop();
+                removed++;
+                for(auto &x:tree[leaf]){
+                    deg[x]--;
+                    if(deg[x]==1){
+                        q.push(x);
+                    }
+                }
+            }
+        }
+        cout<<n-removed<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

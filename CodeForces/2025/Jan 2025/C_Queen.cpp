@@ -1,4 +1,4 @@
-// 2025-01-06 13:56:22
+// 2025-01-07 13:45:13
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,15 +102,38 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-        for(auto &x:v){
-            if(x<=0){
-                x=abs(x);
+        map<ll,vector<ll>>mp;
+        vl respect(n+1);
+        respect[0] = -1;
+        for(int i=1;i<=n;i++){
+            ll u;
+            cin>>u;
+            mp[u].pb(i);
+            ll resp;
+            cin>>resp;
+            respect[i] = resp;
+        }
+        // cout<<respect<<nl;  
+        vl q;
+        for(int i=1;i<=n;i++){
+            if(respect[i]==1){
+                ll f = 1;
+                for(auto x:mp[i]){
+                    if(respect[x]==0){
+                        f = 0;
+                        break;
+                    }
+                }
+                if(f)q.pb(i);
             }
         }
-        sort(all(v));
-        cout<<v<<nl;
+        if(q.size()==0){
+            cout<<-1<<nl;
+            return;
+        }
+        sort(all(q));
+        cout<<q<<nl;
+        
     };
 
     int t;
