@@ -1,4 +1,4 @@
-// 2025-01-08 23:59:23
+// 2025-01-20 11:01:46
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -104,41 +104,25 @@ int32_t main()
         cin>>n;
         vl v(n);
         cin>>v;
-
-        stack<ll>st;
-        vl ans;
-        ans.pb(0);
-        for(int i=0;i<n;i++){
-            while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
-            }
-            if(ans.back()==v[i]-1){
-                ans.pb(v[i]);
-            }
-            else{
-                st.push(v[i]);
+        ll i = 1;
+        while(i<n){
+            ll mini = min(v[i],v[i-1]);
+            v[i] = max(0LL,v[i]-mini);
+            v[i-1] = max(0LL,v[i-1]-mini);
+            i++;
+        }
+        for(int i=1;i<n;i++){
+            if(v[i]<v[i-1]){
+                cout<<"NO"<<nl;
+                return;
             }
         }
-        while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
-            }
-        
-        // cout<<ans<<nl;
-        if(ans.size()==n+1){
-            cout<<"yes"<<endl;
-        }
-        else{
-            cout<<"no"<<endl;
-        }
-        
-        
+        py;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

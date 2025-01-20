@@ -1,4 +1,4 @@
-// 2025-01-06 13:56:22
+// 2025-01-12 09:47:56
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,17 +100,12 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
-        for(auto &x:v){
-            if(x<=0){
-                x=abs(x);
-            }
-        }
-        sort(all(v));
-        cout<<v<<nl;
+        set<ll>st;
+        st.insert(1);
+        st.insert(2);
+        auto it = st.end();
+        
+        cout<<*(it)<<nl;
     };
 
     int t;

@@ -1,4 +1,4 @@
-// 2025-01-08 23:59:23
+// 2025-01-20 11:20:42
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -37,7 +37,7 @@ typedef tree<int, null_type, less_equal<int>, rb_tree_tag, tree_order_statistics
 #define instr(x) string x; cin>>x;
 #define all(x) x.begin(), x.end()
 #define out(x) cout << x << endl;
-#define py cout<<"YES"<<endl
+// #define py cout<<"YES"<<endl
 #define pn cout<<"NO"<<endl
 #define pm cout<<"-1"<<endl
 #define ps(x,y) fixed<<setprecision(y)<<x
@@ -94,51 +94,76 @@ ll lcm(ll a, ll b){return (a/gcd(a,b)*b);}
 ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 1)res = (res + a) % mod;b >>= 1;}return res;}
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
+vector<int> parent, sz;
+int find(int x) {
+    if(parent[x] == x) return x;
+    return parent[x] = find(parent[x]);
+}
+
+void unite(int x, int y) {
+    int px = find(x), py = find(y);
+    if(px == py) return;
+    if(sz[px] < sz[py]) swap(px, py);
+    parent[py] = px;
+    sz[px] += sz[py];
+}
 
 int32_t main()
 {
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
-
-        stack<ll>st;
-        vl ans;
-        ans.pb(0);
-        for(int i=0;i<n;i++){
-            while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
-            }
-            if(ans.back()==v[i]-1){
-                ans.pb(v[i]);
-            }
-            else{
-                st.push(v[i]);
+        ll n, m1, m2;
+        cin >> n >> m1 >> m2;
+        parent.resize(n + 1);
+        sz.resize(n + 1, 1);
+        for(int i = 1; i <= n; i++) {
+            parent[i] = i;
+        }
+        vector<vector<bool>> adj(n + 1, vector<bool>(n + 1, false));
+        for(int i = 0; i < m1; i++) {
+            int u, v;
+            cin >> u >> v;
+            adj[u][v] = adj[v][u] = true;
+            unite(u, v);
+        }
+        vector<int> F(n + 1);
+        for(int i = 1; i <= n; i++) {
+            F[i] = find(i);
+        }
+        for(int i = 1; i <= n; i++) {
+            parent[i] = i;
+            sz[i] = 1;
+        }
+        vector<pair<ll,ll>>G;
+        for(int i = 0; i < m2; i++) {
+            int u, v;
+            cin >> u >> v;
+            G.push_back({u, v});
+            unite(u,v);
+        }
+        int ans = 0;
+        for(auto [u, v] : G) {
+            if(!adj[u][v] && F[u] == F[v]) {
+                ans++;
             }
         }
-        while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
-            }
-        
         // cout<<ans<<nl;
-        if(ans.size()==n+1){
-            cout<<"yes"<<endl;
+        for(int i = 1; i <= n; i++) {
+            for(int j = i + 1; j <= n; j++) {
+                if(adj[i][j]) { 
+                    if(find(i) != find(j)) {  
+                        ans++;
+                    }
+                }
+            }
         }
-        else{
-            cout<<"no"<<endl;
-        }
-        
-        
+        cout<<ans<<nl;
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

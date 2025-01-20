@@ -1,4 +1,4 @@
-// 2025-01-08 23:59:23
+// 2025-01-08 21:22:04
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -104,41 +104,62 @@ int32_t main()
         cin>>n;
         vl v(n);
         cin>>v;
-
-        stack<ll>st;
-        vl ans;
-        ans.pb(0);
+        set<ll>st;
+        vector<pair<ll,ll>>opti;
+        map<ll,pair<ll,ll>>mp;
         for(int i=0;i<n;i++){
-            while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
-            }
-            if(ans.back()==v[i]-1){
-                ans.pb(v[i]);
+            if(mp.find(v[i])==mp.end()){
+                mp[v[i]] = {i,i};
             }
             else{
-                st.push(v[i]);
+                mp[v[i]].s = i;
             }
         }
-        while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
+        for(auto [x,y]:mp){
+            if(y.f!=y.s){
+                opti.pb(y);
             }
-        
-        // cout<<ans<<nl;
-        if(ans.size()==n+1){
-            cout<<"yes"<<endl;
+        }
+        sort(all(opti));
+        vector<pair<ll,ll>>ranges;
+        ll start = 0, end = 0;
+        if (!opti.empty()) {
+            start = opti[0].first;
+            end = opti[0].second;
         }
         else{
-            cout<<"no"<<endl;
+            cout<<0<<nl;
+            return;
         }
-        
-        
+        for(int i=1;i<opti.size();i++){
+            if(opti[i].first<=end){
+                end = max(end,opti[i].second);
+            }
+            else{
+                ranges.pb({start,end});
+                start = opti[i].first;
+                end = opti[i].second;
+            }
+        }
+        ranges.pb({start,end});
+        ll ans = 0;
+        vl distsofar(n,0);
+        for(int i=0;i<n;i++){
+            st.insert(v[i]);
+            distsofar[i] = st.size();
+        }
+        for(auto [x,y]:ranges){
+            ll cost = distsofar[y]-(x>0?distsofar[x-1]:0);
+            ans+=cost;
+        }
+        cout<<ans<<nl;
+
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

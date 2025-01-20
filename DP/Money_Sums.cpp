@@ -1,4 +1,4 @@
-// 2025-01-08 23:59:23
+// 2025-01-07 14:40:16
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,38 +102,31 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-
-        stack<ll>st;
-        vl ans;
-        ans.pb(0);
-        for(int i=0;i<n;i++){
-            while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
-            }
-            if(ans.back()==v[i]-1){
-                ans.pb(v[i]);
-            }
-            else{
-                st.push(v[i]);
+        vl v(n+1);
+        for(int i=1;i<=n;i++){
+            cin>>v[i];
+        }
+        ll whole = accumulate(all(v),0LL);
+        vector<vector<bool>>dp(n+1,vector<bool>(whole+1,false));
+        dp[0][0] = true;
+        for(int i=1;i<=n;i++){
+            for(int j=0;j<=whole;j++){
+                dp[i][j] = dp[i-1][j];
+                if(j>=v[i]){
+                    dp[i][j] = dp[i][j] || dp[i-1][j-v[i]];
+                }
             }
         }
-        while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
+        set<ll>ans;
+        for(int i=1;i<=whole;i++){
+            if(dp[n][i]){
+                ans.insert(i);
             }
-        
-        // cout<<ans<<nl;
-        if(ans.size()==n+1){
-            cout<<"yes"<<endl;
         }
-        else{
-            cout<<"no"<<endl;
+        cout<<ans.size()<<endl;
+        for(auto x:ans){
+            cout<<x<<" ";
         }
-        
-        
     };
 
     int t;

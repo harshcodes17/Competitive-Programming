@@ -1,4 +1,4 @@
-// 2025-01-08 23:59:23
+// 2025-01-08 20:41:14
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,45 +100,49 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
+        ll n,x,k;
+        cin>>n>>x>>k;
+        string s;
+        cin>>s;
 
-        stack<ll>st;
-        vl ans;
-        ans.pb(0);
-        for(int i=0;i<n;i++){
-            while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
-            }
-            if(ans.back()==v[i]-1){
-                ans.pb(v[i]);
+        vl pre;
+        pre.pb(s[0]-'0');
+        for(int i=1;i<n;i++)
+        {
+            pre.pb(pre[i-1]+(s[i]-'0'));
+        }
+        vl inv;
+        inv.pb(0);
+        for(int i=1;i<n;i++){
+            if(s[i]=='0'){
+                inv.pb(inv[i-1]+pre[i]);
             }
             else{
-                st.push(v[i]);
+                inv.pb(inv[i-1]);
             }
-        }
-        while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
+        }   
+        // cout<<pre<<nl;
+        // cout<<inv<<nl;
+        ll total = inv[n-1];
+        if(total<=x){
+            if(total%k==0){
+                cout<<1<<nl;
             }
-        
-        // cout<<ans<<nl;
-        if(ans.size()==n+1){
-            cout<<"yes"<<endl;
+            else{
+                cout<<2<<nl;
+            }
+            
         }
         else{
-            cout<<"no"<<endl;
+            cout<<2<<nl;
         }
-        
-        
+
+
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

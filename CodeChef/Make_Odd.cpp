@@ -1,4 +1,4 @@
-// 2025-01-08 23:59:23
+// 2025-01-08 20:31:38
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -102,43 +102,34 @@ int32_t main()
     auto solve = [&] () {
         ll n;
         cin>>n;
-        vl v(n);
-        cin>>v;
-
-        stack<ll>st;
-        vl ans;
-        ans.pb(0);
+        string a,b;
+        cin>>a>>b;
+        ll cnt = 0;
+        ll score = 0;
         for(int i=0;i<n;i++){
-            while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
-            }
-            if(ans.back()==v[i]-1){
-                ans.pb(v[i]);
+            if(a[i]==b[i]){
+                score+=(a[i]-'0');
             }
             else{
-                st.push(v[i]);
+                cnt++;
             }
         }
-        while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
+        if(cnt==0){
+            if(score%2){
+                py;
             }
-        
-        // cout<<ans<<nl;
-        if(ans.size()==n+1){
-            cout<<"yes"<<endl;
+            else{
+                pn;
+            }
         }
         else{
-            cout<<"no"<<endl;
+            py;
         }
-        
-        
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

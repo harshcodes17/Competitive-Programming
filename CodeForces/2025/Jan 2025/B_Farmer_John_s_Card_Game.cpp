@@ -1,4 +1,4 @@
-// 2025-01-08 23:59:23
+// 2025-01-20 10:12:34
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,45 +100,47 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
-        vl v(n);
-        cin>>v;
+        ll n,m;
+        cin>>n>>m;
+        vector<vector<ll>>v(n,vector<ll>(m));
+        rep(i,n)
+        {
+            rep(j,m)
+            {
+                cin>>v[i][j];
+            }
+        }
+        map<ll,ll>mp;
+        ll idx = 1;
+        for(auto &x:v)
+        {
+            sort(all(x));
+            mp[x[0]] = idx++;
 
-        stack<ll>st;
+        } 
+        for(auto x:v){
+            // cout<<x<<nl;
+            for(int i=1;i<x.size();i++){
+                if(x[i]-x[i-1]<n){
+                    cout<<-1<<nl;
+                    return;
+                }
+            }
+        }
+        sort(all(v));
         vl ans;
-        ans.pb(0);
-        for(int i=0;i<n;i++){
-            while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
-            }
-            if(ans.back()==v[i]-1){
-                ans.pb(v[i]);
-            }
-            else{
-                st.push(v[i]);
-            }
+        for(auto x:v){
+            ans.pb(mp[x[0]]);
         }
-        while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
-            }
-        
-        // cout<<ans<<nl;
-        if(ans.size()==n+1){
-            cout<<"yes"<<endl;
-        }
-        else{
-            cout<<"no"<<endl;
-        }
-        
+        cout<<ans<<nl;
+
+
         
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();

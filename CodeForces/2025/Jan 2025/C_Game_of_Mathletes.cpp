@@ -1,4 +1,4 @@
-// 2025-01-08 23:59:23
+// 2025-01-20 10:36:41
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,45 +100,38 @@ int32_t main()
     fastio()
     
     auto solve = [&] () {
-        ll n;
-        cin>>n;
+        ll n,k;
+        cin>>n>>k;
         vl v(n);
         cin>>v;
-
-        stack<ll>st;
-        vl ans;
-        ans.pb(0);
-        for(int i=0;i<n;i++){
-            while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
+        sort(all(v));
+        // cout<<v<<nl;
+        map<ll, ll> freq;
+        for (auto x : v) {
+            freq[x]++;
+        }
+        ll ans = 0;
+        for (auto x : v) {
+            if (freq[x] > 0) {
+            ll y = k - x;
+            if (freq[y] > 0) {
+                if (x == y && freq[x] > 1) {
+                ans++;
+                freq[x] -= 2;
+                } else if (x != y && freq[y] > 0) {
+                ans++;
+                freq[x]--;
+                freq[y]--;
+                }
             }
-            if(ans.back()==v[i]-1){
-                ans.pb(v[i]);
-            }
-            else{
-                st.push(v[i]);
             }
         }
-        while(!st.empty() && st.top()==ans.back()+1){
-                ans.pb(st.top());
-                st.pop();
-            }
-        
-        // cout<<ans<<nl;
-        if(ans.size()==n+1){
-            cout<<"yes"<<endl;
-        }
-        else{
-            cout<<"no"<<endl;
-        }
-        
-        
+        out(ans);
     };
 
     int t;
     t=1;
-    // cin>>t;
+    cin>>t;
     while(t--)
     {
         solve();
