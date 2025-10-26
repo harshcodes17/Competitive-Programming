@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-10-02 21:42:41
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -103,12 +103,17 @@ int32_t main()
 
         auto solve = [&]()
     {
-        ll n;
-        cin >> n;
+        ll n, k;
+        cin >> n >> k;
         vl v(n);
         cin >> v;
-
-        cout << *max_element(all(v)) << nl;
+        sort(all(v));
+        reverse(all(v));
+        ll ans = 0;
+        for (int i = 0; i < k;i++){
+            ans+=v[i];
+        }
+        out(ans);
     };
 
     int t;

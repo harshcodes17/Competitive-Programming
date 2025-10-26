@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-10-19 13:00:08
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -103,12 +103,53 @@ int32_t main()
 
         auto solve = [&]()
     {
-        ll n;
-        cin >> n;
-        vl v(n);
-        cin >> v;
+        random_device rd;
+        mt19937 gen(rd());
+        ll n = 6;
+        vl v1(n);
+        ll maxQ = 40;
+        iota(all(v1), 1);
+        ll rotate_degree = uniform_int_distribution<ll>(1, n)(gen);
+        rotate(v1.begin(), v1.begin() + rotate_degree, v1.end());
+        // cout<<v<<nl;
+        vl v2 = v1;
 
-        cout << *max_element(all(v)) << nl;
+        uniform_int_distribution<ll> dist(0, n-1);
+        ll l = dist(gen);
+        ll r = dist(gen);
+        if (l > r)
+            swap(l, r);
+        for (int i = l; i <= r;i++)
+        {
+            v2[i]++;
+        }
+        // cout<<v<<nl;
+
+        while(maxQ--)
+        {
+            ll type,left, right;
+            cin>>type>>left>>right;
+            left--;
+            right--;
+            ll ans = 0;
+            if(type==1)
+            {
+                for(int i=left;i<=right;i++)
+                {
+                    ans+=v2[i];
+                }
+            }
+            else
+            {
+                for(int i=left;i<=right;i++)
+                {
+                    ans+=v1[i];
+                }
+            }
+            cout<<ans<<nl;
+        }
+
+
     };
 
     int t;

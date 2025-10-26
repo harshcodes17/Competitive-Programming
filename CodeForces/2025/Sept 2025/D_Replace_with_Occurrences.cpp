@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-09-22 13:20:15
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -105,10 +105,64 @@ int32_t main()
     {
         ll n;
         cin >> n;
+
         vl v(n);
         cin >> v;
+        vl mp(n+1,0);
+        for(auto x:v){
 
-        cout << *max_element(all(v)) << nl;
+            mp[x]++;
+        }
+
+        for (int i = 1; i <= n;i++){
+            if(mp[i]%i!=0){
+                cout<<-1<<nl;
+                return;
+            }
+        }
+
+            ll put = 1;
+        for(auto x:mp){
+            // cout<<x.f<<" "<<x.s<<nl;
+        }
+        map<ll,vector<ll>> res;
+        for(auto x:v)
+        {
+            if(x==1){
+                ll cnt = 0;
+                for (int i = 0; i < 1; i++)
+                {
+                    // cout<<++cnt<<nl;
+                    res[x].pb(put++);
+                }
+            }
+            else{
+                if(res[x].size()==0){
+                    res[x].pb(put++);
+                }
+            }
+        }
+        // for(auto x:res){
+        //     cout<<x.f<<" : ";
+        //     for(auto y:x.s){
+        //         cout<<y<<" ";
+        //     }
+        //     cout<<nl;
+        // }
+        vl ans;
+        for(auto x:v){
+            if(x==1){
+                ans.pb(res[x].back());
+                res[x].pop_back();
+            }
+            else{
+                ans.pb(res[x].back());
+            }
+            
+        }
+        
+        
+        cout<<ans<<nl;
     };
 
     int t;

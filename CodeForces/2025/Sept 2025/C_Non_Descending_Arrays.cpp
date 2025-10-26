@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-09-17 17:20:46
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -100,15 +100,22 @@ ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y
 int32_t main()
 {
     fastio()
-
-        auto solve = [&]()
-    {
+    
+    auto solve = [&] () {
         ll n;
-        cin >> n;
-        vl v(n);
-        cin >> v;
+        cin>>n;
+        vl a(n),b(n);
+        cin>>a>>b;
 
-        cout << *max_element(all(v)) << nl;
+        ll ans = 2;
+
+        for(int i=1;i<n;i++){
+            if(min(a[i],b[i])>=max(a[i-1],b[i-1])){
+                ans*=2;
+                ans %= 998244353;
+            }
+        }
+        out(ans);
     };
 
     int t;

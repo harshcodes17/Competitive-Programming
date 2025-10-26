@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-10-19 20:11:33
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -103,12 +103,27 @@ int32_t main()
 
         auto solve = [&]()
     {
-        ll n;
-        cin >> n;
-        vl v(n);
-        cin >> v;
+        ll n, k;
+        cin >> n >> k;
 
-        cout << *max_element(all(v)) << nl;
+        string s;
+        cin >> s;
+
+        ll ans = 0;
+        ll idx1 = -1e9;
+        for (int i = 0; i < n;i++){
+            if(s[i]=='1'){
+                ll pos = i + 1;
+                if (pos - idx1 >= k)
+                {
+                    ans++;
+                }
+                idx1 = pos;
+            }
+        }
+        cout<<ans<<nl;
+
+
     };
 
     int t;

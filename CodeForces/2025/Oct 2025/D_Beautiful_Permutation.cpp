@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-10-17 21:02:20
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -97,6 +97,14 @@ ll moduloMultiplication(ll a,ll b,ll mod){ll res = 0;a %= mod;while (b){if (b & 
 ll powermod(ll x, ll y, ll p){ll res = 1;x = x % p;if (x == 0) return 0;while (y > 0){if (y & 1)res = (res*x) % p;y = y>>1;x = (x*x) % p;}return res;}
 //To find modulo inverse, call powermod(A,M-2,M)
 
+ll ask(int type, int l, int r) {
+    cout << type << " " << l << " " << r << endl;
+    cout.flush();
+    ll res;
+    cin >> res;
+    return res;
+}
+
 int32_t main()
 {
     fastio()
@@ -105,10 +113,32 @@ int32_t main()
     {
         ll n;
         cin >> n;
-        vl v(n);
-        cin >> v;
+        // ll total_sum = ask(2, 1, n);
+        ll l = 1, r = n;
 
-        cout << *max_element(all(v)) << nl;
+        while (l < r)
+        {
+            ll mid = (l + r) / 2;
+            ll type2 = ask(2, l, mid);
+            ll type1 = ask(1, l, mid);
+            if (type2 != type1)
+            {
+                r = mid;
+            }
+            else
+            {
+                l = mid + 1;
+            }
+            
+        }
+        ll ans1 = l;
+        ll sumo = ask(1, 1, n);
+        ll summ = ask(2, 1, n);
+
+        ll len = summ - sumo;
+        ll ans2 = ans1 + len - 1;
+        cout << "! " << ans1 << " " << ans2 << endl;
+
     };
 
     int t;

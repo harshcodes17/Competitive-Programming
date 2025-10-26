@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-09-19 10:52:56
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -107,8 +107,53 @@ int32_t main()
         cin >> n;
         vl v(n);
         cin >> v;
+        set<ll> mp;
+        for (int i = 1; i <= n; i++)
+        {
+            mp.insert(i);
+        }
 
-        cout << *max_element(all(v)) << nl;
+        for(auto x:v){
+            mp.erase(x);
+        }
+
+        for (int i = 0; i < n;i++){
+            if(v[i]==0){
+                if(mp.size()){
+                    auto it = mp.end();
+                    it--;
+                    v[i] = *it;
+                    mp.erase(it);
+                }
+                
+            }
+        }
+        ll ans = 0;
+        ll l=-1,r=-1;
+        for (int i = 0; i < n;i++){
+            if(v[i]!=(i+1)){
+                l = i;
+                break;
+            }
+        }
+        for (int i = n - 1; i >= 0;i--){
+            if(v[i]!=(i+1)){
+                r = i;
+                break;
+            }
+        }
+        if(l==-1 || r==-1){
+            ans = 0;
+        }
+        else{
+            // cout << v << nl;
+            // cout<< l << " " << r << nl;
+            ans = r - l + 1;
+        }
+        cout<<ans<<nl;
+
+
+        
     };
 
     int t;

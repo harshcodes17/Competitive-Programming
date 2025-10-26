@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-10-01 20:15:51
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -105,10 +105,10 @@ int32_t main()
     {
         ll n;
         cin >> n;
-        vl v(n);
-        cin >> v;
+        ll ans1 = n - 2;
+        ll ans2 = (n-2)*(n-1)/2;
+        out(ans1<<" "<<ans2);
 
-        cout << *max_element(all(v)) << nl;
     };
 
     int t;

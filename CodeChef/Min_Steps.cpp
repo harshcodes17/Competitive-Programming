@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-10-01 20:32:45
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -103,13 +103,37 @@ int32_t main()
 
         auto solve = [&]()
     {
-        ll n;
-        cin >> n;
-        vl v(n);
-        cin >> v;
+        ll n, d;
+        cin >> n >> d;
+        ll ans = -1;
+        for (int m = 0; m <= 60; ++m){
+            ll pow2 = (ll)1 << m;
+            if (pow2 > (ll)n){
+                break;
+            }
+            ll rem = (ll)n - pow2;
 
-        cout << *max_element(all(v)) << nl;
-    };
+            if (rem < 0)continue;
+
+            if ((ll)(rem % d) != 0)continue;
+            ll C2 = rem / d;
+            ll steps = 0;
+            ll cur = C2;
+            for (int i = 0; i < m; ++i){
+                if ((cur & 1) != 0) ++steps;
+                cur >>= 1;
+                if (cur == 0) continue;
+            }
+            if (cur > (ll)LLONG_MAX) continue;
+            steps += (ll)cur;
+            ll total = (ll)m + steps;
+            if (ans == -1 || total < ans){
+                ans = total;
+            }
+        }
+        out(ans);
+        
+    };    
 
     int t;
     t=1;

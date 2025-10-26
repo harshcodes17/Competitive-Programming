@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-10-01 20:27:38
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -105,10 +105,21 @@ int32_t main()
     {
         ll n;
         cin >> n;
-        vl v(n);
-        cin >> v;
-
-        cout << *max_element(all(v)) << nl;
+        vl v;
+        ll left = 1, right = n;
+        while (left <= right)
+        {
+            if (left == right)
+                v.pb(left);
+            else            
+            {
+                v.pb(left);
+                v.pb(right);
+            }
+            left++;
+            right--;
+        }
+        out(v);
     };
 
     int t;

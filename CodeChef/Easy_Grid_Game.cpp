@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-10-22 21:43:36
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -103,12 +103,20 @@ int32_t main()
 
         auto solve = [&]()
     {
-        ll n;
-        cin >> n;
-        vl v(n);
-        cin >> v;
+        ll a, b, c, d;
+        cin >> a >> b >> c >> d;
+        ll p = min(a, d);
+        ll q = min(b, c);
+        ll dia1 = a + d;
+        ll dia2 = b + c;
+        ll mini = min({a, b, c, d});
+        ll mini1 = min(a, d);
+        ll mini2 = min(b, c);
+        ll one = max(mini2 - dia1 + 1, 0LL);
+        ll two = max(mini1 - dia2 + 1, 0LL);
+        ll ans = max(one, two);
 
-        cout << *max_element(all(v)) << nl;
+        cout << ans << nl;
     };
 
     int t;

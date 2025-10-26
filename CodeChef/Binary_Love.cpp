@@ -1,4 +1,4 @@
-// 2025-10-17 20:05:43
+// 2025-10-22 20:22:25
 // Author : Harshavardhan Bamane
 // Linkedin: https://www.linkedin.com/in/harshavardhan-bamane-72b99a192/
 // Codeforces: https://codeforces.com/profile/harsh_bamane17
@@ -105,10 +105,20 @@ int32_t main()
     {
         ll n;
         cin >> n;
-        vl v(n);
-        cin >> v;
-
-        cout << *max_element(all(v)) << nl;
+        string s;
+        cin >> s;
+        ll change = 0;
+        for (int i = 1; i < n;i++){
+            if(s[i]!=s[i-1]){
+                change++;
+            }
+        }
+        if(change>=2){
+            cout << "Alice\n";
+        }
+        else{
+            cout << "Bob\n";
+        }
     };
 
     int t;
